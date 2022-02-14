@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">ChessRoyale</string>
+    <string name="fetch_button">Puzzles</string>
+    <string name="finish_phrase">You won, genius!</string>
+    <string name="author1" translatable="false">João Silva</string>
+    <string name="author2" translatable="false">Gonçalo Romba</string>
+    <string name="author3" translatable="false">Afonso Cabaço</string>
+    <string name="authors">Authors:</string>
+    <string name="api">Lichess API</string>
+    <string name="credits">Credits</string>
+    <string name="wrongMove">The move doesn\'t belong to the solution.</string>
+    <string name="offline">Offline Game</string>
+    <string name="retry">Solve again</string>
+    <string name="solution">Show solution</string>
+    <string name="puzzle">Show puzzle</string>
+    <string name="save">Save</string>
+    <string name="restart">Restart</string>
+    <string name="unsolved">Unsolved</string>
+    <string name="solving">Solving</string>
+    <string name="solved">Solved</string>
+
+    <!-- Game list screen -->
+    <string name="list_screen_title">Chess games</string>
+    <string name="list_create_challenge_button_label">New Challenge</string>
+    <string name="list_menu_update_label">Refresh</string>
+    <string name="error_getting_list">Could not fetch games list</string>
+    <string name="error_accepting_game">Could not accept the game</string>
+    <string name="accept_game_dialog_title">Accept %s\'s challenge?</string>
+    <string name="accept_game_dialog_ok" translatable="false">OK</string>
+    <string name="accept_game_dialog_cancel">Cancel</string>
+    <string name="loading">Loading…</string>
+
+    <!-- Create challenge screen -->
+    <string name="create_game_title">Create game</string>
+    <string name="create_game_waiting_message">Waiting for the contender...</string>
+    <string name="create_game_prompt_challenger_name">Name</string>
+    <string name="create_game_prompt_message">Message</string>
+    <string name="create_game_button_label">Post game</string>
+    <string name="cancel_game_button_label">Cancel</string>
+    <string name="create_game_button_label_in_short">Post it</string>
+    <string name="error_creating_game">Could not create game</string>
+    <string name="online">Online Game</string>
+    <string name="black_wins">The black player won!</string>
+    <string name="white_wins">The white player won!</string>
+    <string name="forfeit">Forfeit</string>
+    <string name="draw_purpose_black">The black player is purposing a draw</string>
+    <string name="draw_accepted_black">Draw accepted</string>
+    <string name="draw_rejected">Draw rejected</string>
+    <string name="draw">Draw</string>
+    <string name="draw_purpose_white">The white player is purposing a draw</string>
+    <string name="queen">Queen</string>
+    <string name="king">King</string>
+    <string name="rook">Rook</string>
+    <string name="knight">Knight</string>
+    <string name="bishop">Bishop</string>
+    <string name="promotion">Promotion</string>
+    <string name="title_activity_start" translatable="false">StartActivity</string>
+    <string name="initialPhrase">Tap to continue</string>
+</resources>

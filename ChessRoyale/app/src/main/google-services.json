@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "890235451839",
+    "project_id": "isel-pdm-g20",
+    "storage_bucket": "isel-pdm-g20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890235451839:android:211f351cfd5f042abb490a",
+        "android_client_info": {
+          "package_name": "pt.isel.pdm.chess4android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890235451839-0keb9lkl32ik25n2rvl1v0fo4mk9agi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8a_N4DqptZYUdOreepH2LYTvuc1EfOWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890235451839-0keb9lkl32ik25n2rvl1v0fo4mk9agi3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
