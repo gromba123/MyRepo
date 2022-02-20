@@ -7,7 +7,6 @@
     <string name="api">Lichess API</string>
     <string name="credits">Créditos</string>
     <string name="wrongMove">A jogada não pertence à solução.</string>
-    <string name="offline">Jogo Offline</string>
     <string name="retry">Resolver de novo</string>
     <string name="solution">Mostrar solução</string>
     <string name="puzzle">Mostrar puzzle</string>
@@ -32,7 +31,6 @@
     <string name="cancel_game_button_label">Cancelar</string>
     <string name="create_game_button_label_in_short">Publicar</string>
     <string name="error_creating_game">Não foi possível criar um jogo</string>
-    <string name="online">Jogo Online</string>
     <string name="black_wins">O jogador preto ganhou!</string>
     <string name="white_wins">O jogador branco ganhou!</string>
     <string name="forfeit">Desistir</string>
