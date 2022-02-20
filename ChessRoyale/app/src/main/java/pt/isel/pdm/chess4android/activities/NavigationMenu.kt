@@ -1,42 +1,74 @@
 package pt.isel.pdm.chess4android.activities
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
 import pt.isel.pdm.chess4android.R
+
+/*
+enum class ScreenList(
+    val screen: String
+) {
+    Overview(
+        icon = Icons.Filled.PieChart
+    ),
+    Accounts(
+        icon = Icons.Filled.AttachMoney
+    ),
+    Bills(
+        icon = Icons.Filled.MoneyOff
+    );
+}
+
+ */
 
 data class NavigationItem(@StringRes val labelId: Int, @DrawableRes val iconId: Int)
 
+@SuppressLint("ResourceType")
 @Composable
-fun BuildNavigationSystem(screenWidth: Int, screenHeight: Int) {
-    Row(
+fun BuildNavigationSystem(
+    screenWidth: Int,
+    screenHeight: Int,
+    navController: NavHostController,
+    items: List<NavigationItem>
+) {
+    LazyRow (
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .height((screenHeight * NAVIGATION_BUTTONS_FRACTION).dp)
     ) {
-        BuildNavigationButton(R.string.online, R.drawable.ic_black_king, screenWidth) {}
-        BuildNavigationButton(R.string.offline, R.drawable.ic_white_king, screenWidth) {}
-        BuildNavigationButton(R.string.profile, R.drawable.ic_white_pawn, screenWidth) {}
+        itemsIndexed(items) { _, item ->
+            BuildNavigationButton(item = item, screenWidth = screenWidth) {
+                navController.navigate(item.labelId)
+            }
+        }
     }
 }
 
 @Composable
 fun BuildNavigationButton(
-    @StringRes labelId: Int,
-    @DrawableRes iconId: Int,
+    item: NavigationItem,
     screenWidth: Int,
     onClick: () -> Unit
 ) {
@@ -48,12 +80,12 @@ fun BuildNavigationButton(
             .clickable { onClick() }
     ) {
         Icon (
-            painter = painterResource(id = iconId),
-            contentDescription = stringResource(id = labelId),
+            painter = painterResource(id = item.iconId),
+            contentDescription = stringResource(id = item.labelId),
             tint = Color.White
         )
         Text(
-            text = stringResource(id = labelId),
+            text = stringResource(id = item.labelId),
             color = Color.White,
             fontSize = (screenWidth * 0.05).sp
         )

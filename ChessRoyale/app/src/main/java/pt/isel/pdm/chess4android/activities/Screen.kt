@@ -1,6 +1,5 @@
 package pt.isel.pdm.chess4android.activities
 
-import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,19 +12,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import pt.isel.pdm.chess4android.R
 
 @Composable
-fun BuildOnlineScreen() {
+fun BuildScreen(navController: NavHostController) {
     val configuration = LocalConfiguration.current
-    val context = LocalContext.current
+    //val context = LocalContext.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
+    val items = listOf(
+        NavigationItem(R.string.online, R.drawable.ic_black_king),
+        NavigationItem(R.string.offline, R.drawable.ic_white_king),
+        NavigationItem(R.string.profile, R.drawable.ic_white_pawn)
+    )
     Column(
         Modifier
             .background(Color.Black)
@@ -49,31 +55,23 @@ fun BuildOnlineScreen() {
             .fillMaxWidth()
             .height((screenHeight * SCREEN_FRACTION).dp)
         ) {
-            BuildButton(stringResource(id = R.string.offline)) {
-                context.startActivity(Intent(context, CreditsActivity::class.java))
+            NavHost(
+                navController = navController,
+                startDestination = items[1].labelId.toString(),
+                //modifier = Modifier.padding(innerPadding)
+            ) {
+                composable(items[0].labelId.toString()) {
+                    OverviewBody()
+                }
+                composable(items[1].labelId.toString()) {
+                    AccountsBody(UserData.accounts)
+                }
+                composable(items[2].labelId.toString()) {
+                    BillsBody(UserData.bills)
+                }
             }
         }
         Spacer(modifier = Modifier.height(2.dp))
         BuildNavigationSystem(screenWidth = screenWidth, screenHeight = screenHeight)
-    }
-}
-
-@Composable
-private fun BuildButton(
-    label: String,
-    onClick: () -> Unit
-) {
-    Button(
-        modifier = Modifier.fillMaxSize(),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
-        border = BorderStroke(2.dp, Color.White),
-        shape = RoundedCornerShape(10),
-        onClick = onClick
-    ) {
-        Text(
-            text = label,
-            color = Color.White,
-            fontSize = 20.sp
-        )
     }
 }

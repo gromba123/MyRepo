@@ -25,6 +25,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import pt.isel.pdm.chess4android.APP_TAG
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.activities.ui.theme.Chess4AndroidTheme
@@ -36,129 +39,21 @@ const val TITTLE_FRACTION = 0.2F
 const val SCREEN_FRACTION = 0.65F
 const val NAVIGATION_BUTTONS_FRACTION = 0.15F
 
+//"Try to build middleware-like functions to help to turn the code more" +
+//"generic and clean. May use Companion Object in Navigation to help"
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Chess4AndroidTheme {
+                val navController = rememberNavController()
+
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    BuildScreen()
+                    BuildOfflineScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun BuildScreen() {
-    val configuration = LocalConfiguration.current
-    val context = LocalContext.current
-    val screenHeight = configuration.screenHeightDp
-    val screenWidth = configuration.screenWidthDp
-    var offset by remember { mutableStateOf(0f) }
-    val controller = rememberScrollableState {
-        offset = when {
-            offset - it >= 3 * screenWidth -> (3 * screenWidth).toFloat()
-            offset - it <= 0 -> 0F
-            else -> offset - it
-        }
-        it
-    }
-    Log.v(APP_TAG, offset.toString())
-    Column(
-        Modifier
-            .background(Color.Black)
-            .fillMaxSize()
-            .scrollable(
-                orientation = Orientation.Horizontal,
-                state = controller
-            )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height((screenHeight * TITTLE_FRACTION).dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "ChessRoyale",
-                color = Color.White,
-                fontSize = (screenWidth * 0.1).sp,
-                fontStyle = FontStyle.Italic
-            )
-        }
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height((screenHeight * SCREEN_FRACTION).dp)) {
-            when {
-                offset < 1.5 * screenWidth ->
-                    SingleButtonScreen(stringResource(id = R.string.online)) {
-                    context.startActivity(Intent(context, ChallengesListActivity::class.java))
-                }
-                offset < 2.5 * screenWidth -> OfflineScreen(screenWidth, context)
-                else -> SingleButtonScreen(stringResource(id = R.string.credits)) {
-                    context.startActivity(Intent(context, CreditsActivity::class.java))
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(2.dp))
-        BuildNavigationSystem(screenWidth = screenWidth, screenHeight = screenHeight)
-    }
-}
-
-@Composable
-fun OfflineScreen(screenWidth: Int, context: Context) {
-    BuildOfflineButton(label = stringResource(id = R.string.offline), screenWidth) {
-        context.startActivity(Intent(context, OfflineActivity::class.java))
-    }
-    Spacer(modifier = Modifier.width(2.dp))
-    BuildOfflineButton(label = stringResource(id = R.string.fetch_button), screenWidth) {
-        context.startActivity(Intent(context, HistoryActivity::class.java))
-    }
-}
-
-@Composable
-fun SingleButtonScreen(
-    label: String,
-    onClick: () -> Unit
-) {
-    Button(
-        modifier = Modifier.fillMaxSize(),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
-        border = BorderStroke(2.dp, Color.White),
-        shape = RoundedCornerShape(10),
-        onClick = onClick
-    ) {
-        Text(
-            text = label,
-            color = Color.White,
-            fontSize = 20.sp
-        )
-    }
-}
-
-@Composable
-fun BuildOfflineButton(
-    label: String,
-    screenWidth: Int,
-    onClick: () -> Unit
-) {
-    Button(
-        modifier = Modifier
-            .fillMaxHeight()
-            .width((screenWidth * 0.5).dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
-        border = BorderStroke(2.dp, Color.White),
-        shape = RoundedCornerShape(10),
-        onClick = onClick
-    ) {
-        Text(
-            text = label,
-            color = Color.White,
-            fontSize = 20.sp
-        )
     }
 }
 
@@ -166,6 +61,6 @@ fun BuildOfflineButton(
 @Composable
 fun DefaultPreview() {
     Chess4AndroidTheme {
-        BuildScreen()
+        BuildOfflineScreen()
     }
 }
