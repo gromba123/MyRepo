@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Chess4Android">
         <activity
+            android:name=".offline.history.PuzzleHistoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_puzzle_history"
+            android:theme="@style/Theme.Chess4Android" />
+        <activity
             android:name=".activities.StartActivity"
             android:exported="true"
             android:label="@string/title_activity_start"

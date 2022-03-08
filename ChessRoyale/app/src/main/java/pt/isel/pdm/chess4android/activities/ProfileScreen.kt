@@ -22,39 +22,9 @@ import pt.isel.pdm.chess4android.R
 
 @Composable
 fun BuildProfileScreen() {
-    val configuration = LocalConfiguration.current
     val context = LocalContext.current
-    val screenHeight = configuration.screenHeightDp
-    val screenWidth = configuration.screenWidthDp
-    Column(
-        Modifier
-            .background(Color.Black)
-            .fillMaxSize()
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height((screenHeight * TITTLE_FRACTION).dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "ChessRoyale",
-                color = Color.White,
-                fontSize = (screenWidth * 0.1).sp,
-                fontStyle = FontStyle.Italic
-            )
-        }
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height((screenHeight * SCREEN_FRACTION).dp)
-        ) {
-            BuildButton(stringResource(id = R.string.credits)) {
-                context.startActivity(Intent(context, CreditsActivity::class.java))
-            }
-        }
-        Spacer(modifier = Modifier.height(2.dp))
-        BuildNavigationSystem(screenWidth = screenWidth, screenHeight = screenHeight)
+    BuildButton(stringResource(id = R.string.credits)) {
+        context.startActivity(Intent(context, CreditsActivity::class.java))
     }
 }
 

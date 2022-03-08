@@ -1,13 +1,11 @@
 package pt.isel.pdm.chess4android.activities
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,7 +13,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -27,11 +24,13 @@ fun BuildScreen(navController: NavHostController) {
     //val context = LocalContext.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
-    val items = listOf(
-        NavigationItem(R.string.online, R.drawable.ic_black_king),
-        NavigationItem(R.string.offline, R.drawable.ic_white_king),
-        NavigationItem(R.string.profile, R.drawable.ic_white_pawn)
-    )
+    val items by remember {
+        mutableStateOf(listOf(
+            NavigationItem(R.string.online, R.drawable.ic_black_king),
+            NavigationItem(R.string.offline, R.drawable.ic_white_king),
+            NavigationItem(R.string.profile, R.drawable.ic_white_pawn)
+        ))
+    }
     Column(
         Modifier
             .background(Color.Black)
@@ -51,27 +50,29 @@ fun BuildScreen(navController: NavHostController) {
                 fontStyle = FontStyle.Italic
             )
         }
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height((screenHeight * SCREEN_FRACTION).dp)
+        NavHost(
+            navController = navController,
+            startDestination = items[1].labelId.toString(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height((screenHeight * SCREEN_FRACTION).dp)
         ) {
-            NavHost(
-                navController = navController,
-                startDestination = items[1].labelId.toString(),
-                //modifier = Modifier.padding(innerPadding)
-            ) {
-                composable(items[0].labelId.toString()) {
-                    OverviewBody()
-                }
-                composable(items[1].labelId.toString()) {
-                    AccountsBody(UserData.accounts)
-                }
-                composable(items[2].labelId.toString()) {
-                    BillsBody(UserData.bills)
-                }
+            composable(items[0].labelId.toString()) {
+                BuildOnlineScreen()
+            }
+            composable(items[1].labelId.toString()) {
+                BuildOfflineScreen()
+            }
+            composable(items[2].labelId.toString()) {
+                BuildProfileScreen()
             }
         }
         Spacer(modifier = Modifier.height(2.dp))
-        BuildNavigationSystem(screenWidth = screenWidth, screenHeight = screenHeight)
+        BuildNavigationSystem(
+            screenWidth = screenWidth,
+            screenHeight = screenHeight,
+            navController,
+            items
+        )
     }
 }

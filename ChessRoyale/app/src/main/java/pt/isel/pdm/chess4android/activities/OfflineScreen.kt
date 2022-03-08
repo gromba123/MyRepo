@@ -22,40 +22,15 @@ import androidx.compose.ui.unit.sp
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.offline.game.OfflineActivity
 import pt.isel.pdm.chess4android.offline.history.HistoryActivity
+import pt.isel.pdm.chess4android.offline.history.PuzzleHistoryActivity
 
 @Composable
 fun BuildOfflineScreen() {
     val configuration = LocalConfiguration.current
     val context = LocalContext.current
-    val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
-    Column(
-        Modifier
-            .background(Color.Black)
-            .fillMaxSize()
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height((screenHeight * TITTLE_FRACTION).dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "ChessRoyale",
-                color = Color.White,
-                fontSize = (screenWidth * 0.1).sp,
-                fontStyle = FontStyle.Italic
-            )
-        }
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height((screenHeight * SCREEN_FRACTION).dp)
-        ) {
-            BuildButtons(screenWidth, context)
-        }
-        Spacer(modifier = Modifier.height(2.dp))
-        BuildNavigationSystem(screenWidth = screenWidth, screenHeight = screenHeight)
+    Row(modifier = Modifier.fillMaxSize()) {
+        BuildButtons(screenWidth, context)
     }
 }
 
@@ -66,7 +41,7 @@ private fun BuildButtons(screenWidth: Int, context: Context) {
     }
     Spacer(modifier = Modifier.width(2.dp))
     BuildButton(label = stringResource(id = R.string.fetch_button), screenWidth) {
-        context.startActivity(Intent(context, HistoryActivity::class.java))
+        context.startActivity(Intent(context, PuzzleHistoryActivity::class.java))
     }
 }
 

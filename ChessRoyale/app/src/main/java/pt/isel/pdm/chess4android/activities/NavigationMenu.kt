@@ -24,23 +24,6 @@ import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import pt.isel.pdm.chess4android.R
 
-/*
-enum class ScreenList(
-    val screen: String
-) {
-    Overview(
-        icon = Icons.Filled.PieChart
-    ),
-    Accounts(
-        icon = Icons.Filled.AttachMoney
-    ),
-    Bills(
-        icon = Icons.Filled.MoneyOff
-    );
-}
-
- */
-
 data class NavigationItem(@StringRes val labelId: Int, @DrawableRes val iconId: Int)
 
 @SuppressLint("ResourceType")
@@ -60,7 +43,7 @@ fun BuildNavigationSystem(
     ) {
         itemsIndexed(items) { _, item ->
             BuildNavigationButton(item = item, screenWidth = screenWidth) {
-                navController.navigate(item.labelId)
+                navController.navigate(item.labelId.toString())
             }
         }
     }

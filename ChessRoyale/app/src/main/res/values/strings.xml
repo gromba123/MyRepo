@@ -57,4 +57,5 @@
     <string name="title_activity_start" translatable="false">StartActivity</string>
     <string name="initialPhrase">Tap to continue</string>
     <string name="profile" translatable="false">Profile</string>
+    <string name="title_activity_puzzle_history">PuzzleHistoryActivity</string>
 </resources>

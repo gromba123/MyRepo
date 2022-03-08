@@ -32,7 +32,6 @@ class HistoryItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 itemView.isClickable = true
             }
         }
-
     }
 
     /**

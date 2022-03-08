@@ -23,7 +23,7 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.puzzleList.layoutManager = LinearLayoutManager(this)
 
-        (viewModel.history).observe(this) {
+        viewModel.history.observe(this) {
             binding.puzzleList.adapter = HistoryAdapter(it) { puzzle ->
                 viewModel.loadPuzzle(puzzle).observe(this) { dto ->
                     if (dto != null) {
