@@ -52,7 +52,6 @@ class PuzzleOfDayApplication : Application() {
                     .setRequiredNetworkType(NetworkType.CONNECTED)
                     .setRequiresBatteryNotLow(true)
                     .setRequiresStorageNotLow(true)
-                    .setRequiresCharging()
                     .build()
             )
             .build()
