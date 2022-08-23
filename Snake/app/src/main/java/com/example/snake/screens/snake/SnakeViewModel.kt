@@ -4,36 +4,41 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.snake.utils.Apple
 import com.example.snake.utils.Direction
-import com.example.snake.utils.Location
-import com.example.snake.utils.addDirection
+import com.example.snake.utils.SnakePart
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private val STARTING_LOCATION = Location(50F, 50F)
-
 @HiltViewModel
-class SnakeViewModel @Inject constructor() : ViewModel() {
-    private var actualDirection = Direction.RIGHT
-    private val _location = MutableLiveData<Location>(STARTING_LOCATION)
-    val location: LiveData<Location> = _location
-    private val moveFlow = flow<Unit> {
-        while (true) {
-            delay(1000L)
-            _location.value = _location.value!!.addDirection(actualDirection.location)
-        }
-    }
+class SnakeViewModel @Inject constructor(
+    private val snakeMovement: SnakeMovement
+) : ViewModel() {
+
+    private val _snake = MutableLiveData<List<SnakePart>>(listOf(snakeMovement.getSnakeHead()))
+    val snake: LiveData<List<SnakePart>> = _snake
+
+    private val _appleList = MutableLiveData<List<Apple>>(listOf())
+    val appleList: LiveData<List<Apple>> = _appleList
+
     init {
         viewModelScope.launch {
-            moveFlow.collect()
+            snakeMovement.positionFlow.collect {
+                _snake.value = it.snakeParts
+                _appleList.value = it.appleList
+            }
+        }
+        viewModelScope.launch {
+            snakeMovement.appleFlow.collect {
+                _appleList.value = it
+            }
         }
     }
 
+    fun setMeasures(height: Float, width: Float) = snakeMovement.setMeasures(height, width)
+
     fun changeDirection(direction: Direction) {
-        actualDirection = direction
+        snakeMovement.changeDirection(direction)
     }
 }

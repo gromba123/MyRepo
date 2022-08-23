@@ -13,11 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.snake.utils.Direction
 
-private const val SNAKE_RADIUS = 20.0F
+const val SNAKE_RADIUS = 20.0F
 private val SNAKE_COLOR = Color.Green
 private val BUTTONS_PADDING = 10.dp
 private val BUTTONS_BETWEEN_PADDING = 20.dp
@@ -25,20 +27,34 @@ private val BUTTONS_BETWEEN_PADDING = 20.dp
 @Composable
 fun SnakeScreen() {
     val viewModel = hiltViewModel<SnakeViewModel>()
+    val config = LocalConfiguration.current
+    val pxHeight = with(LocalDensity.current) { config.screenHeightDp.dp.toPx() }
+    val pxWidth = with(LocalDensity.current) { config.screenWidthDp.dp.toPx() }
+    viewModel.setMeasures(pxHeight, pxWidth)
     Box(
         contentAlignment = Alignment.BottomEnd
     ) {
-        val location = viewModel.location.observeAsState().value!!
+        val snakeParts = viewModel.snake.observeAsState().value!!
+        val appleList = viewModel.appleList.observeAsState().value!!
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black)
         ) {
-            drawCircle(
-                color = SNAKE_COLOR,
-                radius = SNAKE_RADIUS,
-                center = Offset(location.x, location.y)
-            )
+            snakeParts.forEach {
+                drawCircle(
+                    color = SNAKE_COLOR,
+                    radius = SNAKE_RADIUS,
+                    center = Offset(it.location.x, it.location.y)
+                )
+            }
+            appleList.forEach {
+                drawCircle(
+                    color = Color.Red,
+                    radius = SNAKE_RADIUS,
+                    center = Offset(it.location.x, it.location.y)
+                )
+            }
         }
         BuildDirectionButtons(viewModel = viewModel)
     }
