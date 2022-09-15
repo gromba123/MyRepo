@@ -1,6 +1,5 @@
-package pt.isel.pdm.chess4android.activities
+package pt.isel.pdm.chess4android.menu
 
-import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,13 +13,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
+import pt.isel.pdm.chess4android.utils.CREDITS_SCREEN
 
 @Composable
-fun BuildOnlineScreen() {
+fun BuildProfileScreen(
+    navController: NavController
+) {
     val context = LocalContext.current
-    BuildButton(stringResource(id = R.string.online)) {
-        context.startActivity(Intent(context, CreditsActivity::class.java))
+    BuildButton(stringResource(id = R.string.credits)) {
+        navController.navigate(CREDITS_SCREEN)
     }
 }
 

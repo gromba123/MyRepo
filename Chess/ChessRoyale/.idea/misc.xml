@@ -6,11 +6,17 @@
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.284375" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout-land/activity_challenges_list.xml" value="0.12125220458553791" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout-land/activity_create_challenge.xml" value="0.12125220458553791" />
+        <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout-land/activity_online.xml" value="0.21164021164021163" />
+        <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout-land/activity_puzzle.xml" value="0.21164021164021163" />
+        <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout-land/activity_solved.xml" value="0.21164021164021163" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_challenges_list.xml" value="0.14322916666666666" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_create_challenge.xml" value="0.14322916666666666" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_credits.xml" value="0.14322916666666666" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_launch.xml" value="0.14322916666666666" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_offline.xml" value="0.14322916666666666" />
+        <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_online.xml" value="0.25" />
+        <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_puzzle.xml" value="0.25" />
+        <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/activity_solved.xml" value="0.25" />
         <entry key="..\:/Programming/MyRepo/Chess/ChessRoyale/app/src/main/res/layout/recycler_view_item.xml" value="0.14322916666666666" />
         <entry key="..\:/Programming/MyRepo/ChessRoyale/app/src/main/res/drawable/ic_black_bishop.xml" value="0.1705" />
         <entry key="..\:/Programming/MyRepo/ChessRoyale/app/src/main/res/layout/activity_create_challenge.xml" value="0.23731884057971014" />

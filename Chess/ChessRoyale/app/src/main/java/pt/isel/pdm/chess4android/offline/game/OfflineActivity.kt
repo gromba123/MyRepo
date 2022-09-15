@@ -1,14 +1,12 @@
 package pt.isel.pdm.chess4android.offline.game
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.activities.CreditsActivity
 import pt.isel.pdm.chess4android.databinding.ActivityOfflineBinding
 import pt.isel.pdm.chess4android.offline.pieces.Team
 import pt.isel.pdm.chess4android.offline.puzzle.myPostDelayed
@@ -55,7 +53,7 @@ class OfflineActivity : AppCompatActivity() {
                 if (result.team == Team.BLACK) resources.getString(R.string.black_wins)
                 else resources.getString(R.string.white_wins)
             binding.root.myPostDelayed(10000) {
-                startActivity(Intent(this, CreditsActivity::class.java))
+                //startActivity(Intent(this, CreditsActivity::class.java))
             }
         }
 

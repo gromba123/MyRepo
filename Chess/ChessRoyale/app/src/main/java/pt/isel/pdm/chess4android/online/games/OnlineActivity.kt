@@ -8,10 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.activities.CreditsActivity
 import pt.isel.pdm.chess4android.databinding.ActivityOnlineBinding
 import pt.isel.pdm.chess4android.offline.pieces.Team
 import pt.isel.pdm.chess4android.offline.puzzle.myPostDelayed
@@ -47,14 +44,14 @@ class OnlineActivity : AppCompatActivity() {
         throw IllegalArgumentException("Mandatory extra $GAME_EXTRA not present")
     }
 
-    private val viewModel: OnlineViewModel by viewModels {
+    private val viewModel: OnlineViewModel by viewModels() /*{
         @Suppress("UNCHECKED_CAST")
         object: ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return OnlineViewModel(application, initialState, localPlayer) as T
             }
         }
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +89,7 @@ class OnlineActivity : AppCompatActivity() {
                 if (result.team == Team.BLACK) resources.getString(R.string.black_wins)
                     else resources.getString(R.string.white_wins)
             binding.root.myPostDelayed(10000) {
-                startActivity(Intent(this, CreditsActivity::class.java))
+                //startActivity(Intent(this, CreditsActivity::class.java))
             }
         }
 
@@ -102,7 +99,7 @@ class OnlineActivity : AppCompatActivity() {
                 binding.finishPhrase.visibility = View.VISIBLE
                 binding.finishPhrase.text = resources.getString(R.string.draw_accepted_black)
                 binding.root.myPostDelayed(5000) {
-                    startActivity(Intent(this, CreditsActivity::class.java))
+                    //startActivity(Intent(this, CreditsActivity::class.java))
                 }
             } else {
                 binding.finishPhrase.visibility = View.VISIBLE

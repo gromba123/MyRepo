@@ -2,9 +2,7 @@
     <string name="app_name">ChessRoyale</string>
     <string name="fetch_button">Puzzles</string>
     <string name="finish_phrase">You won, genius!</string>
-    <string name="author1" translatable="false">João Silva</string>
-    <string name="author2" translatable="false">Gonçalo Romba</string>
-    <string name="author3" translatable="false">Afonso Cabaço</string>
+    <string name="author" translatable="false">Gonçalo Romba</string>
     <string name="authors">Authors:</string>
     <string name="api">Lichess API</string>
     <string name="credits">Credits</string>

@@ -4,14 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.puzzle.PuzzleDTO
 import pt.isel.pdm.chess4android.offline.puzzle.PuzzleHistoryDTO
+import javax.inject.Inject
 
 /**
  * ViewModel for the [PuzzleHistoryActivity]
  */
-class HistoryActivityViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class HistoryActivityViewModel @Inject constructor(
+    application: Application
+) : AndroidViewModel(application) {
 
     private val historyDao : PuzzleHistory by lazy {
         getApplication<PuzzleOfDayApplication>().historyDb.getPuzzleHistoryDao()

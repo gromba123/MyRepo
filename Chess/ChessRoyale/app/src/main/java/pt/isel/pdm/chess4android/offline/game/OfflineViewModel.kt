@@ -5,14 +5,16 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import pt.isel.pdm.chess4android.DrawResults
-import pt.isel.pdm.chess4android.EndgameResult
+import dagger.hilt.android.lifecycle.HiltViewModel
+import pt.isel.pdm.chess4android.utils.DrawResults
+import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.pieces.King
 import pt.isel.pdm.chess4android.offline.pieces.Location
 import pt.isel.pdm.chess4android.offline.pieces.Piece
 import pt.isel.pdm.chess4android.online.games.GameState
 import pt.isel.pdm.chess4android.views.DrawController
+import javax.inject.Inject
 import kotlin.collections.set
 
 private const val ACTIVITY_STATE_BOARD = "BoardActivity.board"
@@ -20,10 +22,11 @@ private const val ACTIVITY_STATE_BOARD = "BoardActivity.board"
 /**
  * ViewModel to offline 1vs1 mode
  */
-class OfflineViewModel(
+@HiltViewModel
+class OfflineViewModel @Inject constructor(
     application: Application,
     private val state: SavedStateHandle
-    ) : AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     private val _paint = MutableLiveData<DrawResults?>()
     private val _board = MutableLiveData<OfflineBoard>()

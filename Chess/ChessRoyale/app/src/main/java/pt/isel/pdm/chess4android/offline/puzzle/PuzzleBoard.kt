@@ -2,7 +2,7 @@ package pt.isel.pdm.chess4android.offline.puzzle
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.buildBoard
+import pt.isel.pdm.chess4android.utils.buildBoard
 import pt.isel.pdm.chess4android.offline.pieces.*
 
 @Parcelize

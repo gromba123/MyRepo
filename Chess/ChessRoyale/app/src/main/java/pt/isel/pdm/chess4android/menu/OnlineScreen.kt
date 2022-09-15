@@ -1,30 +1,29 @@
-package pt.isel.pdm.chess4android.activities
+package pt.isel.pdm.chess4android.menu
 
-import android.content.Intent
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
+import pt.isel.pdm.chess4android.utils.CREDITS_SCREEN
 
 @Composable
-fun BuildProfileScreen() {
+fun BuildOnlineScreen(
+    navController: NavController
+) {
     val context = LocalContext.current
-    BuildButton(stringResource(id = R.string.credits)) {
-        context.startActivity(Intent(context, CreditsActivity::class.java))
+    BuildButton(stringResource(id = R.string.online)) {
+        navController.navigate(CREDITS_SCREEN)
     }
 }
 

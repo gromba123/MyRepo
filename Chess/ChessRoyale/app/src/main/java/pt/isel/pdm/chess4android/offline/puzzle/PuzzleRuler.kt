@@ -3,9 +3,9 @@ package pt.isel.pdm.chess4android.offline.puzzle
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.composeAN
-import pt.isel.pdm.chess4android.convertToLocation
-import pt.isel.pdm.chess4android.invertPuzzleSolution
+import pt.isel.pdm.chess4android.utils.composeAN
+import pt.isel.pdm.chess4android.utils.convertToLocation
+import pt.isel.pdm.chess4android.utils.invertPuzzleSolution
 import pt.isel.pdm.chess4android.offline.pieces.Location
 import pt.isel.pdm.chess4android.offline.pieces.Team
 

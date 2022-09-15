@@ -1,8 +1,8 @@
 package pt.isel.pdm.chess4android.online.games
 
 import android.content.res.Resources
-import pt.isel.pdm.chess4android.*
 import pt.isel.pdm.chess4android.offline.pieces.*
+import pt.isel.pdm.chess4android.utils.*
 
 /**
  * Represents the online game board

@@ -1,4 +1,4 @@
-package pt.isel.pdm.chess4android.activities.ui.theme
+package pt.isel.pdm.chess4android.theme
 
 import androidx.compose.ui.graphics.Color
 

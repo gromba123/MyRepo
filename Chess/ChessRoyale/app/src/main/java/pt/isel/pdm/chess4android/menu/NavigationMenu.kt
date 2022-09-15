@@ -1,4 +1,4 @@
-package pt.isel.pdm.chess4android.activities
+package pt.isel.pdm.chess4android.menu
 
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
@@ -19,7 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-data class NavigationItem(@StringRes val labelId: Int, @DrawableRes val iconId: Int)
+data class NavigationItem (
+    val path: String,
+    @StringRes val labelId: Int,
+    @DrawableRes val iconId: Int
+)
 
 @SuppressLint("ResourceType")
 @Composable
@@ -38,14 +42,14 @@ fun BuildNavigationSystem(
     ) {
         itemsIndexed(items) { _, item ->
             BuildNavigationButton(item = item, screenWidth = screenWidth) {
-                navController.navigate(item.labelId.toString())
+                navController.navigate(item.path)
             }
         }
     }
 }
 
 @Composable
-fun BuildNavigationButton(
+private fun BuildNavigationButton(
     item: NavigationItem,
     screenWidth: Int,
     onClick: () -> Unit

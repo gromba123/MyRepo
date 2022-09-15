@@ -1,7 +1,7 @@
 package pt.isel.pdm.chess4android.offline.puzzle
 
-import pt.isel.pdm.chess4android.*
 import pt.isel.pdm.chess4android.offline.pieces.*
+import pt.isel.pdm.chess4android.utils.*
 import kotlin.math.abs
 
 /**

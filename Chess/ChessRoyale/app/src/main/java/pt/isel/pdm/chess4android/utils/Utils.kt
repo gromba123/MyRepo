@@ -1,10 +1,17 @@
-package pt.isel.pdm.chess4android
+package pt.isel.pdm.chess4android.utils
 
+import android.app.Application
 import android.content.res.Resources
 import android.os.Parcelable
+import androidx.lifecycle.AndroidViewModel
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.offline.pieces.*
 import pt.isel.pdm.chess4android.views.Type
+
+open class BaseBoardViewModel(
+    application: Application
+) : AndroidViewModel(application)
 
 /**
  * Contains the location of a promoted piece.
@@ -53,6 +60,17 @@ fun composeAN(old: Location, new: Location) : String {
     val str2 = new.toString()
     return str1 + str2
 }
+
+fun getPiece(piece: Piece) =
+    when (piece) {
+        is Pawn -> if(piece.team == Team.WHITE)R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
+        is Rook -> if(piece.team == Team.WHITE)R.drawable.ic_white_rook else R.drawable.ic_black_rook
+        is Knight -> if(piece.team == Team.WHITE)R.drawable.ic_white_knight else R.drawable.ic_black_knight
+        is Bishop -> if(piece.team == Team.WHITE)R.drawable.ic_white_bishop else R.drawable.ic_black_bishop
+        is Queen -> if(piece.team == Team.WHITE)R.drawable.ic_white_queen else R.drawable.ic_black_queen
+        is King -> if(piece.team == Team.WHITE)R.drawable.ic_white_king else R.drawable.ic_black_king
+        else -> null
+    }
 
 /**
  * Builds a chess board with the pieces in the correct pieces

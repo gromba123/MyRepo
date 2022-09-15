@@ -2,8 +2,8 @@ package pt.isel.pdm.chess4android.offline.pieces
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.convertRank
-import pt.isel.pdm.chess4android.convertToFile
+import pt.isel.pdm.chess4android.utils.convertRank
+import pt.isel.pdm.chess4android.utils.convertToFile
 
 /**
  * Represents a location in the board

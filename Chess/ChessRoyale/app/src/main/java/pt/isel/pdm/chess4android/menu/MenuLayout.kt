@@ -1,4 +1,4 @@
-package pt.isel.pdm.chess4android.activities
+package pt.isel.pdm.chess4android.menu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,21 +16,30 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import pt.isel.pdm.chess4android.R
+import pt.isel.pdm.chess4android.utils.CREDITS_ITEM
+import pt.isel.pdm.chess4android.utils.OFFLINE_ITEM
+import pt.isel.pdm.chess4android.utils.ONLINE_ITEM
+
+const val TITTLE_FRACTION = 0.2F
+const val SCREEN_FRACTION = 0.65F
+const val NAVIGATION_BUTTONS_FRACTION = 0.15F
+private val menuItems = listOf(
+    NavigationItem(ONLINE_ITEM, R.string.online, R.drawable.ic_black_king),
+    NavigationItem(OFFLINE_ITEM ,R.string.offline, R.drawable.ic_white_king),
+    NavigationItem(CREDITS_ITEM, R.string.profile, R.drawable.ic_white_pawn)
+)
 
 @Composable
-fun BuildScreen(navController: NavHostController) {
+fun BuildMainMenu(
+    appController: NavHostController
+) {
+    val menuController = rememberNavController()
     val configuration = LocalConfiguration.current
     //val context = LocalContext.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
-    val items by remember {
-        mutableStateOf(listOf(
-            NavigationItem(R.string.online, R.drawable.ic_black_king),
-            NavigationItem(R.string.offline, R.drawable.ic_white_king),
-            NavigationItem(R.string.profile, R.drawable.ic_white_pawn)
-        ))
-    }
     Column(
         Modifier
             .background(Color.Black)
@@ -51,28 +60,28 @@ fun BuildScreen(navController: NavHostController) {
             )
         }
         NavHost(
-            navController = navController,
-            startDestination = items[1].labelId.toString(),
+            navController = menuController,
+            startDestination = OFFLINE_ITEM,
             modifier = Modifier
                 .fillMaxWidth()
                 .height((screenHeight * SCREEN_FRACTION).dp)
         ) {
-            composable(items[0].labelId.toString()) {
-                BuildOnlineScreen()
+            composable(menuItems[0].path) {
+                BuildOnlineScreen(appController)
             }
-            composable(items[1].labelId.toString()) {
-                BuildOfflineScreen()
+            composable(menuItems[1].path) {
+                BuildOfflineScreen(appController)
             }
-            composable(items[2].labelId.toString()) {
-                BuildProfileScreen()
+            composable(menuItems[2].path) {
+                BuildProfileScreen(appController)
             }
         }
         Spacer(modifier = Modifier.height(2.dp))
         BuildNavigationSystem(
             screenWidth = screenWidth,
             screenHeight = screenHeight,
-            navController,
-            items
+            menuController,
+            menuItems
         )
     }
 }

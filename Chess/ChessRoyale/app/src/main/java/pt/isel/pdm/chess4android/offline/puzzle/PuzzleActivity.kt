@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import pt.isel.pdm.chess4android.activities.CreditsActivity
 import pt.isel.pdm.chess4android.databinding.ActivityPuzzleBinding
 import pt.isel.pdm.chess4android.offline.history.PUZZLE_EXTRA
 import pt.isel.pdm.chess4android.views.OnTileTouchListener
@@ -59,7 +58,7 @@ class PuzzleActivity : AppCompatActivity() {
             binding.finishPhrase.visibility = View.VISIBLE
             binding.restart.isEnabled = false
             binding.root.myPostDelayed(5000) {
-                startActivity(Intent(this, CreditsActivity::class.java))
+                //startActivity(Intent(this, CreditsActivity::class.java))
             }
         }
 

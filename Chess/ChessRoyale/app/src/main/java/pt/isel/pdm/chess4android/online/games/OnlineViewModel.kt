@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import pt.isel.pdm.chess4android.DrawResults
-import pt.isel.pdm.chess4android.EndgameResult
+import pt.isel.pdm.chess4android.utils.DrawResults
+import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.pieces.King
 import pt.isel.pdm.chess4android.offline.pieces.Location

@@ -1,7 +1,5 @@
-package pt.isel.pdm.chess4android.activities
+package pt.isel.pdm.chess4android.menu
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,32 +10,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.offline.game.OfflineActivity
-import pt.isel.pdm.chess4android.offline.history.PuzzleHistoryActivity
+import pt.isel.pdm.chess4android.utils.OFFLINE_PUZZLE
+import pt.isel.pdm.chess4android.utils.PUZZLE_LIST_SCREEN
 
 @Composable
-fun BuildOfflineScreen() {
+fun BuildOfflineScreen(
+    navController: NavController
+) {
     val configuration = LocalConfiguration.current
-    val context = LocalContext.current
     val screenWidth = configuration.screenWidthDp
     Row(modifier = Modifier.fillMaxSize()) {
-        BuildButtons(screenWidth, context)
+        BuildButtons(screenWidth, navController)
     }
 }
 
 @Composable
-private fun BuildButtons(screenWidth: Int, context: Context) {
+private fun BuildButtons(
+    screenWidth: Int,
+    navController: NavController
+) {
     BuildButton(label = stringResource(id = R.string.offline), screenWidth) {
-        context.startActivity(Intent(context, OfflineActivity::class.java))
+        navController.navigate(OFFLINE_PUZZLE)
     }
     Spacer(modifier = Modifier.width(2.dp))
     BuildButton(label = stringResource(id = R.string.fetch_button), screenWidth) {
-        context.startActivity(Intent(context, PuzzleHistoryActivity::class.java))
+        navController.navigate(PUZZLE_LIST_SCREEN)
     }
 }
 

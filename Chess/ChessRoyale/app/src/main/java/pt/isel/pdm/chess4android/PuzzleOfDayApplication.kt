@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import androidx.work.*
 import com.google.gson.Gson
+import dagger.hilt.android.HiltAndroidApp
 import pt.isel.pdm.chess4android.offline.history.DownloadDailyQuoteWorker
 import pt.isel.pdm.chess4android.offline.history.HistoryDatabase
 import pt.isel.pdm.chess4android.offline.history.PuzzleRepository
@@ -20,6 +21,7 @@ const val APP_TAG = "PuzzleOfDay"
 /**
  * Application for the Chess Royale application
  */
+@HiltAndroidApp
 class PuzzleOfDayApplication : Application() {
 
     private val puzzleOfDayService: PuzzleOfDayService by lazy {

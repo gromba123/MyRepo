@@ -3,9 +3,9 @@ package pt.isel.pdm.chess4android.offline.game
 import android.content.res.Resources
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.*
 import pt.isel.pdm.chess4android.offline.pieces.*
 import pt.isel.pdm.chess4android.online.games.GameState
+import pt.isel.pdm.chess4android.utils.*
 
 /**
  * Board for the offline game.

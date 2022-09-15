@@ -3,7 +3,7 @@ package pt.isel.pdm.chess4android.offline.puzzle
 import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import pt.isel.pdm.chess4android.DrawResults
+import pt.isel.pdm.chess4android.utils.DrawResults
 import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.pieces.Location
 import pt.isel.pdm.chess4android.offline.pieces.Piece
