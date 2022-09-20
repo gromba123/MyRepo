@@ -6,14 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import pt.isel.pdm.chess4android.utils.DrawResults
-import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.pieces.King
 import pt.isel.pdm.chess4android.offline.pieces.Location
 import pt.isel.pdm.chess4android.offline.pieces.Piece
 import pt.isel.pdm.chess4android.online.games.GameState
-import pt.isel.pdm.chess4android.views.DrawController
+import pt.isel.pdm.chess4android.utils.EndgameResult
+import pt.isel.pdm.chess4android.utils.PaintResults
+import pt.isel.pdm.chess4android.views.DrawControllerImp
 import javax.inject.Inject
 import kotlin.collections.set
 
@@ -28,19 +28,19 @@ class OfflineViewModel @Inject constructor(
     private val state: SavedStateHandle
 ) : AndroidViewModel(application) {
 
-    private val _paint = MutableLiveData<DrawResults?>()
-    private val _board = MutableLiveData<OfflineBoard>()
     private val acquiredMoves: HashMap<Piece, List<Location>> = HashMap()
-    private val _xequeMate = MutableLiveData<EndgameResult>()
-    private val drawController = DrawController()
+    private val drawController = DrawControllerImp()
     private var selectedPiece: Piece? = null
     private var gameBoard = OfflineBoard()
-    private val _promotion = MutableLiveData<Boolean>()
 
+    private val _board = MutableLiveData<OfflineBoard>()
     val offlineBoardData: LiveData<OfflineBoard> = _board
-    val xequeMate = _xequeMate
-    val paint = _paint
+
+    private val _promotion = MutableLiveData<Boolean>()
     val promotion = _promotion
+
+    private val _paintResults = MutableLiveData<PaintResults>(PaintResults())
+    val paintResults: LiveData<PaintResults> = _paintResults
 
     init {
         if (state.contains(ACTIVITY_STATE_BOARD)) {
@@ -68,26 +68,20 @@ class OfflineViewModel @Inject constructor(
         val locked = selectedPiece
         if (locked != null) {
             selectedPiece = null
-            _paint.value = drawController.drawSelectedPiece(null)
-            _paint.value = drawController.drawHighlight(null)
+            drawController.cleanSelectedPiece()
 
             if (!(locked.location.x == x && locked.location.y == y)) {
                 val location = Location(x, y)
                 if (acquiredMoves[locked]?.contains(location) == true) {
                     if (gameBoard.gameState == GameState.Xeque) {
-                        if (locked !is King) {
-                            _paint.value = drawController.drawXeque(null)
-                        } else {
-                            drawController.cleanCheck()
-                        }
+                        drawController.cleanCheck()
                     }
                     gameBoard = gameBoard.movePiece(locked.location, location)
                     _board.value = gameBoard
                     acquiredMoves.clear()
                     if (gameBoard.specialMoveResult == null) {
                         applyNewState()
-                    }
-                    else {
+                    } else {
                         _promotion.value = true
                     }
                     return
@@ -103,7 +97,6 @@ class OfflineViewModel @Inject constructor(
         val clicked: Piece = gameBoard.board[y][x]
         if (clicked.team != gameBoard.playingTeam) return
         selectedPiece = clicked
-        _paint.value = drawController.drawSelectedPiece(clicked.location)
         if (!acquiredMoves.containsKey(clicked)) {
             val moves = clicked.getMoves(
                 gameBoard.board,
@@ -111,7 +104,10 @@ class OfflineViewModel @Inject constructor(
             )
             acquiredMoves[clicked] = moves
         }
-        _paint.value = drawController.drawHighlight(acquiredMoves[clicked])
+        _paintResults.value = drawController.drawSelectedPiece(
+            clicked.location,
+            acquiredMoves[clicked]!!
+        )
     }
 
     /**
@@ -123,8 +119,11 @@ class OfflineViewModel @Inject constructor(
     private fun paintSpecialCheck(locked: Piece) {
         if (locked is King && gameBoard.gameState == GameState.Xeque) {
             drawController.cleanCheck()
-            _paint.value =
-                drawController.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
+            _paintResults.value = drawController.drawXeque(
+                gameBoard.getKing(gameBoard.playingTeam).location
+            )
+        } else {
+            _paintResults.value = drawController.getActualResults()
         }
     }
 
@@ -144,18 +143,24 @@ class OfflineViewModel @Inject constructor(
     private fun applyNewState() {
         when (gameBoard.gameState) {
             GameState.Xeque -> {
-                _paint.value =
-                    drawController.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
+                _paintResults.value = drawController.drawXeque(
+                    gameBoard.getKing(gameBoard.playingTeam).location
+                )
             }
             GameState.XequeMate -> {
-                _paint.value = drawController.drawHighlight(null)
-                val result = EndgameResult(
-                    gameBoard.getWinningPieces().toList(),
-                    gameBoard.playingTeam.other
+                _paintResults.value = PaintResults(
+                    selectedPiece = null,
+                    highlightPieces = null,
+                    xequePiece = null,
+                    endgameResult = EndgameResult(
+                        gameBoard.getWinningPieces().toList(),
+                        gameBoard.playingTeam.other
+                    )
                 )
-                _xequeMate.value = result
             }
-            else -> {}
+            else -> {
+                _paintResults.value = drawController.getActualResults()
+            }
         }
     }
 
@@ -165,16 +170,15 @@ class OfflineViewModel @Inject constructor(
      */
     fun forfeit() {
         gameBoard = gameBoard.forfeit()
-
-        _paint.value = drawController.drawHighlight(null)
-        _paint.value = drawController.drawSelectedPiece(null)
-        _paint.value = drawController.drawXeque(null)
-
-        val result = EndgameResult(
-            gameBoard.getWinningPieces().toList(),
-            gameBoard.playingTeam.other
+        _paintResults.value = PaintResults(
+            selectedPiece = null,
+            highlightPieces = null,
+            xequePiece = null,
+            endgameResult = EndgameResult(
+                gameBoard.getWinningPieces().toList(),
+                gameBoard.playingTeam.other
+            )
         )
-        _xequeMate.value = result
     }
 
     /**
@@ -184,6 +188,6 @@ class OfflineViewModel @Inject constructor(
      */
     override fun onCleared() {
         super.onCleared()
-        state.set(ACTIVITY_STATE_BOARD, gameBoard)
+        state[ACTIVITY_STATE_BOARD] = gameBoard
     }
 }

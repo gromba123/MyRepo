@@ -17,7 +17,7 @@ namespace HelloXamarin
             InitializeComponent();
             Label l = new Label
             {
-                Text = "Xamarim é muito pior que Compose",
+                Text = "Xamarim with C#",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
             };
             Button b = new Button
@@ -27,7 +27,7 @@ namespace HelloXamarin
                 VerticalOptions = LayoutOptions.Center
             };
             b.Clicked += (sender, args) => {
-                l.Text = "Amen";
+                l.Text = "Clicked";
             };
             
             Content = new ScrollView

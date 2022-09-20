@@ -19,7 +19,7 @@ data class PuzzleBoard(
     fun movePiece(old: Location, new: Location): PuzzleBoard {
         val piece = board[old.y][old.x]
         piece.location = new
-        board[old.y][old.x] = Space()
+        board[old.y][old.x] = Space(old)
         val remove: Piece = board[new.y][new.x]
         if (remove !is Space) {
             (if (playingTeam.other == Team.WHITE) whites[remove.id] else blacks[remove.id])?.remove(remove)

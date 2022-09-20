@@ -21,7 +21,6 @@ import pt.isel.pdm.chess4android.utils.CREDITS_SCREEN
 fun BuildProfileScreen(
     navController: NavController
 ) {
-    val context = LocalContext.current
     BuildButton(stringResource(id = R.string.credits)) {
         navController.navigate(CREDITS_SCREEN)
     }

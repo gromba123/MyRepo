@@ -48,16 +48,18 @@ data class OnlineBoard (
         val piece = board[old.y][old.x]
         piece.location = new
         if (piece is Pawn) piece.incMoves()
-        board[old.y][old.x] = Space()
+        board[old.y][old.x] = Space(old)
         val oldPiece = board[new.y][new.x]
         removePiece(oldPiece, playingTeam.other)
         board[new.y][new.x] = piece
         val result = verifySpecialMoves(piece, old)
         val newPlayingTeam = playingTeam.other
-        return copy(lastMove = composeAN(invertLocation(old), invertLocation(new)),
-                    playingTeam = newPlayingTeam,
-                    gameState = xeque(newPlayingTeam),
-                    specialMoveResult = result)
+        return copy(
+            lastMove = composeAN(invertLocation(old), invertLocation(new)),
+            playingTeam = newPlayingTeam,
+            gameState = xeque(newPlayingTeam),
+            specialMoveResult = result
+        )
     }
 
     /**
@@ -88,7 +90,7 @@ data class OnlineBoard (
                 val rook = board[rookLocation.y][rookLocation.x]
                 rook.location = newLocation
                 board[newLocation.y][newLocation.x] = rook
-                board[rookLocation.y][rookLocation.x] = Space()
+                board[rookLocation.y][rookLocation.x] = Space(rookLocation)
             }
         }
         else if (piece is Pawn) {

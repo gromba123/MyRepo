@@ -35,13 +35,13 @@ class BoardView(private val ctx: Context, attrs: AttributeSet?) : GridLayout(ctx
             val row = it / side
             val column = it % side
             val tile = Tile(
-                            ctx,
-                            if((row + column) % 2 == 0) Type.WHITE else Type.BLACK,
-                            null,
-                            null,
-                            side,
-                            Space()
-                        )
+                ctx,
+                if((row + column) % 2 == 0) Type.WHITE else Type.BLACK,
+                null,
+                null,
+                side,
+                Space(Location(0,0))
+            )
             addView(tile)
         }
     }
@@ -64,7 +64,7 @@ class BoardView(private val ctx: Context, attrs: AttributeSet?) : GridLayout(ctx
         canvas.drawLine(width.toFloat(), 0f, width.toFloat(), height.toFloat(), brush)
     }
 
-    private fun addTile(x: Int, y: Int, piece: Piece = Space()) {
+    private fun addTile(x: Int, y: Int, piece: Piece = Space(Location(0, 0))) {
         val index = x * side + y
         val t: Tile = getChildAt(index) as Tile
         val newTile = Tile(ctx, t.backgroundType, t.highlightType, t.check, side, piece)

@@ -29,7 +29,7 @@ data class OfflineBoard(
         val piece = board[old.y][old.x]
         piece.location = new
         if (piece is Pawn) piece.incMoves()
-        board[old.y][old.x] = Space()
+        board[old.y][old.x] = Space(old)
         val deletedPiece = board[new.y][new.x]
         removePiece(deletedPiece, playingTeam.other)
         board[new.y][new.x] = piece
@@ -57,7 +57,7 @@ data class OfflineBoard(
                 val rook = board[rookLocation.y][rookLocation.x]
                 rook.location = newLocation
                 board[newLocation.y][newLocation.x] = rook
-                board[rookLocation.y][rookLocation.x] = Space()
+                board[rookLocation.y][rookLocation.x] = Space(rookLocation)
             }
         }
         else if (piece is Pawn) {

@@ -48,7 +48,7 @@ class Parser {
     private fun movePiece(old: Location, new: Location) {
         val piece = board[old.y][old.x]
         piece.location = new
-        board[old.y][old.x] = Space()
+        board[old.y][old.x] = Space(old)
         board[new.y][new.x] = piece
     }
 
@@ -136,7 +136,7 @@ class Parser {
                 if (list.contains(location)) {
                     val p = pieces[i]
                     pieces.remove(p)
-                    board[p.location.y][p.location.x] = Space()
+                    board[p.location.y][p.location.x] = Space(p.location)
                     val id = move[move.length - 1]
                     val newPiece = promote(location, id, team)
                     (if (team == Team.WHITE) whites[id] else blacks[id])?.add(newPiece)
@@ -204,7 +204,7 @@ class Parser {
             if (board[new.y][new.x] is Space && board[new.y + delta][new.x] is Pawn) {
                 val pieces = if (team == Team.BLACK) whites['P'] else blacks['P']
                 pieces?.remove(board[new.y + delta][new.x])
-                board[new.y + delta][new.x] = Space()
+                board[new.y + delta][new.x] = Space(Location(new.x, new.y + delta))
             }
         }
     }

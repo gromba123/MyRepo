@@ -96,11 +96,14 @@ open class Piece(open var location: Location, open val team: Team, val id: Char)
      * @param king - The king of the the team of the piece to move
      * @param location - The location to simulate the move
      */
-    private fun simulateMove(board: MutableList<MutableList<Piece>>, king: King, location: Location): Boolean {
+    private fun simulateMove(
+        board: MutableList<MutableList<Piece>>,
+        king: King, location: Location
+    ): Boolean {
         val p = board[location.y][location.x]
         val oldLocation = this.location
 
-        board[oldLocation.y][oldLocation.x] = Space()
+        board[oldLocation.y][oldLocation.x] = Space(oldLocation)
         board[location.y][location.x] = this
         this.location = location
 

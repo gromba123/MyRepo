@@ -1,17 +1,11 @@
 package pt.isel.pdm.chess4android.utils
 
-import android.app.Application
 import android.content.res.Resources
 import android.os.Parcelable
-import androidx.lifecycle.AndroidViewModel
 import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.offline.pieces.*
 import pt.isel.pdm.chess4android.views.Type
-
-open class BaseBoardViewModel(
-    application: Application
-) : AndroidViewModel(application)
 
 /**
  * Contains the location of a promoted piece.
@@ -32,6 +26,13 @@ data class DrawResults(val list: List<Location>, val type: Type)
  * @param team - winning team
  */
 data class EndgameResult(val pieces: List<List<Piece>>, val team: Team)
+
+data class PaintResults(
+    val selectedPiece: Location? = null,
+    val highlightPieces: List<Location>? = null,
+    val xequePiece: Location? = null,
+    val endgameResult: EndgameResult? = null
+)
 
 /**
  * Converts an Algebraic Notation location into a board location
@@ -61,17 +62,6 @@ fun composeAN(old: Location, new: Location) : String {
     return str1 + str2
 }
 
-fun getPiece(piece: Piece) =
-    when (piece) {
-        is Pawn -> if(piece.team == Team.WHITE)R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
-        is Rook -> if(piece.team == Team.WHITE)R.drawable.ic_white_rook else R.drawable.ic_black_rook
-        is Knight -> if(piece.team == Team.WHITE)R.drawable.ic_white_knight else R.drawable.ic_black_knight
-        is Bishop -> if(piece.team == Team.WHITE)R.drawable.ic_white_bishop else R.drawable.ic_black_bishop
-        is Queen -> if(piece.team == Team.WHITE)R.drawable.ic_white_queen else R.drawable.ic_black_queen
-        is King -> if(piece.team == Team.WHITE)R.drawable.ic_white_king else R.drawable.ic_black_king
-        else -> null
-    }
-
 /**
  * Builds a chess board with the pieces in the correct pieces
  */
@@ -97,20 +87,44 @@ fun buildBoard(): MutableList<MutableList<Piece>> = arrayListOf(
         Pawn(Team.BLACK, Location(7, 1))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 2)),
+        Space(Location(1, 2)),
+        Space(Location(2, 2)),
+        Space(Location(3, 2)),
+        Space(Location(4, 2)),
+        Space(Location(5, 2)),
+        Space(Location(6, 2)),
+        Space(Location(7, 2))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 3)),
+        Space(Location(1, 3)),
+        Space(Location(2, 3)),
+        Space(Location(3, 3)),
+        Space(Location(4, 3)),
+        Space(Location(5, 3)),
+        Space(Location(6, 3)),
+        Space(Location(7, 3))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 4)),
+        Space(Location(1, 4)),
+        Space(Location(2, 4)),
+        Space(Location(3, 4)),
+        Space(Location(4, 4)),
+        Space(Location(5, 4)),
+        Space(Location(6, 4)),
+        Space(Location(7, 4))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 5)),
+        Space(Location(1, 5)),
+        Space(Location(2, 5)),
+        Space(Location(3, 5)),
+        Space(Location(4, 5)),
+        Space(Location(5, 5)),
+        Space(Location(6, 5)),
+        Space(Location(7, 5))
     ),
     arrayListOf(
         Pawn(Team.WHITE, Location(0, 6)),
@@ -139,36 +153,84 @@ fun buildBoard(): MutableList<MutableList<Piece>> = arrayListOf(
  */
 fun buildEmptyBoard(): MutableList<MutableList<Piece>> = arrayListOf(
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 0)),
+        Space(Location(1, 0)),
+        Space(Location(2, 0)),
+        Space(Location(3, 0)),
+        Space(Location(4, 0)),
+        Space(Location(5, 0)),
+        Space(Location(6, 0)),
+        Space(Location(7, 0))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 1)),
+        Space(Location(1, 1)),
+        Space(Location(2, 1)),
+        Space(Location(3, 1)),
+        Space(Location(4, 1)),
+        Space(Location(5, 1)),
+        Space(Location(6, 1)),
+        Space(Location(7, 1))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 2)),
+        Space(Location(1, 2)),
+        Space(Location(2, 2)),
+        Space(Location(3, 2)),
+        Space(Location(4, 2)),
+        Space(Location(5, 2)),
+        Space(Location(6, 2)),
+        Space(Location(7, 2))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 3)),
+        Space(Location(1, 3)),
+        Space(Location(2, 3)),
+        Space(Location(3, 3)),
+        Space(Location(4, 3)),
+        Space(Location(5, 3)),
+        Space(Location(6, 3)),
+        Space(Location(7, 3))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 4)),
+        Space(Location(1, 4)),
+        Space(Location(2, 4)),
+        Space(Location(3, 4)),
+        Space(Location(4, 4)),
+        Space(Location(5, 4)),
+        Space(Location(6, 4)),
+        Space(Location(7, 4))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 5)),
+        Space(Location(1, 5)),
+        Space(Location(2, 5)),
+        Space(Location(3, 5)),
+        Space(Location(4, 5)),
+        Space(Location(5, 5)),
+        Space(Location(6, 5)),
+        Space(Location(7, 5))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 6)),
+        Space(Location(1, 6)),
+        Space(Location(2, 6)),
+        Space(Location(3, 6)),
+        Space(Location(4, 6)),
+        Space(Location(5, 6)),
+        Space(Location(6, 6)),
+        Space(Location(7, 6))
     ),
     arrayListOf(
-        Space(), Space(), Space(), Space(),
-        Space(), Space(), Space(), Space()
+        Space(Location(0, 7)),
+        Space(Location(1, 7)),
+        Space(Location(2, 7)),
+        Space(Location(3, 7)),
+        Space(Location(4, 7)),
+        Space(Location(5, 7)),
+        Space(Location(6, 7)),
+        Space(Location(7, 7))
     )
 )
 
@@ -260,34 +322,28 @@ fun invertPuzzleSolution(solution: List<String>): List<String> {
 fun pickPromoted(
     string: String,
     resources: Resources,
-    specialMoveResult: SpecialMoveResult?
+    specialMoveResult: SpecialMoveResult
 ): Piece {
-    val piece = specialMoveResult?.piece
-    if (piece != null) {
-        return when(string) {
-            resources.getString(R.string.queen) -> Queen(piece.team, piece.location)
-            resources.getString(R.string.rook) -> Rook(piece.team, piece.location)
-            resources.getString(R.string.knight) -> Knight(piece.team, piece.location)
-            else -> Bishop(piece.team, piece.location)
-        }
+    val piece = specialMoveResult.piece
+    return when(string) {
+        resources.getString(R.string.queen) -> Queen(piece.team, piece.location)
+        resources.getString(R.string.rook) -> Rook(piece.team, piece.location)
+        resources.getString(R.string.knight) -> Knight(piece.team, piece.location)
+        else -> Bishop(piece.team, piece.location)
     }
-    return Space()
 }
 
 /**
  * Picks the correct type of piece to promote based on a resource
  */
-fun pickPromotedById(id: Char, specialMoveResult: SpecialMoveResult?): Piece {
-    val piece = specialMoveResult?.piece
-    if (piece != null) {
-        return when(id) {
-            'Q' -> Queen(piece.team, piece.location)
-            'R' -> Rook(piece.team, piece.location)
-            'N' -> Knight(piece.team, piece.location)
-            else -> Bishop(piece.team, piece.location)
-        }
+fun pickPromotedById(id: Char, specialMoveResult: SpecialMoveResult): Piece {
+    val piece = specialMoveResult.piece
+    return when(id) {
+        'Q' -> Queen(piece.team, piece.location)
+        'R' -> Rook(piece.team, piece.location)
+        'N' -> Knight(piece.team, piece.location)
+        else -> Bishop(piece.team, piece.location)
     }
-    return Space()
 }
 
 /**

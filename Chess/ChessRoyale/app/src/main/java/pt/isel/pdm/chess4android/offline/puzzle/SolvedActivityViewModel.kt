@@ -31,7 +31,6 @@ class SolvedActivityViewModel(application: Application
         puzzle?.let { puzzle ->
             val list = puzzle.actualPgn.split(" ")
             val toRotate = puzzle.pgn.split(" ").size % 2 != 0
-            val x = puzzle.pgn.split(" ")
             _board.value = (Parser()).parsePGN(list, toRotate)
         }
     }
