@@ -1,10 +1,14 @@
 package pt.isel.pdm.chess4android.offline.pieces
 
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.utils.KING
 import kotlin.math.abs
 
 @Parcelize
-class King(override val team: Team, override var location: Location) : Piece(location, team, 'K') {
+class King(
+    override val team: Team,
+    override var location: Location
+) : Piece(location, team, KING) {
 
     enum class Moves(val x: Int, val y: Int) {
         MOVE1(-1, 0),
@@ -73,7 +77,7 @@ class King(override val team: Team, override var location: Location) : Piece(loc
                         l
                     }
                     if (locations != null) {
-                        if (locations.contains(location)) pieces.add(piece)
+                        if (locations.any { l -> l.x == location.x && l.y == location.y}) pieces.add(piece)
                     }
                     break
                 }

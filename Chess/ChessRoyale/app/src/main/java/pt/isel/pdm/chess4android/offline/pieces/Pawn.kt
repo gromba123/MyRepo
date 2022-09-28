@@ -1,6 +1,7 @@
 package pt.isel.pdm.chess4android.offline.pieces
 
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.utils.PAWN
 
 /**
  * The constructor parameter playingForward indicates the pawn
@@ -9,10 +10,12 @@ import kotlinx.parcelize.Parcelize
  * they need to move north
  */
 @Parcelize
-class Pawn(override val team: Team,
-           override var location: Location,
-           private var playingDirection: Boolean = false,
-           var totalMoves: Int = 0) : Piece(location, team, 'P') {
+class Pawn(
+    override val team: Team,
+    override var location: Location,
+    private var playingDirection: Boolean = false,
+    private var totalMoves: Int = 0
+) : Piece(location, team, PAWN) {
 
     enum class Moves(val x: Int, val y: Int) {
         MOVE2(0, -1),
@@ -76,11 +79,7 @@ class Pawn(override val team: Team,
 
     fun isPromoting() = location.y == 0 || location.y == 7
 
-    fun incMoves() {
-        totalMoves++
-    }
+    fun incMoves() { totalMoves++ }
 
-    fun setDirectionToPlay() {
-        playingDirection = true
-    }
+    fun setDirectionToPlay() { playingDirection = true }
 }

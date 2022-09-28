@@ -150,7 +150,10 @@ data class OnlineBoard (
      * based on a AlertDialog Box that uses elements from the resources to identify
      * each available type of piece to promotion
      */
-    fun promotionByResources(string: String, resources: Resources): OnlineBoard {
+    fun promotionByResources(
+        string: String,
+        resources: Resources
+    ): OnlineBoard {
         if (specialMoveResult != null) {
             val oldPiece = specialMoveResult.piece
             removePiece(oldPiece, playingTeam.other)

@@ -6,10 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.pieces.King
 import pt.isel.pdm.chess4android.offline.pieces.Location
 import pt.isel.pdm.chess4android.offline.pieces.Piece
+import pt.isel.pdm.chess4android.offline.pieces.Team
 import pt.isel.pdm.chess4android.online.games.GameState
 import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.utils.PaintResults
@@ -36,7 +36,7 @@ class OfflineViewModel @Inject constructor(
     private val _board = MutableLiveData<OfflineBoard>()
     val offlineBoardData: LiveData<OfflineBoard> = _board
 
-    private val _promotion = MutableLiveData<Boolean>()
+    private val _promotion = MutableLiveData<Team?>(null)
     val promotion = _promotion
 
     private val _paintResults = MutableLiveData<PaintResults>(PaintResults())
@@ -64,7 +64,8 @@ class OfflineViewModel @Inject constructor(
      */
     fun movePiece(x: Int, y: Int) {
         if (gameBoard.gameState == GameState.XequeMate ||
-                gameBoard.gameState == GameState.Forfeit) return
+            gameBoard.gameState == GameState.Forfeit
+        ) return
         val locked = selectedPiece
         if (locked != null) {
             selectedPiece = null
@@ -72,7 +73,7 @@ class OfflineViewModel @Inject constructor(
 
             if (!(locked.location.x == x && locked.location.y == y)) {
                 val location = Location(x, y)
-                if (acquiredMoves[locked]?.contains(location) == true) {
+                if (acquiredMoves[locked]?.any { it.x == location.x && it.y == location.y } == true) {
                     if (gameBoard.gameState == GameState.Xeque) {
                         drawController.cleanCheck()
                     }
@@ -82,14 +83,14 @@ class OfflineViewModel @Inject constructor(
                     if (gameBoard.specialMoveResult == null) {
                         applyNewState()
                     } else {
-                        _promotion.value = true
+                        _promotion.value = gameBoard.playingTeam
                     }
                     return
                 } else {
-                    paintSpecialCheck(locked)
+                    _paintResults.value = drawController.getActualResults()
                 }
             } else {
-                paintSpecialCheck(locked)
+                _paintResults.value = drawController.getActualResults()
                 return
             }
         }
@@ -111,29 +112,12 @@ class OfflineViewModel @Inject constructor(
     }
 
     /**
-     * Paints the special xeque occasions. It happens when the player
-     * selects the king when it's in xeque and swap for another piece.
-     * When the piece is selected then cleared the xeque visual mark disappears
-     * ant the needs to be painted again
-     */
-    private fun paintSpecialCheck(locked: Piece) {
-        if (locked is King && gameBoard.gameState == GameState.Xeque) {
-            drawController.cleanCheck()
-            _paintResults.value = drawController.drawXeque(
-                gameBoard.getKing(gameBoard.playingTeam).location
-            )
-        } else {
-            _paintResults.value = drawController.getActualResults()
-        }
-    }
-
-    /**
      * Function that promotes a piece and publishes the result
      */
-    fun promote(piece: String) {
-        val resources = getApplication<PuzzleOfDayApplication>().resources
-        gameBoard = gameBoard.promotion(piece, resources)
+    fun promote(id: Char) {
+        gameBoard = gameBoard.promotion(id)
         _board.value = gameBoard
+        _promotion.value = null
         applyNewState()
     }
 

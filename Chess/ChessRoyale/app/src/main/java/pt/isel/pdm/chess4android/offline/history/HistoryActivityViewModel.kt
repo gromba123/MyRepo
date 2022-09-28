@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import pt.isel.pdm.chess4android.PuzzleOfDayApplication
 import pt.isel.pdm.chess4android.offline.puzzle.PuzzleDTO
 import pt.isel.pdm.chess4android.offline.puzzle.PuzzleHistoryDTO
@@ -40,11 +42,16 @@ class HistoryActivityViewModel @Inject constructor(
         }
     }
 
-    fun fetchDailyPuzzle(): LiveData<PuzzleDTO?> {
-        return liveData {
+    fun fetchDailyPuzzle(onClick: (PuzzleDTO) -> Unit) {
+        viewModelScope.launch {
             val app = getApplication<PuzzleOfDayApplication>()
             app.puzzleRepository.fetchPuzzleOfDay()
-            emit(app.puzzleRepository.maybeGetTodayPuzzleFromDB())
+            val dto = app.puzzleRepository.maybeGetTodayPuzzleFromDB()
+            if (dto != null) {
+                if (history.value?.any { it.id == dto.id } == false) {
+                    onClick(dto)
+                }
+            }
         }
     }
 }

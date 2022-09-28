@@ -3,16 +3,20 @@ package pt.isel.pdm.chess4android.offline.puzzle
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * ViewModel for the [SolvedActivity]
  */
-class SolvedActivityViewModel(application: Application
+@HiltViewModel
+class SolvedActivityViewModel @Inject constructor(
+    application: Application
 ) : AndroidViewModel(application) {
 
-    private val _board: MutableLiveData<PuzzleBoard> = MutableLiveData()
     private var puzzle: PuzzleDTO? = null
 
+    private val _board: MutableLiveData<PuzzleBoard> = MutableLiveData()
     val board = _board
 
     /**

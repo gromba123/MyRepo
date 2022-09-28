@@ -1,6 +1,5 @@
 package pt.isel.pdm.chess4android.offline.game
 
-import android.content.res.Resources
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.offline.pieces.*
@@ -45,13 +44,15 @@ data class OfflineBoard(
     /**
      * Verifies if there is castling or a promotion
      */
-    private fun verifySpecialMoves(piece: Piece, old: Location): SpecialMoveResult? {
+    private fun verifySpecialMoves(
+        piece: Piece,
+        old: Location
+    ): SpecialMoveResult? {
         if (piece is King) {
             if (piece.isCastling(old, piece.location)) {
                 val rookLocation =
                     if (piece.location.x == 1) Location(piece.location.x - 1, piece.location.y)
                     else Location(piece.location.x + 1, piece.location.y)
-
                 val newX = piece.location.x + (piece.location.x - rookLocation.x)
                 val newLocation = Location(newX, rookLocation.y)
                 val rook = board[rookLocation.y][rookLocation.x]
@@ -59,8 +60,7 @@ data class OfflineBoard(
                 board[newLocation.y][newLocation.x] = rook
                 board[rookLocation.y][rookLocation.x] = Space(rookLocation)
             }
-        }
-        else if (piece is Pawn) {
+        } else if (piece is Pawn) {
             if (piece.isPromoting()) return SpecialMoveResult(piece)
         }
         return null
@@ -90,7 +90,10 @@ data class OfflineBoard(
     /**
      * Verifies if the given king is in xeque-mate
      */
-    private fun mate(pieces: HashMap<Char, MutableList<Piece>>, king: King): GameState {
+    private fun mate(
+        pieces: HashMap<Char, MutableList<Piece>>,
+        king: King
+    ): GameState {
         pieces.values.forEach { lists ->
             lists.forEach { piece ->
                 if (!piece.isMate(board, king)) return GameState.Xeque
@@ -102,11 +105,11 @@ data class OfflineBoard(
     /**
      * Function that initiates a promotion a piece
      */
-    fun promotion(string: String, resources: Resources): OfflineBoard {
+    fun promotion(id: Char): OfflineBoard {
         if (specialMoveResult != null) {
             val oldPiece = specialMoveResult.piece
             removePiece(oldPiece, playingTeam.other)
-            val newPiece = pickPromoted(string, resources, specialMoveResult)
+            val newPiece = pickPromotedById(id, specialMoveResult)
             return promote(oldPiece, newPiece)
         }
         return this

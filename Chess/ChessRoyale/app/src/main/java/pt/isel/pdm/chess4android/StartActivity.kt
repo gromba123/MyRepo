@@ -15,12 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import pt.isel.pdm.chess4android.menu.BuildMainMenu
 import pt.isel.pdm.chess4android.offline.game.BuildOfflineBoard
 import pt.isel.pdm.chess4android.offline.history.BuildPuzzleListScreen
+import pt.isel.pdm.chess4android.offline.history.PUZZLE_EXTRA
+import pt.isel.pdm.chess4android.offline.puzzle.BuildSolvedPuzzleScreen
+import pt.isel.pdm.chess4android.offline.puzzle.PuzzleDTO
 import pt.isel.pdm.chess4android.profile.BuildCreditsScreen
 import pt.isel.pdm.chess4android.theme.Chess4AndroidTheme
-import pt.isel.pdm.chess4android.utils.CREDITS_SCREEN
-import pt.isel.pdm.chess4android.utils.MENU_SCREEN
-import pt.isel.pdm.chess4android.utils.OFFLINE_PUZZLE
-import pt.isel.pdm.chess4android.utils.PUZZLE_LIST_SCREEN
+import pt.isel.pdm.chess4android.utils.*
 
 @AndroidEntryPoint
 class StartActivity : ComponentActivity() {
@@ -46,8 +46,15 @@ class StartActivity : ComponentActivity() {
                         composable(PUZZLE_LIST_SCREEN) {
                             BuildPuzzleListScreen(navController)
                         }
-                        composable(OFFLINE_PUZZLE) {
+                        composable(OFFLINE_GAME) {
                             BuildOfflineBoard()
+                        }
+                        composable(SOLVED_PUZZLE) {
+                            val dto = it.arguments?.getParcelable<PuzzleDTO>(PUZZLE_EXTRA) ?: throw IllegalArgumentException()
+                            BuildSolvedPuzzleScreen(
+                                navController = navController,
+                                puzzleDTO = dto
+                            )
                         }
                     }
                 }

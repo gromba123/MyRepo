@@ -1,8 +1,6 @@
 package pt.isel.pdm.chess4android.utils
 
-import android.util.Log
 import androidx.compose.ui.graphics.Color
-import pt.isel.pdm.chess4android.APP_TAG
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.offline.pieces.*
 import pt.isel.pdm.chess4android.theme.Highlight
@@ -24,7 +22,9 @@ fun getPiece(piece: Piece) =
 fun getColor(piece: Piece, paintResults: PaintResults): Color? {
     if (paintResults.endgameResult != null) {
         for (list: List<Piece> in paintResults.endgameResult.pieces) {
-            if (list.contains(piece)) return Xeque
+            if (list.any { it.location.x == piece.location.x && it.location.y == piece.location.y}) {
+                return Xeque
+            }
         }
         return null
     } else {
@@ -42,7 +42,7 @@ fun getColor(piece: Piece, paintResults: PaintResults): Color? {
         }
         if (paintResults.highlightPieces != null) {
             if (paintResults.highlightPieces.any { it.x == piece.location.x && it.y == piece.location.y}) {
-                return Highlight
+                return if (piece is Space) Highlight else Xeque
             }
         }
         return null

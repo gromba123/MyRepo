@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.utils.OFFLINE_PUZZLE
+import pt.isel.pdm.chess4android.utils.OFFLINE_GAME
 import pt.isel.pdm.chess4android.utils.PUZZLE_LIST_SCREEN
 
 @Composable
@@ -35,7 +35,7 @@ private fun BuildButtons(
     navController: NavController
 ) {
     BuildButton(label = stringResource(id = R.string.offline), screenWidth) {
-        navController.navigate(OFFLINE_PUZZLE)
+        navController.navigate(OFFLINE_GAME)
     }
     Spacer(modifier = Modifier.width(2.dp))
     BuildButton(label = stringResource(id = R.string.fetch_button), screenWidth) {

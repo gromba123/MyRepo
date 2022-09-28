@@ -2,6 +2,8 @@ package pt.isel.pdm.chess4android.utils
 
 import android.content.res.Resources
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.offline.pieces.*
@@ -32,6 +34,40 @@ data class PaintResults(
     val highlightPieces: List<Location>? = null,
     val xequePiece: Location? = null,
     val endgameResult: EndgameResult? = null
+)
+
+data class PromotionOption(
+    @DrawableRes val idWhite: Int,
+    @DrawableRes val idBlack: Int,
+    @StringRes val name: Int,
+    val piece: Char
+)
+
+val promotionOptions = listOf(
+    PromotionOption(
+        R.drawable.ic_white_queen,
+        R.drawable.ic_black_queen,
+        R.string.queen,
+        QUEEN
+    ),
+    PromotionOption(
+        R.drawable.ic_white_rook,
+        R.drawable.ic_black_rook,
+        R.string.rook,
+        ROOK
+    ),
+    PromotionOption(
+        R.drawable.ic_white_knight,
+        R.drawable.ic_black_knight,
+        R.string.knight,
+        KNIGHT
+    ),
+    PromotionOption(
+        R.drawable.ic_white_bishop,
+        R.drawable.ic_black_bishop,
+        R.string.bishop,
+        BISHOP
+    )
 )
 
 /**
@@ -336,12 +372,15 @@ fun pickPromoted(
 /**
  * Picks the correct type of piece to promote based on a resource
  */
-fun pickPromotedById(id: Char, specialMoveResult: SpecialMoveResult): Piece {
+fun pickPromotedById(
+    id: Char,
+    specialMoveResult: SpecialMoveResult
+): Piece {
     val piece = specialMoveResult.piece
     return when(id) {
-        'Q' -> Queen(piece.team, piece.location)
-        'R' -> Rook(piece.team, piece.location)
-        'N' -> Knight(piece.team, piece.location)
+        QUEEN -> Queen(piece.team, piece.location)
+        ROOK -> Rook(piece.team, piece.location)
+        KNIGHT -> Knight(piece.team, piece.location)
         else -> Bishop(piece.team, piece.location)
     }
 }

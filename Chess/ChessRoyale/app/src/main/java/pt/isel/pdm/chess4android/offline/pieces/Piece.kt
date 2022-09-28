@@ -1,7 +1,9 @@
 package pt.isel.pdm.chess4android.offline.pieces
 
 import android.os.Parcelable
+import android.util.Log
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.APP_TAG
 import pt.isel.pdm.chess4android.utils.convertRank
 import pt.isel.pdm.chess4android.utils.convertToFile
 
@@ -9,7 +11,7 @@ import pt.isel.pdm.chess4android.utils.convertToFile
  * Represents a location in the board
  */
 @Parcelize
-data class Location(val x: Int, val y: Int) : Parcelable {
+class Location(val x: Int, val y: Int) : Parcelable {
 
     /**
      * Computes a new location based on the previous
@@ -51,22 +53,27 @@ enum class Team(val x: Int) : Parcelable {
  * The [Parcelize] annotation obligates the parameters to be defined as open
  */
 @Parcelize
-open class Piece(open var location: Location, open val team: Team, val id: Char) : Parcelable {
+open class Piece(
+    open var location: Location,
+    open val team: Team,
+    val id: Char
+) : Parcelable {
 
     /**
      * Gets a list of positions that a piece can reach
      * @param board - The board from where the positions will be calculated
      */
-    open fun checkPosition(board: List<List<Piece>>): List<Location> {
-        TODO("Nothing")
-    }
+    open fun checkPosition(board: List<List<Piece>>): List<Location> { TODO("Nothing") }
 
     /**
      * Gets a list of all moves a piece can do without put the king in xeque
      * @param king - the king of the the team of the piece to move
      * @param board - The board from where the positions will be calculated
      */
-    fun getMoves(board: MutableList<MutableList<Piece>>, king: King): MutableList<Location> {
+    fun getMoves(
+        board: MutableList<MutableList<Piece>>,
+        king: King
+    ): MutableList<Location> {
         val list = checkPosition(board)
         val pos = mutableListOf<Location>()
         list.forEach {
@@ -81,7 +88,10 @@ open class Piece(open var location: Location, open val team: Team, val id: Char)
      * @param king - the king of the the team of the piece to move
      * @param board - The board from where the positions will be calculated
      */
-    fun isMate(board: MutableList<MutableList<Piece>>, king: King): Boolean {
+    fun isMate(
+        board: MutableList<MutableList<Piece>>,
+        king: King
+    ): Boolean {
         val list = checkPosition(board)
         list.forEach {
             val bool = this.simulateMove(board, king, it)
@@ -98,7 +108,8 @@ open class Piece(open var location: Location, open val team: Team, val id: Char)
      */
     private fun simulateMove(
         board: MutableList<MutableList<Piece>>,
-        king: King, location: Location
+        king: King,
+        location: Location
     ): Boolean {
         val p = board[location.y][location.x]
         val oldLocation = this.location

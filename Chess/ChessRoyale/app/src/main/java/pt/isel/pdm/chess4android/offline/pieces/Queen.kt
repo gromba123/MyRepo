@@ -1,9 +1,13 @@
 package pt.isel.pdm.chess4android.offline.pieces
 
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.utils.QUEEN
 
 @Parcelize
-class Queen(override val team: Team, override var location: Location) : Piece(location, team, 'Q') {
+class Queen(
+    override val team: Team,
+    override var location: Location
+) : Piece(location, team, QUEEN) {
 
     enum class Moves(val x: Int, val y: Int) {
         MOVE1(-1, 0),

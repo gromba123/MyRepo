@@ -21,11 +21,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import pt.isel.pdm.chess4android.offline.puzzle.PuzzleDTO
+import pt.isel.pdm.chess4android.offline.puzzle.PuzzleHistoryDTO
 import pt.isel.pdm.chess4android.utils.BuildArrowBack
+import pt.isel.pdm.chess4android.utils.UNSOLVED_PUZZLE
 
 private const val ITEMS_LIST_FRACTION = 0.9F
 private const val FETCH_FRACTION = 0.1F
 const val PUZZLE_EXTRA = "HistoryActivity.Extra.Puzzle"
+const val SOLVED_PUZZLE = 2
 
 @Composable
 fun BuildPuzzleListScreen(
@@ -45,14 +49,32 @@ fun BuildPuzzleListScreen(
             contentAlignment = Alignment.BottomCenter
         ) {
             BuildFetchButton(
-                viewModel = viewModel,
-                screenHeight = screenHeight
-            )
+                viewModel = viewModel
+            ) {
+                navController.currentBackStackEntry?.arguments?.putParcelable(
+                    PUZZLE_EXTRA,
+                    it
+                )
+                navController.navigate(SOLVED_PUZZLE)
+            }
             Column (
                 modifier = Modifier.fillMaxSize().padding(top = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BuildPuzzleList(viewModel = viewModel, screenHeight = screenHeight)
+                BuildPuzzleList(
+                    viewModel = viewModel,
+                    screenHeight = screenHeight
+                ) { historyDto, dto ->
+                    navController.currentBackStackEntry?.arguments?.putParcelable(
+                        PUZZLE_EXTRA,
+                        dto
+                    )
+                    if (historyDto.state != SOLVED_PUZZLE) {
+                        navController.navigate(UNSOLVED_PUZZLE)
+                    } else {
+                        navController.navigate(SOLVED_PUZZLE)
+                    }
+                }
             }
         }
     }
@@ -61,9 +83,9 @@ fun BuildPuzzleListScreen(
 @Composable
 private fun BuildPuzzleList(
     viewModel: HistoryActivityViewModel,
-    screenHeight: Int
+    screenHeight: Int,
+    onClick: (PuzzleHistoryDTO, PuzzleDTO) -> Unit
 ) {
-    val context = LocalContext.current
     val list = viewModel.history.observeAsState().value
     if (list != null) {
         LazyColumn (
@@ -75,14 +97,9 @@ private fun BuildPuzzleList(
             itemsIndexed(list) { _, item ->
                 BuildListItem(dto = item) {
                     val dto = viewModel.loadPuzzle(item).value
-                    /*
                     if (dto != null) {
-                        val intent = if (item.state != 2)
-                            PuzzleActivity.buildIntent(activity, dto)
-                        else SolvedActivity.buildIntent(activity, dto)
-                        context.startActivity(intent)
+                        onClick(item, dto)
                     }
-                     */
                 }
             }
         }
@@ -93,21 +110,16 @@ private fun BuildPuzzleList(
 @Composable
 private fun BuildFetchButton(
     viewModel: HistoryActivityViewModel,
-    screenHeight: Int
+    onClick: (PuzzleDTO) -> Unit
 ) {
-    val context = LocalContext.current
     Button(
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
         border = BorderStroke(2.dp, Color.White),
         shape = RoundedCornerShape(50),
         onClick = {
-            /*
-            viewModel.fetchDailyPuzzle().observe(owner) {
-                if (it != null) {
-                    context.startActivity(PuzzleActivity.buildIntent(activity, it))
-                }
-            }
-             */
+            viewModel.fetchDailyPuzzle(
+                onClick = onClick
+            )
         }
     ) {
         Text(

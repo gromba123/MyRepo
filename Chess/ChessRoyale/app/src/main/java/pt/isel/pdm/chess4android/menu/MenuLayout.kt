@@ -37,7 +37,6 @@ fun BuildMainMenu(
 ) {
     val menuController = rememberNavController()
     val configuration = LocalConfiguration.current
-    //val context = LocalContext.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
     Column(

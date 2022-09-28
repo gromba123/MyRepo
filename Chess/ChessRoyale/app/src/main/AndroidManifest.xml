@@ -32,9 +32,6 @@
             android:name=".online.challenges.list.ChallengesListActivity"
             android:exported="true" />
         <activity
-            android:name=".offline.puzzle.SolvedActivity"
-            android:exported="false" />
-        <activity
             android:name=".offline.puzzle.PuzzleActivity"
             android:exported="false" />
     </application>
