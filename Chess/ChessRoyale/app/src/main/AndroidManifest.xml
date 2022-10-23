@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".PuzzleOfDayApplication"
+        android:name=".ChessRoyaleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,16 +23,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".online.challenges.create.CreateChallengeActivity"
+            android:name=".ui.screens.online.challenges.create.CreateChallengeActivity"
             android:noHistory="true" />
         <activity
-            android:name=".online.games.OnlineActivity"
+            android:name=".ui.screens.online.games.OnlineActivity"
             android:exported="false" />
         <activity
-            android:name=".online.challenges.list.ChallengesListActivity"
+            android:name=".ui.screens.online.challenges.list.ChallengesListActivity"
             android:exported="true" />
         <activity
-            android:name=".offline.puzzle.PuzzleActivity"
+            android:name=".ui.screens.offline.puzzle.PuzzleActivity"
             android:exported="false" />
     </application>
 

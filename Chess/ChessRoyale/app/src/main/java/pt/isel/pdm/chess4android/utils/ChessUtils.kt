@@ -6,7 +6,11 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.offline.pieces.*
+import pt.isel.pdm.chess4android.domain.pieces.*
+import pt.isel.pdm.chess4android.navigation.BISHOP
+import pt.isel.pdm.chess4android.navigation.KNIGHT
+import pt.isel.pdm.chess4android.navigation.QUEEN
+import pt.isel.pdm.chess4android.navigation.ROOK
 import pt.isel.pdm.chess4android.views.Type
 
 /**

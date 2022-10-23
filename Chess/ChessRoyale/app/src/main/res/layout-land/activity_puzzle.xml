@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/listPreferredItemPaddingStart"
     android:layout_marginBottom="?attr/listPreferredItemPaddingEnd"
-    tools:context=".offline.puzzle.PuzzleActivity">
+    tools:context=".ui.screens.offline.puzzle.PuzzleActivity">
 
     <pt.isel.pdm.chess4android.views.BoardView
         android:id="@+id/boardPuzzle"

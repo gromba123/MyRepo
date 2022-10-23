@@ -1,7 +1,7 @@
 package pt.isel.pdm.chess4android.views
 
 import pt.isel.pdm.chess4android.utils.DrawResults
-import pt.isel.pdm.chess4android.offline.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Location
 import pt.isel.pdm.chess4android.utils.PaintResults
 
 /**

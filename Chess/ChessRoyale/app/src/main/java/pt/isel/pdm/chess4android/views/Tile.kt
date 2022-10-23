@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.view.View
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.offline.pieces.*
+import pt.isel.pdm.chess4android.domain.pieces.*
 
 enum class Type { WHITE, BLACK, SELECTED, HIGHLIGHT, XEQUE }
 

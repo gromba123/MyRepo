@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import pt.isel.pdm.chess4android.offline.pieces.Team
+import pt.isel.pdm.chess4android.domain.pieces.Team
 
 @Composable
 fun BuildArrowBack(

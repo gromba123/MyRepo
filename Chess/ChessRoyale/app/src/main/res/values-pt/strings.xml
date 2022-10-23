@@ -46,4 +46,12 @@
     <string name="bishop">Bispo</string>
     <string name="promotion">Promoção</string>
     <string name="initialPhrase">Toque para continuar</string>
+    <string name="onlineGame">Jogo Online</string>
+    <string name="onlineGameDescription">Joga um jogo online com outro jogador</string>
+    <string name="puzzlesDescription">Resolve a lista de puzzles diários</string>
+    <string name="play">Jogar</string>
+    <string name="profile">Perfil</string>
+    <string name="offlineGame">Jogo Offline</string>
+    <string name="offlineGameDescription">Jogo 1 vs 1 contra um amigo</string>
+    <string name="fetchPuzzle">Obter o puzzle do dia</string>
 </resources>

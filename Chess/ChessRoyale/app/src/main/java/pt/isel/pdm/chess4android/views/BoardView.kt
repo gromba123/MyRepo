@@ -8,9 +8,9 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.GridLayout
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.offline.pieces.Location
-import pt.isel.pdm.chess4android.offline.pieces.Piece
-import pt.isel.pdm.chess4android.offline.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Piece
+import pt.isel.pdm.chess4android.domain.pieces.Space
 
 /**
  * Custom view that implements a chess board.

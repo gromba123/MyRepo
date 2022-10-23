@@ -7,7 +7,7 @@
     <string name="api">Lichess API</string>
     <string name="credits">Credits</string>
     <string name="wrongMove">The move doesn\'t belong to the solution.</string>
-    <string name="offline" translatable="false">Offline</string>
+    <string name="puzzles" translatable="false">Puzzles</string>
     <string name="retry">Solve again</string>
     <string name="solution">Show solution</string>
     <string name="puzzle">Show puzzle</string>
@@ -37,7 +37,7 @@
     <string name="cancel_game_button_label">Cancel</string>
     <string name="create_game_button_label_in_short">Post it</string>
     <string name="error_creating_game">Could not create game</string>
-    <string name="online" translatable="false">Online</string>
+    <string name="play">Play</string>
     <string name="black_wins">The black player won!</string>
     <string name="white_wins">The white player won!</string>
     <string name="forfeit">Forfeit</string>
@@ -54,6 +54,13 @@
     <string name="promotion">Promotion</string>
     <string name="title_activity_start" translatable="false">StartActivity</string>
     <string name="initialPhrase">Tap to continue</string>
-    <string name="profile" translatable="false">Profile</string>
-    <string name="title_activity_puzzle_history">PuzzleHistoryActivity</string>
+    <string name="profile">Profile</string>
+    <string name="title_activity_puzzle_history" translatable="false">PuzzleHistoryActivity</string>
+    <string name="puzzleList" translatable="false">Puzzles</string>
+    <string name="onlineGame">Online Game</string>
+    <string name="onlineGameDescription">Play a online game with another player</string>
+    <string name="puzzlesDescription">Solve a list of daily puzzles</string>
+    <string name="offlineGame">Offline Game</string>
+    <string name="offlineGameDescription">1 vs 1 game against a friend</string>
+    <string name="fetchPuzzle">Get daily puzzle</string>
 </resources>

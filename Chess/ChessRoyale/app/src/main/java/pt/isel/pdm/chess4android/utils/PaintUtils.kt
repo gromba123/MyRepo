@@ -2,11 +2,11 @@ package pt.isel.pdm.chess4android.utils
 
 import androidx.compose.ui.graphics.Color
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.offline.pieces.*
-import pt.isel.pdm.chess4android.theme.Highlight
-import pt.isel.pdm.chess4android.theme.Selected
-import pt.isel.pdm.chess4android.theme.Xeque
-import pt.isel.pdm.chess4android.theme.XequeMate
+import pt.isel.pdm.chess4android.domain.pieces.*
+import pt.isel.pdm.chess4android.ui.theme.Highlight
+import pt.isel.pdm.chess4android.ui.theme.Selected
+import pt.isel.pdm.chess4android.ui.theme.Xeque
+import pt.isel.pdm.chess4android.ui.theme.XequeMate
 
 fun getPiece(piece: Piece) =
     when (piece) {
