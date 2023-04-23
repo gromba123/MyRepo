@@ -46,22 +46,32 @@ class PuzzleRuler(
     /**
      * Executes a move if it is a part of the solution
      */
-    fun tryExecuteMove(oldLocation: Location, newLocation: Location, board: PuzzleBoard): RulerResult {
+    fun tryExecuteMove(
+        oldLocation: Location,
+        newLocation: Location,
+        board: PuzzleBoard
+    ): RulerResult {
         if (solution.first() != composeAN(oldLocation, newLocation))
             return RulerResult(MoveState.Blocked, PuzzleState.OnProgress, board)
-        var newBoard = board.movePiece(oldLocation, newLocation)
+        val newBoard = board.movePiece(oldLocation, newLocation)
         solution.removeFirst()
         pgn.add(sln.removeFirst())
-        if (solution.size != 0) {
-            newBoard = newBoard.movePiece(
+        return RulerResult(MoveState.Allowed, PuzzleState.OnProgress, newBoard)
+    }
+
+    fun executeOpponentMove(
+        board: PuzzleBoard
+    ): RulerResult {
+        val newBoard = if (solution.size != 0) {
+            val nb = board.movePiece(
                 convertToLocation(solution.first().substring(0, 2)),
                 convertToLocation(solution.first().substring(2, 4))
             )
             solution.removeFirst()
             pgn.add(sln.removeFirst())
-        }
-        val puzzleState =
-            if (sln.size != 0) PuzzleState.OnProgress else PuzzleState.Finished
+            nb
+        } else board
+        val puzzleState = if (sln.size != 0) PuzzleState.OnProgress else PuzzleState.Finished
         return RulerResult(MoveState.Allowed, puzzleState, newBoard)
     }
 

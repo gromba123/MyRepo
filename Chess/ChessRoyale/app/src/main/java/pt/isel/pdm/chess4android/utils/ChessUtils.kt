@@ -7,10 +7,10 @@ import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.pieces.*
-import pt.isel.pdm.chess4android.navigation.BISHOP
-import pt.isel.pdm.chess4android.navigation.KNIGHT
-import pt.isel.pdm.chess4android.navigation.QUEEN
-import pt.isel.pdm.chess4android.navigation.ROOK
+import pt.isel.pdm.chess4android.domain.pieces.BISHOP
+import pt.isel.pdm.chess4android.domain.pieces.KNIGHT
+import pt.isel.pdm.chess4android.domain.pieces.QUEEN
+import pt.isel.pdm.chess4android.domain.pieces.ROOK
 import pt.isel.pdm.chess4android.views.Type
 
 /**
@@ -325,14 +325,9 @@ fun invertBoard(board: MutableList<MutableList<Piece>>): MutableList<MutableList
     val newBoard = buildEmptyBoard()
     board.forEach { row ->
         row.forEach {
-            if (it !is Space) {
-                val newLocation = invertLocation(it.location)
-                it.location = newLocation
-                newBoard[newLocation.y][newLocation.x] = it
-            } else {
-                newBoard[it.location.y][it.location.x] = it
-            }
-
+            val newLocation = invertLocation(it.location)
+            it.location = newLocation
+            newBoard[newLocation.y][newLocation.x] = it
         }
     }
     return newBoard

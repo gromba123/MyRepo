@@ -14,7 +14,6 @@ import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
 import pt.isel.pdm.chess4android.domain.online.GameState
 import pt.isel.pdm.chess4android.domain.online.OnlineGameState
 import pt.isel.pdm.chess4android.domain.pieces.Team
-import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.myPostDelayed
 import pt.isel.pdm.chess4android.views.OnTileTouchListener
 import pt.isel.pdm.chess4android.views.Type
 
@@ -83,9 +82,6 @@ class OnlineActivity : AppCompatActivity() {
             binding.finishPhrase.text =
                 if (result.team == Team.BLACK) resources.getString(R.string.black_wins)
                     else resources.getString(R.string.white_wins)
-            binding.root.myPostDelayed(10000) {
-                //startActivity(Intent(this, CreditsActivity::class.java))
-            }
         }
 
         viewModel.acceptDraw.observe(this) {
@@ -93,15 +89,9 @@ class OnlineActivity : AppCompatActivity() {
                 binding.board.isEnabled = false
                 binding.finishPhrase.visibility = View.VISIBLE
                 binding.finishPhrase.text = resources.getString(R.string.draw_accepted_black)
-                binding.root.myPostDelayed(5000) {
-                    //startActivity(Intent(this, CreditsActivity::class.java))
-                }
             } else {
                 binding.finishPhrase.visibility = View.VISIBLE
                 binding.finishPhrase.text = resources.getString(R.string.draw_rejected)
-                binding.root.myPostDelayed(5000) {
-                    binding.finishPhrase.visibility = View.INVISIBLE
-                }
             }
         }
 

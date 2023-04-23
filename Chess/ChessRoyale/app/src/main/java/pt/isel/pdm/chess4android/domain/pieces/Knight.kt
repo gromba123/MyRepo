@@ -1,7 +1,6 @@
 package pt.isel.pdm.chess4android.domain.pieces
 
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.navigation.KNIGHT
 
 @Parcelize
 class Knight(

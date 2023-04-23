@@ -29,16 +29,6 @@ class ChallengesListActivity : AppCompatActivity() {
         binding.challengesList.setHasFixedSize(true)
         binding.challengesList.layoutManager = LinearLayoutManager(this)
 
-        viewModel.challenges.observe(this) { result ->
-            result
-                .onSuccess {
-                binding.challengesList.adapter = ChallengesListAdapter(it, ::challengeSelected)
-                binding.refreshLayout.isRefreshing = false
-                }
-                .onFailure {
-                    Toast.makeText(this, R.string.error_getting_list, Toast.LENGTH_LONG).show()
-                }
-        }
 
         binding.refreshLayout.setOnRefreshListener { updateChallengesList() }
 

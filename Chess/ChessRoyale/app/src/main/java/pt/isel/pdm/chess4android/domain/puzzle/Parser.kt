@@ -100,7 +100,7 @@ class Parser {
         else filterTiePieces(pieces) { it.location.y == convertRank(move[1] - '0') }
         val newLocation = convertToLocation(move.substring(2))
         filtered.forEach {
-            if (it.checkPosition(board).contains(newLocation)) {
+            if (it.checkPosition(board).any { location: Location -> location.toString() == newLocation.toString() }) {
                 movePiece(it.location, newLocation)
             }
         }
@@ -129,18 +129,18 @@ class Parser {
         val pieces = if (team == Team.WHITE) whites['P'] else blacks['P']
         if (pieces != null) {
             val equalsIndex = move.indexOfFirst { it == '=' }
-            val location = convertToLocation(move.substring(equalsIndex - 2, equalsIndex))
+            val newLocation = convertToLocation(move.substring(equalsIndex - 2, equalsIndex))
             var i = 0
             while (i < pieces.size) {
                 val list = pieces[i].checkPosition(this.board)
-                if (list.contains(location)) {
+                if (list.any { location -> location.toString() == newLocation.toString() }) {
                     val p = pieces[i]
                     pieces.remove(p)
                     board[p.location.y][p.location.x] = Space(p.location)
                     val id = move[move.length - 1]
-                    val newPiece = promote(location, id, team)
+                    val newPiece = promote(newLocation, id, team)
                     (if (team == Team.WHITE) whites[id] else blacks[id])?.add(newPiece)
-                    board[location.y][location.x] = newPiece
+                    board[newLocation.y][newLocation.x] = newPiece
                     break
                 }
                 i++
@@ -176,7 +176,7 @@ class Parser {
             var i = 0
             while (i < pieces.size) {
                 val list = pieces[i].checkPosition(this.board)
-                if (list.contains(newLocation)) {
+                if (list.any { location -> location.toString() == newLocation.toString() }) {
                     val p = pieces[i]
                     if (c == 'P') {
                         checkPassant(newLocation, p.location, team)

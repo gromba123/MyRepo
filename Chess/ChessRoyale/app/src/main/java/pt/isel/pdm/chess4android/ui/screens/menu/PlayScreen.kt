@@ -13,9 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.navigation.CREDITS_SCREEN
-import pt.isel.pdm.chess4android.navigation.OFFLINE_GAME
-import pt.isel.pdm.chess4android.navigation.ONLINE_GAME
+import pt.isel.pdm.chess4android.navigation.Screen
 
 @Composable
 fun BuildPlayScreen(
@@ -27,23 +25,25 @@ fun BuildPlayScreen(
             description = R.string.onlineGameDescription,
             icon = Icons.Filled.Language
         ) {
-            navController.navigate(ONLINE_GAME)
+            navController.navigate(Screen.Challenges.route)
         },
         MenuItem(
             title = R.string.offlineGame,
             description = R.string.offlineGameDescription,
             icon = Icons.Filled.Person
         ) {
-            navController.navigate(OFFLINE_GAME)
+            navController.navigate(Screen.Offline.route)
         }
     )
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(start = 10.dp, end = 10.dp, bottom = 10.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
-    ) {
-        items(items = items) { item ->
-            BuildMenuButton(item)
+    BuildMenuLayout(navController = navController) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(20.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            items(items = items) { item ->
+                BuildMenuButton(item)
+            }
         }
     }
 }

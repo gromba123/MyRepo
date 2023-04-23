@@ -9,7 +9,6 @@ import pt.isel.pdm.chess4android.APP_TAG
 import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
 
 private const val CHALLENGES_COLLECTION = "challenges"
-
 private const val CHALLENGER_NAME = "challengerName"
 private const val CHALLENGER_MESSAGE = "challengerMessage"
 
@@ -21,9 +20,13 @@ class ChallengesRepository {
     /**
      * Obtains the list of challenges
      */
-    fun fetchChallenges(onComplete: (Result<List<ChallengeInfo>>) -> Unit) {
+    fun fetchChallenges(
+        onComplete: (Result<List<ChallengeInfo>>) -> Unit
+    ) {
         val limit = 30
-        Firebase.firestore.collection(CHALLENGES_COLLECTION)
+        Firebase
+            .firestore
+            .collection(CHALLENGES_COLLECTION)
             .get()
             .addOnSuccessListener { result ->
                 Log.v(APP_TAG, "Repo got list from Firestore")

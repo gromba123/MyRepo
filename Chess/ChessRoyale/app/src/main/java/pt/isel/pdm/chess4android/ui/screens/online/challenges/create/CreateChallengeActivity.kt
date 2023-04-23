@@ -26,9 +26,10 @@ class CreateChallengeActivity : AppCompatActivity() {
 
         viewModel.created.observe(this) {
             if (it == null) displayCreateChallenge()
-            else it.onFailure { displayError() }.onSuccess {
-                displayWaitingForChallenger()
-            }
+            else
+                it
+                    .onSuccess { displayWaitingForChallenger() }
+                    .onFailure { displayError() }
         }
 
         viewModel.accepted.observe(this) {

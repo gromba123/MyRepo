@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.navigation.PUZZLE_LIST_SCREEN
+import pt.isel.pdm.chess4android.navigation.Screen
 
 @Composable
 fun BuildOfflineScreen(
@@ -24,16 +24,18 @@ fun BuildOfflineScreen(
             description = R.string.puzzlesDescription,
             icon = Icons.Filled.Extension
         ) {
-            navController.navigate(PUZZLE_LIST_SCREEN)
+            navController.navigate(Screen.PuzzleList.route)
         }
     )
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(start = 10.dp, end = 10.dp, bottom = 10.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
-    ) {
-        items(items = items) { item ->
-            BuildMenuButton(item)
+    BuildMenuLayout(navController = navController) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(20.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            items(items = items) { item ->
+                BuildMenuButton(item)
+            }
         }
     }
 }

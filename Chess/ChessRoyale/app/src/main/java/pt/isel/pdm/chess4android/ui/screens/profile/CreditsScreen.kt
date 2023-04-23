@@ -3,6 +3,7 @@ package pt.isel.pdm.chess4android.ui.screens.profile
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -11,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -69,6 +71,7 @@ fun BuildCreditsScreen(
                 painter = painterResource(id = apiId),
                 contentDescription = API,
                 modifier = Modifier
+                    .background(Color.Unspecified)
                     .clickable {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(API_URL)).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK

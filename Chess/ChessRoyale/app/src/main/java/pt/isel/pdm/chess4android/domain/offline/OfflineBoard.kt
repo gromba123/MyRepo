@@ -2,9 +2,18 @@ package pt.isel.pdm.chess4android.domain.offline
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.domain.pieces.*
 import pt.isel.pdm.chess4android.domain.online.GameState
-import pt.isel.pdm.chess4android.utils.*
+import pt.isel.pdm.chess4android.domain.pieces.King
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Pawn
+import pt.isel.pdm.chess4android.domain.pieces.Piece
+import pt.isel.pdm.chess4android.domain.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.utils.SpecialMoveResult
+import pt.isel.pdm.chess4android.utils.buildBlackHash
+import pt.isel.pdm.chess4android.utils.buildBoard
+import pt.isel.pdm.chess4android.utils.buildWhiteHash
+import pt.isel.pdm.chess4android.utils.pickPromotedById
 
 /**
  * Board for the offline game.
@@ -17,6 +26,8 @@ data class OfflineBoard(
     val gameState: GameState = GameState.Free,
     private val whites: HashMap<Char, MutableList<Piece>> = buildWhiteHash(board),
     private val blacks: HashMap<Char, MutableList<Piece>> = buildBlackHash(board),
+    private val removedWhites: MutableList<Piece> = mutableListOf(),
+    private val removedBlacks: MutableList<Piece> = mutableListOf(),
     val specialMoveResult: SpecialMoveResult? = null
 ) : Parcelable {
 
@@ -71,8 +82,13 @@ data class OfflineBoard(
      */
     private fun removePiece(piece: Piece, team: Team) {
         if (piece !is Space) {
-            if (team == Team.WHITE) whites[piece.id]?.remove(piece)
-            else blacks[piece.id]?.remove(piece)
+            if (team == Team.WHITE) {
+                whites[piece.id]?.remove(piece)
+                removedWhites.add(piece)
+            } else {
+                blacks[piece.id]?.remove(piece)
+                removedBlacks.add(piece)
+            }
         }
     }
 
@@ -142,4 +158,8 @@ data class OfflineBoard(
      * Gets the pieces of the winning team
      */
     fun getWinningPieces() = if (playingTeam.other == Team.WHITE) whites.values else blacks.values
+
+    fun getRemovedWhites(): List<Piece> = removedWhites
+
+    fun getRemovedBlacks(): List<Piece> = removedBlacks
 }

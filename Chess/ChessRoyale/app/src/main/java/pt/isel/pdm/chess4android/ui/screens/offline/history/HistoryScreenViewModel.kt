@@ -1,6 +1,9 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.history
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import pt.isel.pdm.chess4android.dataAccess.PuzzleHistoryDatabase
@@ -34,6 +37,7 @@ class HistoryScreenViewModel @Inject constructor(
             _history.value = quotes
             _screen.value = ScreenState.Loaded
         }
+
         viewModelScope.launch {
             val dto = puzzleRepository.maybeGetTodayPuzzleFromDB()
             if (dto != null) {
@@ -42,14 +46,6 @@ class HistoryScreenViewModel @Inject constructor(
                 _fetch.value = FetchState.NotLoaded
             }
         }
-    }
-
-    /**
-     * Returns a [LiveData] that loads a puzzle from the local DB
-     */
-    fun loadPuzzle(puzzle: PuzzleHistoryDTO) = liveData {
-        _screen.value = ScreenState.Loading
-        emit(historyDao.getPuzzle(puzzle.id))
     }
 
     fun fetchDailyPuzzle() {
@@ -61,7 +57,9 @@ class HistoryScreenViewModel @Inject constructor(
                 _history.value = quotes
                 _fetch.value = FetchState.Loaded
             } catch (e: Exception) {
-                /*TODO*/
+                if (puzzleRepository.maybeGetTodayPuzzleFromDB() == null) {
+                    _fetch.value = FetchState.NotLoaded
+                }
             }
         }
     }

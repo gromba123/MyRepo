@@ -1,4 +1,4 @@
-package pt.isel.pdm.chess4android.ui.screens.offline.history
+package pt.isel.pdm.chess4android.ui.screens.online.challenges.list
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -23,8 +23,8 @@ import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.FetchState
 import pt.isel.pdm.chess4android.domain.ScreenState
-import pt.isel.pdm.chess4android.domain.puzzle.PuzzleHistoryDTO
-import pt.isel.pdm.chess4android.navigation.Screen
+import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
+import pt.isel.pdm.chess4android.ui.screens.offline.history.HistoryScreenViewModel
 import pt.isel.pdm.chess4android.utils.BuildArrowBack
 
 private const val ITEMS_LIST_FRACTION = 0.9F
@@ -32,9 +32,9 @@ const val PUZZLE_EXTRA = "HistoryActivity.Extra.Puzzle"
 const val SOLVED_PUZZLE_STATE = 2
 
 @Composable
-fun BuildPuzzleListScreen(
+fun BuildChallengesListScreen(
     navController: NavController,
-    viewModel: HistoryScreenViewModel = hiltViewModel()
+    viewModel: ChallengesListViewModel = hiltViewModel()
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
@@ -48,22 +48,18 @@ fun BuildPuzzleListScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
-            BuildFetchButton(viewModel = viewModel)
+            //BuildFetchButton(viewModel = viewModel)
             Column (
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BuildPuzzleList(
+                BuildChallengesList(
                     viewModel = viewModel,
                     screenHeight = screenHeight
                 ) { historyDto ->
-                    if (historyDto.state != SOLVED_PUZZLE_STATE) {
-                        navController.navigate(Screen.UnsolvedPuzzle.setRoute(historyDto.id))
-                    } else {
-                        navController.navigate(Screen.SolvedPuzzle.setRoute(historyDto.id))
-                    }
+
                 }
             }
         }
@@ -71,14 +67,14 @@ fun BuildPuzzleListScreen(
 }
 
 @Composable
-private fun BuildPuzzleList(
-    viewModel: HistoryScreenViewModel,
+private fun BuildChallengesList(
+    viewModel: ChallengesListViewModel,
     screenHeight: Int,
-    onClick: (PuzzleHistoryDTO) -> Unit
+    onClick: (ChallengeInfo) -> Unit
 ) {
     val screenState = viewModel.screen.observeAsState().value
     if (screenState == ScreenState.Loaded) {
-        val list = viewModel.history.observeAsState().value
+        val list = viewModel.challenges.observeAsState().value
         if (list != null) {
             LazyColumn (
                 modifier = Modifier
@@ -87,7 +83,7 @@ private fun BuildPuzzleList(
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 itemsIndexed(list) { _, item ->
-                    BuildListItem(dto = item) {
+                    BuildListItem(item = item) {
                         onClick(item)
                     }
                 }

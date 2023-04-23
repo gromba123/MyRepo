@@ -42,7 +42,7 @@ interface PuzzleHistoryDatabase {
     suspend fun delete(puzzle: PuzzleEntity)
 
     @Query("UPDATE puzzle_history SET actualPgn = :pgn, actualSln = :sln, state = :state WHERE id = :id")
-    suspend fun update(id: String, pgn: String, sln: String, state: Int)
+    suspend fun updatePuzzle(id: String, pgn: String, sln: String, state: Int)
 
     @Query("SELECT id, pgn, sln, actualPgn, actualSln FROM puzzle_history WHERE id = :id")
     suspend fun getPuzzle(id: String): PuzzleDTO
@@ -52,6 +52,9 @@ interface PuzzleHistoryDatabase {
 
     @Query("SELECT id, pgn, sln, actualPgn, actualSln FROM puzzle_history WHERE timestamp = :date")
     suspend fun getTodayPuzzle(date: Date = Date.from(Instant.now().truncatedTo(ChronoUnit.DAYS))): PuzzleDTO?
+
+    @Query("DELETE FROM puzzle_history")
+    suspend fun deleteAll()
 }
 
 /**

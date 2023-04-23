@@ -30,7 +30,9 @@ class GamesRepository @Inject constructor(
             .addOnFailureListener { onComplete(Result.failure(it)) }
     }
 
-    fun updateGameState(gameState: OnlineGameState, onComplete: (Result<OnlineGameState>) -> Unit) {
+    fun updateGameState(
+        gameState: OnlineGameState, onComplete: (Result<OnlineGameState>) -> Unit
+    ) {
         Firebase.firestore.collection(GAMES_COLLECTION)
             .document(gameState.id)
             .set(hashMapOf(GAME_STATE_KEY to mapper.toJson(gameState)))

@@ -1,28 +1,24 @@
 package pt.isel.pdm.chess4android.ui.screens.menu
 
 import android.annotation.SuppressLint
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Extension
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.SportsEsports
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
+import pt.isel.pdm.chess4android.R
+import pt.isel.pdm.chess4android.navigation.Screen
 
 data class NavigationItem(
     val path: String,
@@ -30,24 +26,35 @@ data class NavigationItem(
     val iconId: ImageVector
 )
 
+private val menuItems = listOf(
+    NavigationItem(Screen.Play.route, R.string.play, Icons.Filled.SportsEsports),
+    NavigationItem(Screen.Puzzle.route , R.string.puzzles, Icons.Filled.Extension),
+    NavigationItem(Screen.Profile.route, R.string.profile, Icons.Filled.Person)
+)
+
 @SuppressLint("ResourceType")
 @Composable
 fun BuildNavBar(
-    screenHeight: Int,
-    navController: NavHostController,
-    items: List<NavigationItem>
+    navController: NavController
 ) {
-    Icons.Filled.Extension
-    LazyRow (
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .background(MaterialTheme.colors.primary)
-            .fillMaxWidth()
-            .height((screenHeight * NAVIGATION_BUTTONS_FRACTION).dp)
+    val actualRoute = navController.currentDestination?.route!!
+    val state = getIndex(actualRoute)
+    TabRow(
+        selectedTabIndex = state,
+        backgroundColor = MaterialTheme.colors.primary,
+        indicator = {
+            TabRowDefaults.Indicator(
+                modifier = Modifier.tabIndicatorOffset(it[state]),
+                color = MaterialTheme.colors.surface,
+                height = 2.dp
+            )
+        }
     ) {
-        itemsIndexed(items) { _, item ->
-            BuildNavigationButton(item = item) {
+        menuItems.forEachIndexed { index, item ->
+            BuildNavigationButton(
+                item = item,
+                selected = index == state
+            ) {
                 navController.navigate(item.path)
             }
         }
@@ -57,25 +64,35 @@ fun BuildNavBar(
 @Composable
 private fun BuildNavigationButton(
     item: NavigationItem,
+    selected: Boolean,
     onClick: () -> Unit
 ) {
-    Column (
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .fillMaxHeight()
-            .clickable { onClick() }
-    ) {
-        Icon (
-            imageVector = item.iconId,
-            contentDescription = stringResource(id = item.labelId),
-            tint = Color.White,
-            modifier = Modifier.height(30.dp).width(30.dp)
-        )
-        Text(
-            text = stringResource(id = item.labelId),
-            color = Color.White,
-            fontSize = 12.sp
-        )
-    }
+    Tab(
+        selected = selected,
+        text = {
+            Text(
+                text = stringResource(id = item.labelId),
+                color = Color.White,
+                fontSize = 12.sp
+            )
+        },
+        icon = {
+            Icon (
+                imageVector = item.iconId,
+                contentDescription = stringResource(id = item.labelId),
+                tint = Color.White,
+                modifier = Modifier
+                    .height(30.dp)
+                    .width(30.dp)
+            )
+        },
+        onClick = onClick
+    )
 }
+
+private fun getIndex(route: String) =
+    when(route) {
+        Screen.Play.route -> 0
+        Screen.Puzzle.route -> 1
+        else -> 2
+    }

@@ -5,14 +5,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import pt.isel.pdm.chess4android.domain.puzzle.PuzzleDTO
-import pt.isel.pdm.chess4android.ui.screens.menu.BuildMainMenu
-import pt.isel.pdm.chess4android.ui.screens.offline.game.BuildOfflineBoard
+import androidx.navigation.navArgument
+import pt.isel.pdm.chess4android.ui.screens.offline.game.BuildOfflineScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.history.BuildPuzzleListScreen
-import pt.isel.pdm.chess4android.ui.screens.offline.history.PUZZLE_EXTRA
+import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildPuzzleScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildSolvedPuzzleScreen
+import pt.isel.pdm.chess4android.ui.screens.online.challenges.list.BuildChallengesListScreen
 import pt.isel.pdm.chess4android.ui.screens.profile.BuildCreditsScreen
 
 @Composable
@@ -22,30 +23,47 @@ fun BuildNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MENU_SCREEN,
+        startDestination = Screen.Menu.route,
         modifier = Modifier.fillMaxSize()
     ) {
-        composable(MENU_SCREEN) {
-            BuildMainMenu(navController)
-        }
-        composable(CREDITS_SCREEN) {
+        buildMenuGraph(navController)
+        composable(Screen.Credits.route) {
             BuildCreditsScreen(
                 navController = navController,
                 onClick = onClick
             )
         }
-        composable(PUZZLE_LIST_SCREEN) {
+        composable(Screen.PuzzleList.route) {
             BuildPuzzleListScreen(navController)
         }
-        composable(OFFLINE_GAME) {
-            BuildOfflineBoard()
+        composable(Screen.Offline.route) {
+            BuildOfflineScreen()
         }
-        composable(SOLVED_PUZZLE) {
-            val dto = it.arguments?.getParcelable(PUZZLE_EXTRA, PuzzleDTO::class.java) ?: throw IllegalArgumentException()
-            BuildSolvedPuzzleScreen(
+        composable(
+            Screen.SolvedPuzzle.route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")
+            id?.let { puzzleId -> BuildSolvedPuzzleScreen(
                 navController = navController,
-                puzzleDTO = dto
-            )
+                puzzleId
+            ) }
+        }
+        composable(
+            Screen.UnsolvedPuzzle.route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")
+            id?.let { puzzleId -> BuildPuzzleScreen(
+                navController = navController,
+                puzzleId
+            ) }
+        }
+
+        composable(
+            Screen.Challenges.route
+        ) {
+            BuildChallengesListScreen(navController = navController)
         }
     }
 }

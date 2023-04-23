@@ -31,9 +31,5 @@
         <activity
             android:name=".ui.screens.online.challenges.list.ChallengesListActivity"
             android:exported="true" />
-        <activity
-            android:name=".ui.screens.offline.puzzle.PuzzleActivity"
-            android:exported="false" />
     </application>
-
 </manifest>

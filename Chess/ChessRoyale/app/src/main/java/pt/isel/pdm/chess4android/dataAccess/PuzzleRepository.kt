@@ -62,4 +62,15 @@ class PuzzleRepository @Inject constructor(
             return todayPuzzle
         }
     }
+
+    suspend fun getPuzzle(id: String) = puzzleDao.getPuzzle(id)
+
+    suspend fun updatePuzzle(
+        id: String,
+        pgn: String,
+        sln: String,
+        state: Int
+    ) = puzzleDao.updatePuzzle(id, pgn, sln, state)
+
+    suspend fun deleteAll() = puzzleDao.deleteAll()
 }

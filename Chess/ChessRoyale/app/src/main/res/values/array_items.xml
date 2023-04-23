@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array
-        name="promote_items">
+    <string-array name="promote_items">
         <item>@string/queen</item>
         <item>@string/rook</item>
         <item>@string/knight</item>

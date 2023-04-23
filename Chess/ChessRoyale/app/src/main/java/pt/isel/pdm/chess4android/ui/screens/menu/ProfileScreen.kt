@@ -14,28 +14,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.navigation.CREDITS_SCREEN
+import pt.isel.pdm.chess4android.navigation.Screen
 
 @Composable
 fun BuildProfileScreen(
     navController: NavController
 ) {
-    BuildButton(stringResource(id = R.string.credits)) {
-        navController.navigate(CREDITS_SCREEN)
+    BuildMenuLayout(navController = navController) {
+        BuildScreen {
+            navController.navigate(it.route)
+        }
     }
 }
 
 @Composable
-private fun BuildButton(
-    label: String,
-    onClick: () -> Unit
+private fun BuildScreen(
+    onClick: (Screen) -> Unit
 ) {
     Button(
         modifier = Modifier.fillMaxSize(),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
         border = BorderStroke(2.dp, Color.White),
         shape = RoundedCornerShape(10),
-        onClick = onClick
+        onClick = {}
     ) {
         Text(
             text = label,

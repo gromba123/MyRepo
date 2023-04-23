@@ -1,4 +1,4 @@
-package pt.isel.pdm.chess4android.navigation
+package pt.isel.pdm.chess4android.domain.pieces
 
 const val PAWN = 'P'
 const val ROOK = 'R'
