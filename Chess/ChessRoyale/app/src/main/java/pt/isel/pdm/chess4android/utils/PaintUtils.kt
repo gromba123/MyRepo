@@ -2,7 +2,16 @@ package pt.isel.pdm.chess4android.utils
 
 import androidx.compose.ui.graphics.Color
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.domain.pieces.*
+import pt.isel.pdm.chess4android.domain.pieces.Bishop
+import pt.isel.pdm.chess4android.domain.pieces.King
+import pt.isel.pdm.chess4android.domain.pieces.Knight
+import pt.isel.pdm.chess4android.domain.pieces.Piece
+import pt.isel.pdm.chess4android.domain.pieces.Queen
+import pt.isel.pdm.chess4android.domain.pieces.Rook
+import pt.isel.pdm.chess4android.domain.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.domain.pieces.pawn.BasePawn
+import pt.isel.pdm.chess4android.domain.pieces.pawn.PuzzlePawn
 import pt.isel.pdm.chess4android.ui.theme.Highlight
 import pt.isel.pdm.chess4android.ui.theme.Selected
 import pt.isel.pdm.chess4android.ui.theme.Xeque
@@ -10,7 +19,8 @@ import pt.isel.pdm.chess4android.ui.theme.XequeMate
 
 fun getPiece(piece: Piece) =
     when (piece) {
-        is Pawn -> if(piece.team == Team.WHITE) R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
+        is BasePawn -> if(piece.team == Team.WHITE) R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
+        is PuzzlePawn -> if(piece.team == Team.WHITE) R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
         is Rook -> if(piece.team == Team.WHITE) R.drawable.ic_white_rook else R.drawable.ic_black_rook
         is Knight -> if(piece.team == Team.WHITE) R.drawable.ic_white_knight else R.drawable.ic_black_knight
         is Bishop -> if(piece.team == Team.WHITE) R.drawable.ic_white_bishop else R.drawable.ic_black_bishop

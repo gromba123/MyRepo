@@ -1,8 +1,9 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.history
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,20 +28,19 @@ fun BuildListItem(
         val date = Date(dto.timestamp.toLong()).toString()
         val text = convertState(dto.state)
         Button(
-            modifier = Modifier.fillMaxSize(),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
+            modifier = Modifier.fillMaxWidth(),
             onClick = onClick
         ) {
             Column(
                 horizontalAlignment = Alignment.Start,
-                modifier = Modifier.fillMaxSize()
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = date,
                     color = Color.White,
                     fontSize = 20.sp
                 )
-                Spacer(modifier = Modifier.fillMaxWidth().height(2.dp))
                 Text(
                     text = stringResource(id = text),
                     color = Color.White,

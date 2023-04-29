@@ -6,11 +6,22 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.R
-import pt.isel.pdm.chess4android.domain.pieces.*
 import pt.isel.pdm.chess4android.domain.pieces.BISHOP
+import pt.isel.pdm.chess4android.domain.pieces.Bishop
 import pt.isel.pdm.chess4android.domain.pieces.KNIGHT
+import pt.isel.pdm.chess4android.domain.pieces.King
+import pt.isel.pdm.chess4android.domain.pieces.Knight
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Piece
 import pt.isel.pdm.chess4android.domain.pieces.QUEEN
+import pt.isel.pdm.chess4android.domain.pieces.Queen
 import pt.isel.pdm.chess4android.domain.pieces.ROOK
+import pt.isel.pdm.chess4android.domain.pieces.Rook
+import pt.isel.pdm.chess4android.domain.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.domain.pieces.pawn.DownPawn
+import pt.isel.pdm.chess4android.domain.pieces.pawn.PuzzlePawn
+import pt.isel.pdm.chess4android.domain.pieces.pawn.UpperPawn
 import pt.isel.pdm.chess4android.views.Type
 
 /**
@@ -103,90 +114,183 @@ fun composeAN(old: Location, new: Location) : String {
 }
 
 /**
- * Builds a chess board with the pieces in the correct pieces
+ * Builds a chess board with the whites pieces below
  */
-fun buildBoard(): MutableList<MutableList<Piece>> = arrayListOf(
-    arrayListOf(
-        Rook(Team.BLACK, Location(0, 0)),
-        Knight(Team.BLACK, Location(1, 0)),
-        Bishop(Team.BLACK, Location(2, 0)),
-        Queen(Team.BLACK, Location(3, 0)),
-        King(Team.BLACK, Location(4, 0)),
-        Bishop(Team.BLACK, Location(5, 0)),
-        Knight(Team.BLACK, Location(6, 0)),
-        Rook(Team.BLACK, Location(7, 0))
-    ),
-    arrayListOf(
-        Pawn(Team.BLACK, Location(0, 1)),
-        Pawn(Team.BLACK, Location(1, 1)),
-        Pawn(Team.BLACK, Location(2, 1)),
-        Pawn(Team.BLACK, Location(3, 1)),
-        Pawn(Team.BLACK, Location(4, 1)),
-        Pawn(Team.BLACK, Location(5, 1)),
-        Pawn(Team.BLACK, Location(6, 1)),
-        Pawn(Team.BLACK, Location(7, 1))
-    ),
-    arrayListOf(
-        Space(Location(0, 2)),
-        Space(Location(1, 2)),
-        Space(Location(2, 2)),
-        Space(Location(3, 2)),
-        Space(Location(4, 2)),
-        Space(Location(5, 2)),
-        Space(Location(6, 2)),
-        Space(Location(7, 2))
-    ),
-    arrayListOf(
-        Space(Location(0, 3)),
-        Space(Location(1, 3)),
-        Space(Location(2, 3)),
-        Space(Location(3, 3)),
-        Space(Location(4, 3)),
-        Space(Location(5, 3)),
-        Space(Location(6, 3)),
-        Space(Location(7, 3))
-    ),
-    arrayListOf(
-        Space(Location(0, 4)),
-        Space(Location(1, 4)),
-        Space(Location(2, 4)),
-        Space(Location(3, 4)),
-        Space(Location(4, 4)),
-        Space(Location(5, 4)),
-        Space(Location(6, 4)),
-        Space(Location(7, 4))
-    ),
-    arrayListOf(
-        Space(Location(0, 5)),
-        Space(Location(1, 5)),
-        Space(Location(2, 5)),
-        Space(Location(3, 5)),
-        Space(Location(4, 5)),
-        Space(Location(5, 5)),
-        Space(Location(6, 5)),
-        Space(Location(7, 5))
-    ),
-    arrayListOf(
-        Pawn(Team.WHITE, Location(0, 6)),
-        Pawn(Team.WHITE, Location(1, 6)),
-        Pawn(Team.WHITE, Location(2, 6)),
-        Pawn(Team.WHITE, Location(3, 6)),
-        Pawn(Team.WHITE, Location(4, 6)),
-        Pawn(Team.WHITE, Location(5, 6)),
-        Pawn(Team.WHITE, Location(6, 6)),
-        Pawn(Team.WHITE, Location(7, 6))
-    ),
-    arrayListOf(
-        Rook(Team.WHITE, Location(0, 7)),
-        Knight(Team.WHITE, Location(1, 7)),
-        Bishop(Team.WHITE, Location(2, 7)),
-        Queen(Team.WHITE, Location(3, 7)),
-        King(Team.WHITE, Location(4, 7)),
-        Bishop(Team.WHITE, Location(5, 7)),
-        Knight(Team.WHITE, Location(6, 7)),
-        Rook(Team.WHITE, Location(7, 7))
+fun buildBoard(
+    playerTeam: Team
+): MutableList<MutableList<Piece>> {
+    val opponentTeam = playerTeam.other
+    return arrayListOf(
+        arrayListOf(
+            Rook(opponentTeam, Location(0, 0)),
+            Knight(opponentTeam, Location(1, 0)),
+            Bishop(opponentTeam, Location(2, 0)),
+            Queen(opponentTeam, Location(3, 0)),
+            King(opponentTeam, Location(4, 0)),
+            Bishop(opponentTeam, Location(5, 0)),
+            Knight(opponentTeam, Location(6, 0)),
+            Rook(opponentTeam, Location(7, 0))
+        ),
+        arrayListOf(
+            DownPawn(opponentTeam, Location(0, 1)),
+            DownPawn(opponentTeam, Location(1, 1)),
+            DownPawn(opponentTeam, Location(2, 1)),
+            DownPawn(opponentTeam, Location(3, 1)),
+            DownPawn(opponentTeam, Location(4, 1)),
+            DownPawn(opponentTeam, Location(5, 1)),
+            DownPawn(opponentTeam, Location(6, 1)),
+            DownPawn(opponentTeam, Location(7, 1))
+        ),
+        arrayListOf(
+            Space(Location(0, 2)),
+            Space(Location(1, 2)),
+            Space(Location(2, 2)),
+            Space(Location(3, 2)),
+            Space(Location(4, 2)),
+            Space(Location(5, 2)),
+            Space(Location(6, 2)),
+            Space(Location(7, 2))
+        ),
+        arrayListOf(
+            Space(Location(0, 3)),
+            Space(Location(1, 3)),
+            Space(Location(2, 3)),
+            Space(Location(3, 3)),
+            Space(Location(4, 3)),
+            Space(Location(5, 3)),
+            Space(Location(6, 3)),
+            Space(Location(7, 3))
+        ),
+        arrayListOf(
+            Space(Location(0, 4)),
+            Space(Location(1, 4)),
+            Space(Location(2, 4)),
+            Space(Location(3, 4)),
+            Space(Location(4, 4)),
+            Space(Location(5, 4)),
+            Space(Location(6, 4)),
+            Space(Location(7, 4))
+        ),
+        arrayListOf(
+            Space(Location(0, 5)),
+            Space(Location(1, 5)),
+            Space(Location(2, 5)),
+            Space(Location(3, 5)),
+            Space(Location(4, 5)),
+            Space(Location(5, 5)),
+            Space(Location(6, 5)),
+            Space(Location(7, 5))
+        ),
+        arrayListOf(
+            UpperPawn(playerTeam, Location(0, 6)),
+            UpperPawn(playerTeam, Location(1, 6)),
+            UpperPawn(playerTeam, Location(2, 6)),
+            UpperPawn(playerTeam, Location(3, 6)),
+            UpperPawn(playerTeam, Location(4, 6)),
+            UpperPawn(playerTeam, Location(5, 6)),
+            UpperPawn(playerTeam, Location(6, 6)),
+            UpperPawn(playerTeam, Location(7, 6))
+        ),
+        arrayListOf(
+            Rook(playerTeam, Location(0, 7)),
+            Knight(playerTeam, Location(1, 7)),
+            Bishop(playerTeam, Location(2, 7)),
+            Queen(playerTeam, Location(3, 7)),
+            King(playerTeam, Location(4, 7)),
+            Bishop(playerTeam, Location(5, 7)),
+            Knight(playerTeam, Location(6, 7)),
+            Rook(playerTeam, Location(7, 7))
+        )
     )
-)
+}
+
+fun buildPuzzleBoard(
+    playerTeam: Team
+): MutableList<MutableList<Piece>> {
+    val opponentTeam = playerTeam.other
+    return arrayListOf(
+        arrayListOf(
+            Rook(opponentTeam, Location(0, 0)),
+            Knight(opponentTeam, Location(1, 0)),
+            Bishop(opponentTeam, Location(2, 0)),
+            Queen(opponentTeam, Location(3, 0)),
+            King(opponentTeam, Location(4, 0)),
+            Bishop(opponentTeam, Location(5, 0)),
+            Knight(opponentTeam, Location(6, 0)),
+            Rook(opponentTeam, Location(7, 0))
+        ),
+        arrayListOf(
+            PuzzlePawn(opponentTeam, Location(0, 1)),
+            PuzzlePawn(opponentTeam, Location(1, 1)),
+            PuzzlePawn(opponentTeam, Location(2, 1)),
+            PuzzlePawn(opponentTeam, Location(3, 1)),
+            PuzzlePawn(opponentTeam, Location(4, 1)),
+            PuzzlePawn(opponentTeam, Location(5, 1)),
+            PuzzlePawn(opponentTeam, Location(6, 1)),
+            PuzzlePawn(opponentTeam, Location(7, 1))
+        ),
+        arrayListOf(
+            Space(Location(0, 2)),
+            Space(Location(1, 2)),
+            Space(Location(2, 2)),
+            Space(Location(3, 2)),
+            Space(Location(4, 2)),
+            Space(Location(5, 2)),
+            Space(Location(6, 2)),
+            Space(Location(7, 2))
+        ),
+        arrayListOf(
+            Space(Location(0, 3)),
+            Space(Location(1, 3)),
+            Space(Location(2, 3)),
+            Space(Location(3, 3)),
+            Space(Location(4, 3)),
+            Space(Location(5, 3)),
+            Space(Location(6, 3)),
+            Space(Location(7, 3))
+        ),
+        arrayListOf(
+            Space(Location(0, 4)),
+            Space(Location(1, 4)),
+            Space(Location(2, 4)),
+            Space(Location(3, 4)),
+            Space(Location(4, 4)),
+            Space(Location(5, 4)),
+            Space(Location(6, 4)),
+            Space(Location(7, 4))
+        ),
+        arrayListOf(
+            Space(Location(0, 5)),
+            Space(Location(1, 5)),
+            Space(Location(2, 5)),
+            Space(Location(3, 5)),
+            Space(Location(4, 5)),
+            Space(Location(5, 5)),
+            Space(Location(6, 5)),
+            Space(Location(7, 5))
+        ),
+        arrayListOf(
+            PuzzlePawn(playerTeam, Location(0, 6)),
+            PuzzlePawn(playerTeam, Location(1, 6)),
+            PuzzlePawn(playerTeam, Location(2, 6)),
+            PuzzlePawn(playerTeam, Location(3, 6)),
+            PuzzlePawn(playerTeam, Location(4, 6)),
+            PuzzlePawn(playerTeam, Location(5, 6)),
+            PuzzlePawn(playerTeam, Location(6, 6)),
+            PuzzlePawn(playerTeam, Location(7, 6))
+        ),
+        arrayListOf(
+            Rook(playerTeam, Location(0, 7)),
+            Knight(playerTeam, Location(1, 7)),
+            Bishop(playerTeam, Location(2, 7)),
+            Queen(playerTeam, Location(3, 7)),
+            King(playerTeam, Location(4, 7)),
+            Bishop(playerTeam, Location(5, 7)),
+            Knight(playerTeam, Location(6, 7)),
+            Rook(playerTeam, Location(7, 7))
+        )
+    )
+}
 
 /**
  * Builds an empty chess board
@@ -277,15 +381,25 @@ fun buildEmptyBoard(): MutableList<MutableList<Piece>> = arrayListOf(
 /**
  * Builds an HashMap containing all the white pieces
  */
-fun buildWhiteHash(board: MutableList<MutableList<Piece>>): HashMap<Char, MutableList<Piece>> {
+fun buildPlayerHash(
+    board: MutableList<MutableList<Piece>>
+): HashMap<Char, MutableList<Piece>> {
     val hash = HashMap<Char, MutableList<Piece>>()
     val rook = mutableListOf(board[7][0], board[7][7])
     val bishop = mutableListOf(board[7][2], board[7][5])
     val knight = mutableListOf(board[7][1], board[7][6])
     val king = mutableListOf(board[7][4])
     val queen = mutableListOf(board[7][3])
-    val pawn = mutableListOf(board[6][0], board[6][1], board[6][2], board[6][3],
-                                board[6][4], board[6][5], board[6][6], board[6][7])
+    val pawn = mutableListOf(
+        board[6][0],
+        board[6][1],
+        board[6][2],
+        board[6][3],
+        board[6][4],
+        board[6][5],
+        board[6][6],
+        board[6][7]
+    )
     hash['R'] = rook
     hash['B'] = bishop
     hash['N'] = knight
@@ -298,15 +412,25 @@ fun buildWhiteHash(board: MutableList<MutableList<Piece>>): HashMap<Char, Mutabl
 /**
  * Builds an HashMap containing all the black pieces
  */
-fun buildBlackHash(board: MutableList<MutableList<Piece>>): HashMap<Char, MutableList<Piece>> {
+fun buildOpponentHash(
+    board: MutableList<MutableList<Piece>>
+): HashMap<Char, MutableList<Piece>> {
     val hash = HashMap<Char, MutableList<Piece>>()
     val rook = mutableListOf(board[0][0], board[0][7])
     val bishop = mutableListOf(board[0][2], board[0][5])
     val knight = mutableListOf(board[0][1], board[0][6])
     val king = mutableListOf(board[0][4])
     val queen = mutableListOf(board[0][3])
-    val pawn = mutableListOf(board[1][0], board[1][1], board[1][2], board[1][3],
-        board[1][4], board[1][5], board[1][6], board[1][7])
+    val pawn = mutableListOf(
+        board[1][0],
+        board[1][1],
+        board[1][2],
+        board[1][3],
+        board[1][4],
+        board[1][5],
+        board[1][6],
+        board[1][7]
+    )
     hash['R'] = rook
     hash['B'] = bishop
     hash['N'] = knight
@@ -321,7 +445,9 @@ fun buildBlackHash(board: MutableList<MutableList<Piece>>): HashMap<Char, Mutabl
  * the board
  * @param board - board to invert
  */
-fun invertBoard(board: MutableList<MutableList<Piece>>): MutableList<MutableList<Piece>> {
+fun invertBoard(
+    board: MutableList<MutableList<Piece>>
+): MutableList<MutableList<Piece>> {
     val newBoard = buildEmptyBoard()
     board.forEach { row ->
         row.forEach {
@@ -383,9 +509,3 @@ fun pickPromotedById(
         else -> Bishop(piece.team, piece.location)
     }
 }
-
-/**
- * Rotates a board if the team is black
- */
-fun rotateBoard(playerTeam: Team) =
-    if (playerTeam == Team.BLACK) invertBoard(buildBoard()) else buildBoard()

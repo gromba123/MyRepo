@@ -8,6 +8,7 @@ import android.view.View
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.pieces.*
+import pt.isel.pdm.chess4android.domain.pieces.pawn.BasePawn
 
 enum class Type { WHITE, BLACK, SELECTED, HIGHLIGHT, XEQUE }
 
@@ -99,7 +100,7 @@ class Tile(
 
     private fun getPiece(piece: Piece) =
         when (piece) {
-            is Pawn -> if(piece.team == Team.WHITE)R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
+            is BasePawn -> if(piece.team == Team.WHITE)R.drawable.ic_white_pawn else R.drawable.ic_black_pawn
             is Rook -> if(piece.team == Team.WHITE)R.drawable.ic_white_rook else R.drawable.ic_black_rook
             is Knight -> if(piece.team == Team.WHITE)R.drawable.ic_white_knight else R.drawable.ic_black_knight
             is Bishop -> if(piece.team == Team.WHITE)R.drawable.ic_white_bishop else R.drawable.ic_black_bishop

@@ -9,16 +9,18 @@ sealed class Screen(val route: String) {
 
     object PuzzleList : Screen("puzzleList")
     object UnsolvedPuzzle : Screen("unsolvedPuzzle/{id}") {
-        fun setRoute(id: String) = "unsolvedPuzzle/$id"
+        fun buildRoute(id: String) = "unsolvedPuzzle/$id"
     }
     object SolvedPuzzle : Screen("solvedPuzzle/{id}") {
-        fun setRoute(id: String) = "solvedPuzzle/$id"
+        fun buildRoute(id: String) = "solvedPuzzle/$id"
     }
 
     object Offline : Screen("offlineGame")
 
-    object Online : Screen("onlineGame")
+
     object Challenges : Screen("challenges")
+    object Create : Screen("createChallenge")
+    object Online : Screen("onlineGame")
 
     object Credits : Screen("credits")
 }

@@ -1,13 +1,13 @@
 package pt.isel.pdm.chess4android.views
 
-import pt.isel.pdm.chess4android.utils.DrawResults
 import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.utils.DrawResults
 import pt.isel.pdm.chess4android.utils.PaintResults
 
 /**
  * Controller that controls the all the board painting
  */
-data class DrawController(val int: Int = 0) {
+data class DrawControllerTemp(val int: Int = 0) {
 
     private var selectedPiece: Location? = null
     private var highlightPieces: MutableList<Location>? = mutableListOf()
@@ -68,7 +68,7 @@ data class DrawController(val int: Int = 0) {
 /**
  * Controller that controls the all the board painting
  */
-class DrawControllerImp(val int: Int = 0) {
+class DrawController(val int: Int = 0) {
 
     private var selectedPiece: Location? = null
     private var highlightPieces: List<Location>? = null

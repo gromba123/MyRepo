@@ -1,23 +1,40 @@
 package pt.isel.pdm.chess4android.domain.puzzle
 
-import pt.isel.pdm.chess4android.domain.pieces.*
-import pt.isel.pdm.chess4android.utils.*
+import pt.isel.pdm.chess4android.domain.pieces.Bishop
+import pt.isel.pdm.chess4android.domain.pieces.Knight
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Piece
+import pt.isel.pdm.chess4android.domain.pieces.Queen
+import pt.isel.pdm.chess4android.domain.pieces.Rook
+import pt.isel.pdm.chess4android.domain.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.domain.pieces.pawn.PuzzlePawn
+import pt.isel.pdm.chess4android.utils.buildOpponentHash
+import pt.isel.pdm.chess4android.utils.buildPlayerHash
+import pt.isel.pdm.chess4android.utils.buildPuzzleBoard
+import pt.isel.pdm.chess4android.utils.convertRank
+import pt.isel.pdm.chess4android.utils.convertToLocation
+import pt.isel.pdm.chess4android.utils.invertBoard
 import kotlin.math.abs
 
+//TODO(): The game rules are incomplete in the puzzle: Verify en Passant and pawns moves
 /**
  * Type that receives a list of movements and converts them into a board
  */
-class Parser {
+class Parser(
+    private val moves: List<String>,
+    private val toRotate: Boolean
+) {
 
-    private val board: MutableList<MutableList<Piece>> = buildBoard()
-    private val whites: HashMap<Char, MutableList<Piece>> = buildWhiteHash(board)
-    private val blacks: HashMap<Char, MutableList<Piece>> = buildBlackHash(board)
+    private val board: MutableList<MutableList<Piece>> = buildPuzzleBoard(Team.WHITE)
+    private val whites: HashMap<Char, MutableList<Piece>> = buildPlayerHash(board)
+    private val blacks: HashMap<Char, MutableList<Piece>> = buildOpponentHash(board)
     private var team = Team.WHITE
 
     /**
      * Receives a list of movements and converts them into a board
      */
-    fun parsePGN(moves: List<String>, toRotate: Boolean): PuzzleBoard {
+    fun parsePGN(): PuzzleBoard {
         val movesFiltered = moves.map { it.replace("+", "") }
         movesFiltered.forEach {
             if (it.contains("x")) {
@@ -33,7 +50,7 @@ class Parser {
 
         val b = when (toRotate) {
             true -> {
-                blacks['P']?.forEach { if (it is Pawn) it.setDirectionToPlay() }
+                blacks['P']?.forEach { if (it is PuzzlePawn) it.setDirectionToPlay() }
                 invertBoard(board)
             }
             else -> board
@@ -180,7 +197,7 @@ class Parser {
                     val p = pieces[i]
                     if (c == 'P') {
                         checkPassant(newLocation, p.location, team)
-                        (p as Pawn).incMoves()
+                        (p as PuzzlePawn).incMoves()
                     }
                     movePiece(p.location, newLocation)
                     return
@@ -201,7 +218,7 @@ class Parser {
     private fun checkPassant(new: Location, old: Location, team: Team) {
         val delta = if (team == Team.WHITE) 1 else -1
         if (abs(new.x - old.x) != 0 && abs(new.y - old.y) != 0) {
-            if (board[new.y][new.x] is Space && board[new.y + delta][new.x] is Pawn) {
+            if (board[new.y][new.x] is Space && board[new.y + delta][new.x] is PuzzlePawn) {
                 val pieces = if (team == Team.BLACK) whites['P'] else blacks['P']
                 pieces?.remove(board[new.y + delta][new.x])
                 board[new.y + delta][new.x] = Space(Location(new.x, new.y + delta))

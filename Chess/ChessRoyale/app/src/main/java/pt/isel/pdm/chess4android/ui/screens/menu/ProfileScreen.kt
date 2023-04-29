@@ -9,11 +9,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.navigation.Screen
 
 @Composable
@@ -39,7 +37,7 @@ private fun BuildScreen(
         onClick = {}
     ) {
         Text(
-            text = label,
+            text = "",
             color = Color.White,
             fontSize = 20.sp
         )

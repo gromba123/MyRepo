@@ -16,7 +16,7 @@ import pt.isel.pdm.chess4android.domain.pieces.Piece
 import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.utils.DrawResults
 import pt.isel.pdm.chess4android.utils.EndgameResult
-import pt.isel.pdm.chess4android.views.DrawController
+import pt.isel.pdm.chess4android.views.DrawControllerTemp
 import javax.inject.Inject
 
 /**
@@ -28,7 +28,7 @@ class OnlineViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val acquiredMoves: HashMap<Piece, List<Location>> = HashMap()
-    private val drawController = DrawController()
+    private val drawControllerTemp = DrawControllerTemp()
     private lateinit var gameSubscription : ListenerRegistration
     private lateinit var gameBoard: OnlineBoard
     private lateinit var initialGameState: OnlineGameState
@@ -76,13 +76,13 @@ class OnlineViewModel @Inject constructor(
             if (state.state != GameState.Forfeit && state.state != GameState.Draw) {
                 //Clean the previous xeque
                 if (gameBoard.gameState == GameState.Xeque) {
-                    _paint.value = drawController.drawXeque(null)
+                    _paint.value = drawControllerTemp.drawXeque(null)
                 }
                 gameBoard = gameBoard.moveOpponentPiece(state.moves)
                 _game.value = Result.success(gameBoard)
                 if (gameBoard.gameState == GameState.Xeque) {
                     _paint.value =
-                        drawController.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
+                        drawControllerTemp.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
                 }
                 else if (gameBoard.gameState == GameState.XequeMate)
                     checkMate(gameBoard.playerTeam.other)
@@ -115,17 +115,17 @@ class OnlineViewModel @Inject constructor(
             val locked = selectedPiece
             if (locked != null) {
                 selectedPiece = null
-                _paint.value = drawController.drawSelectedPiece(null)
-                _paint.value = drawController.drawHighlight(null)
+                _paint.value = drawControllerTemp.drawSelectedPiece(null)
+                _paint.value = drawControllerTemp.drawHighlight(null)
 
                 if (!(locked.location.x == x && locked.location.y == y)) {
                     val location = Location(x, y)
                     if (acquiredMoves[locked]?.contains(location) == true) {
                         if (gameBoard.gameState == GameState.Xeque) {
                             if (locked !is King) {
-                                _paint.value = drawController.drawXeque(null)
+                                _paint.value = drawControllerTemp.drawXeque(null)
                             } else {
-                                drawController.cleanCheck()
+                                drawControllerTemp.cleanCheck()
                             }
                         }
                         gameBoard = gameBoard.movePiece(locked.location, location)
@@ -152,7 +152,7 @@ class OnlineViewModel @Inject constructor(
             val clicked: Piece = gameBoard.board[y][x]
             if (clicked.team != gameBoard.playingTeam) return
             selectedPiece = clicked
-            _paint.value = drawController.drawSelectedPiece(clicked.location)
+            _paint.value = drawControllerTemp.drawSelectedPiece(clicked.location)
             if (!acquiredMoves.containsKey(clicked)) {
                 val moves = clicked.getMoves(
                     gameBoard.board,
@@ -160,7 +160,7 @@ class OnlineViewModel @Inject constructor(
                 )
                 acquiredMoves[clicked] = moves
             }
-            _paint.value = drawController.drawHighlight(acquiredMoves[clicked])
+            _paint.value = drawControllerTemp.drawHighlight(acquiredMoves[clicked])
         }
     }
 
@@ -172,9 +172,9 @@ class OnlineViewModel @Inject constructor(
      */
     private fun paintSpecialXeque(locked: Piece) {
         if (locked is King && gameBoard.gameState == GameState.Xeque) {
-            drawController.cleanCheck()
+            drawControllerTemp.cleanCheck()
             _paint.value =
-                drawController.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
+                drawControllerTemp.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
         }
     }
 
@@ -197,10 +197,10 @@ class OnlineViewModel @Inject constructor(
         when (gameBoard.gameState) {
             GameState.Xeque -> {
                 _paint.value =
-                    drawController.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
+                    drawControllerTemp.drawXeque(gameBoard.getKing(gameBoard.playingTeam).location)
             }
             GameState.XequeMate -> {
-                _paint.value = drawController.drawHighlight(null)
+                _paint.value = drawControllerTemp.drawHighlight(null)
                 checkMate(gameBoard.playerTeam)
             }
             else -> {}
@@ -229,9 +229,9 @@ class OnlineViewModel @Inject constructor(
         if (gameBoard.isPlaying()) {
             gameBoard = gameBoard.forfeit()
 
-            _paint.value = drawController.drawHighlight(null)
-            _paint.value = drawController.drawSelectedPiece(null)
-            _paint.value = drawController.drawXeque(null)
+            _paint.value = drawControllerTemp.drawHighlight(null)
+            _paint.value = drawControllerTemp.drawSelectedPiece(null)
+            _paint.value = drawControllerTemp.drawXeque(null)
 
             gamesRepository.updateGameState(
                 gameState = gameBoard.toGameState(initialGameState.id, ""),

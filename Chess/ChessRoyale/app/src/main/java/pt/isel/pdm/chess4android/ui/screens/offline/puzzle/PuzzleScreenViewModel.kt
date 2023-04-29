@@ -1,6 +1,10 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.puzzle
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -8,10 +12,21 @@ import pt.isel.pdm.chess4android.dataAccess.PuzzleRepository
 import pt.isel.pdm.chess4android.domain.ScreenState
 import pt.isel.pdm.chess4android.domain.pieces.Location
 import pt.isel.pdm.chess4android.domain.pieces.Piece
-import pt.isel.pdm.chess4android.domain.puzzle.*
+import pt.isel.pdm.chess4android.domain.puzzle.MoveState
+import pt.isel.pdm.chess4android.domain.puzzle.Parser
+import pt.isel.pdm.chess4android.domain.puzzle.PuzzleBoard
+import pt.isel.pdm.chess4android.domain.puzzle.PuzzleDTO
+import pt.isel.pdm.chess4android.domain.puzzle.PuzzleRuler
+import pt.isel.pdm.chess4android.domain.puzzle.PuzzleState
 import pt.isel.pdm.chess4android.utils.PaintResults
-import pt.isel.pdm.chess4android.views.DrawControllerImp
+import pt.isel.pdm.chess4android.views.DrawController
 import javax.inject.Inject
+import kotlin.collections.HashMap
+import kotlin.collections.List
+import kotlin.collections.isNotEmpty
+import kotlin.collections.reduce
+import kotlin.collections.set
+import kotlin.collections.toMutableList
 
 private const val ACTIVITY_STATE_PUZZLE_BOARD = "PuzzleActivity.board"
 private const val ACTIVITY_STATE_PUZZLE_SLN = "PuzzleActivity.sln"
@@ -28,7 +43,7 @@ class PuzzleScreenViewModel @Inject constructor(
 
     private var puzzleRuler: PuzzleRuler? = state[ACTIVITY_STATE_PUZZLE_SLN]
     private val acquiredMoves: HashMap<Piece, List<Location>> = HashMap()
-    private val drawController = DrawControllerImp()
+    private val drawController = DrawController()
     private lateinit var puzzle: PuzzleDTO
     private var selectedPiece: Piece? = null
     private var puzzleBoard = PuzzleBoard()
@@ -158,7 +173,7 @@ class PuzzleScreenViewModel @Inject constructor(
             pgn = puzzle.pgn.split(" ")
             sln = puzzle.sln.split(" ")
         }
-        puzzleBoard = (Parser()).parsePGN(pgn, puzzle.pgn.split(" ").size % 2 != 0)
+        puzzleBoard = (Parser(pgn, puzzle.pgn.split(" ").size % 2 != 0)).parsePGN()
         _board.value = puzzleBoard.board
         puzzleRuler =
             PuzzleRuler(pgn.toMutableList(), sln.toMutableList(), puzzleBoard.playingTeam, puzzle.id)
@@ -170,10 +185,14 @@ class PuzzleScreenViewModel @Inject constructor(
     fun restart() {
         val pgn = puzzle.pgn.split(" ")
         val sln = puzzle.sln.split(" ")
-        puzzleBoard = (Parser()).parsePGN(pgn, pgn.size % 2 != 0)
+        puzzleBoard = (Parser(pgn, pgn.size % 2 != 0)).parsePGN()
         _board.value = puzzleBoard.board
-        puzzleRuler =
-            PuzzleRuler(pgn.toMutableList(), sln.toMutableList(), puzzleBoard.playingTeam, puzzle.id)
+        puzzleRuler = PuzzleRuler(
+            pgn.toMutableList(),
+            sln.toMutableList(),
+            puzzleBoard.playingTeam,
+            puzzle.id
+        )
         save()
     }
 

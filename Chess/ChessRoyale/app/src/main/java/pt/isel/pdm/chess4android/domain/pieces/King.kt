@@ -1,28 +1,31 @@
 package pt.isel.pdm.chess4android.domain.pieces
 
-import kotlinx.parcelize.Parcelize
 import kotlin.math.abs
 
-@Parcelize
 class King(
     override val team: Team,
     override var location: Location
 ) : Piece(location, team, KING) {
 
-    enum class Moves(val x: Int, val y: Int) {
-        MOVE1(-1, 0),
-        MOVE2(-1, 1),
-        MOVE3(0, 1),
-        MOVE4(1, 1),
-        MOVE5(1, 0),
-        MOVE6(1, -1),
-        MOVE7(0, -1),
-        MOVE8(-1, -1)
-    }
+    override val moves: List<Move> = listOf(
+        Move.NORTH,
+        Move.NORTH_EAST,
+        Move.EAST,
+        Move.SOUTH_EAST,
+        Move.SOUTH,
+        Move.SOUTH_WEST,
+        Move.WEST,
+        Move.NORTH_WEST
+    )
+
+    private val castlingMoves: List<Move> = listOf(
+        Move.EAST,
+        Move.WEST
+    )
 
     override fun checkPosition(board: List<List<Piece>>): List<Location> {
         val positions = mutableListOf<Location>()
-        Moves.values().forEach {
+        moves.forEach {
             val newLocation = location.computeLocation(it.x, it.y)
             if (newLocation.checkLimits()) {
                 val piece = board[newLocation.y][newLocation.x]
@@ -34,22 +37,21 @@ class King(
         val originalX = if (team == Team.BLACK) 3 else super.location.x
         //Verifies castling
         if (location.x == originalX && location.y == 7) {
-            var move = Moves.MOVE1
+            var index = 0
+            val move = castlingMoves[index]
             var newLocation = location.computeLocation(move.x, move.y)
-            while (true) {
+            while (index < castlingMoves.size) {
                 if (newLocation.checkLimits()) {
                     val piece = board[newLocation.y][newLocation.x]
                     if (piece is Rook && piece.team == team) {
-                        if (move == Moves.MOVE1) positions.add(Location(1, location.y))
+                        if (move == Move.WEST) positions.add(Location(1, location.y))
                         else positions.add(Location(6, location.y))
                     } else if (piece !is Space) {
-                        if (move == Moves.MOVE5) break
-                        move = Moves.MOVE5
+                        index++
                         newLocation = super.location
                     }
                 } else {
-                    if (move == Moves.MOVE5) break
-                    move = Moves.MOVE5
+                    index++
                     newLocation = super.location
                 }
                 newLocation = newLocation.computeLocation(move.x, move.y)
@@ -61,7 +63,7 @@ class King(
     fun xeque(board: MutableList<MutableList<Piece>>): Boolean {
         val pieces = mutableListOf<Piece>()
         val locationsAcquired = HashMap<Piece, List<Location>>()
-        Moves.values().forEach {
+        moves.forEach {
             var actualLocation = location
             while (true) {
                 val newLocation = actualLocation.computeLocation(it.x, it.y)
@@ -84,7 +86,7 @@ class King(
             }
         }
 
-        Knight.Moves.values().forEach {
+        KNIGHT_MOVES.forEach {
             val newLocation = location.computeLocation(it.x, it.y)
             if (newLocation.checkLimits()) {
                 val piece = board[newLocation.y][newLocation.x]

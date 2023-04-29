@@ -30,7 +30,7 @@
 
     <!-- Create challenge screen -->
     <string name="create_game_title">Create game</string>
-    <string name="create_game_waiting_message">Waiting for the contender...</string>
+    <string name="create_game_waiting_message">Waiting for the contender…</string>
     <string name="create_game_prompt_challenger_name">Name</string>
     <string name="create_game_prompt_message">Message</string>
     <string name="create_game_button_label">Post game</string>

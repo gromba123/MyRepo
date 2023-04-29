@@ -3,11 +3,11 @@ package pt.isel.pdm.chess4android.domain.puzzle
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.utils.composeAN
 import pt.isel.pdm.chess4android.utils.convertToLocation
 import pt.isel.pdm.chess4android.utils.invertPuzzleSolution
-import pt.isel.pdm.chess4android.domain.pieces.Location
-import pt.isel.pdm.chess4android.domain.pieces.Team
 
 /**
  * Represents the states of the puzzle

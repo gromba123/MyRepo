@@ -5,14 +5,14 @@ import kotlinx.parcelize.Parcelize
 import pt.isel.pdm.chess4android.domain.online.GameState
 import pt.isel.pdm.chess4android.domain.pieces.King
 import pt.isel.pdm.chess4android.domain.pieces.Location
-import pt.isel.pdm.chess4android.domain.pieces.Pawn
 import pt.isel.pdm.chess4android.domain.pieces.Piece
 import pt.isel.pdm.chess4android.domain.pieces.Space
 import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.domain.pieces.pawn.BasePawn
 import pt.isel.pdm.chess4android.utils.SpecialMoveResult
-import pt.isel.pdm.chess4android.utils.buildBlackHash
 import pt.isel.pdm.chess4android.utils.buildBoard
-import pt.isel.pdm.chess4android.utils.buildWhiteHash
+import pt.isel.pdm.chess4android.utils.buildOpponentHash
+import pt.isel.pdm.chess4android.utils.buildPlayerHash
 import pt.isel.pdm.chess4android.utils.pickPromotedById
 
 /**
@@ -21,11 +21,11 @@ import pt.isel.pdm.chess4android.utils.pickPromotedById
  */
 @Parcelize
 data class OfflineBoard(
-    val board: MutableList<MutableList<Piece>> = buildBoard(),
+    val board: MutableList<MutableList<Piece>> = buildBoard(Team.WHITE),
     val playingTeam: Team = Team.WHITE,
     val gameState: GameState = GameState.Free,
-    private val whites: HashMap<Char, MutableList<Piece>> = buildWhiteHash(board),
-    private val blacks: HashMap<Char, MutableList<Piece>> = buildBlackHash(board),
+    private val whites: HashMap<Char, MutableList<Piece>> = buildPlayerHash(board),
+    private val blacks: HashMap<Char, MutableList<Piece>> = buildOpponentHash(board),
     private val removedWhites: MutableList<Piece> = mutableListOf(),
     private val removedBlacks: MutableList<Piece> = mutableListOf(),
     val specialMoveResult: SpecialMoveResult? = null
@@ -38,7 +38,7 @@ data class OfflineBoard(
     fun movePiece(old: Location, new: Location): OfflineBoard {
         val piece = board[old.y][old.x]
         piece.location = new
-        if (piece is Pawn) piece.incMoves()
+        if (piece is BasePawn) piece.incMoves()
         board[old.y][old.x] = Space(old)
         val deletedPiece = board[new.y][new.x]
         removePiece(deletedPiece, playingTeam.other)
@@ -71,7 +71,7 @@ data class OfflineBoard(
                 board[newLocation.y][newLocation.x] = rook
                 board[rookLocation.y][rookLocation.x] = Space(rookLocation)
             }
-        } else if (piece is Pawn) {
+        } else if (piece is BasePawn) {
             if (piece.isPromoting()) return SpecialMoveResult(piece)
         }
         return null

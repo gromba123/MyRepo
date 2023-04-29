@@ -1,6 +1,11 @@
-package pt.isel.pdm.chess4android.domain.pieces
+package pt.isel.pdm.chess4android.domain.pieces.pawn
 
 import kotlinx.parcelize.Parcelize
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.PAWN
+import pt.isel.pdm.chess4android.domain.pieces.Piece
+import pt.isel.pdm.chess4android.domain.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Team
 
 /**
  * The constructor parameter playingForward indicates the pawn
@@ -9,7 +14,7 @@ import kotlinx.parcelize.Parcelize
  * they need to move north
  */
 @Parcelize
-class Pawn(
+class PuzzlePawn(
     override val team: Team,
     override var location: Location,
     private var playingDirection: Boolean = false,
@@ -66,7 +71,7 @@ class Pawn(
         if (newPosition.checkLimits()) {
             val sidePiece = board[location.y][location.x + move.x]
             val diagonalPiece = board[newPosition.y][newPosition.x]
-            if (sidePiece is Pawn && sidePiece.team != team && diagonalPiece is Space) {
+            if (sidePiece is PuzzlePawn && sidePiece.team != team && diagonalPiece is Space) {
                 if ((sidePiece.location.y == 3 || sidePiece.location.y == 4)
                     && sidePiece.totalMoves == 1) {
                     return newPosition

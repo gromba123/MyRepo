@@ -1,8 +1,10 @@
 package pt.isel.pdm.chess4android.ui.screens.online.challenges.list
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,19 +25,18 @@ fun BuildListItem(
     ) {
         Button(
             modifier = Modifier.fillMaxSize(),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
             onClick = onClick
         ) {
             Column(
                 horizontalAlignment = Alignment.Start,
-                modifier = Modifier.fillMaxSize()
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = item.challengerName,
                     color = Color.White,
                     fontSize = 20.sp
                 )
-                Spacer(modifier = Modifier.fillMaxWidth().height(2.dp))
                 Text(
                     text = item.challengerMessage,
                     color = Color.White,

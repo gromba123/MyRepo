@@ -1,7 +1,8 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.history
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,46 +20,41 @@ class HistoryScreenViewModel @Inject constructor(
     private val puzzleRepository: PuzzleRepository
 ) : ViewModel() {
 
-    /**
-     * Holds a [LiveData] with the list of quotes
-     */
-    private val _history: MutableLiveData<List<PuzzleHistoryDTO>> = MutableLiveData()
-    val history: LiveData<List<PuzzleHistoryDTO>> = _history
+    private val _screen: MutableState<ScreenState> = mutableStateOf(ScreenState.Loading)
+    val screen: State<ScreenState> = _screen
 
-    private val _fetch: MutableLiveData<FetchState> = MutableLiveData(FetchState.Loading)
-    val fetch: LiveData<FetchState> = _fetch
+    private val _history: MutableState<List<PuzzleHistoryDTO>> = mutableStateOf(listOf())
+    val history: State<List<PuzzleHistoryDTO>> = _history
 
-    private val _screen: MutableLiveData<ScreenState> = MutableLiveData(ScreenState.Loading)
-    val screen: LiveData<ScreenState> = _screen
+    var fetch: FetchState = FetchState.NotLoaded
+        private set
 
     init {
         viewModelScope.launch {
             val quotes = historyDao.getAll()
             _history.value = quotes
-            _screen.value = ScreenState.Loaded
-        }
-
-        viewModelScope.launch {
             val dto = puzzleRepository.maybeGetTodayPuzzleFromDB()
-            if (dto != null) {
-                _fetch.value = FetchState.Loaded
+            fetch = if (dto != null) {
+                FetchState.Loaded
             } else {
-                _fetch.value = FetchState.NotLoaded
+                FetchState.NotLoaded
             }
+            _screen.value = ScreenState.Loaded
         }
     }
 
     fun fetchDailyPuzzle() {
         viewModelScope.launch {
             try {
-                _fetch.value = FetchState.Loading
+                _screen.value = ScreenState.Loading
                 puzzleRepository.fetchPuzzleOfDay()
-                val quotes = historyDao.getAll()
-                _history.value = quotes
-                _fetch.value = FetchState.Loaded
+                _history.value = historyDao.getAll()
+                fetch = FetchState.Loaded
+                _screen.value = ScreenState.Loaded
             } catch (e: Exception) {
                 if (puzzleRepository.maybeGetTodayPuzzleFromDB() == null) {
-                    _fetch.value = FetchState.NotLoaded
+                    fetch = FetchState.NotLoaded
+                    _screen.value = ScreenState.Loaded
                 }
             }
         }

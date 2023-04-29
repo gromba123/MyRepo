@@ -2,13 +2,23 @@ package pt.isel.pdm.chess4android.ui.screens.offline.puzzle
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,8 +42,8 @@ fun BuildSolvedPuzzleScreen(
     LaunchedEffect(key1 = Unit) {
         viewModel.buildPuzzle(id)
     }
-    val b = viewModel.board.observeAsState().value
-    val screenState = viewModel.screen.observeAsState().value!!
+    val b = viewModel.board.value
+    val screenState = viewModel.screen.value
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -82,7 +92,7 @@ fun BuildSolvedPuzzleScreen(
                         }
                         Button(
                             onClick = {
-                                navController.navigate(Screen.UnsolvedPuzzle.setRoute(id))
+                                navController.navigate(Screen.UnsolvedPuzzle.buildRoute(id))
                             },
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = MaterialTheme.colors.secondary

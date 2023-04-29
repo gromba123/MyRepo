@@ -1,19 +1,19 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.game
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import pt.isel.pdm.chess4android.domain.offline.OfflineBoard
+import pt.isel.pdm.chess4android.domain.online.GameState
 import pt.isel.pdm.chess4android.domain.pieces.Location
 import pt.isel.pdm.chess4android.domain.pieces.Piece
 import pt.isel.pdm.chess4android.domain.pieces.Team
-import pt.isel.pdm.chess4android.domain.online.GameState
 import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.utils.PaintResults
-import pt.isel.pdm.chess4android.views.DrawControllerImp
+import pt.isel.pdm.chess4android.views.DrawController
 import javax.inject.Inject
 import kotlin.collections.set
 
@@ -24,23 +24,22 @@ private const val ACTIVITY_STATE_BOARD = "BoardActivity.board"
  */
 @HiltViewModel
 class OfflineScreenViewModel @Inject constructor(
-    application: Application,
     private val state: SavedStateHandle
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     private val acquiredMoves: HashMap<Piece, List<Location>> = HashMap()
-    private val drawController = DrawControllerImp()
+    private val drawController = DrawController()
     private var selectedPiece: Piece? = null
     private var gameBoard = OfflineBoard()
 
-    private val _board = MutableLiveData<OfflineBoard>()
-    val offlineBoardData: LiveData<OfflineBoard> = _board
+    private val _board: MutableState<OfflineBoard> = mutableStateOf(gameBoard)
+    val offlineBoardData: State<OfflineBoard> = _board
 
-    private val _promotion = MutableLiveData<Team?>(null)
-    val promotion = _promotion
+    private val _promotion: MutableState<Team?> = mutableStateOf(null)
+    val promotion: State<Team?> = _promotion
 
-    private val _paintResults = MutableLiveData<PaintResults>(PaintResults())
-    val paintResults: LiveData<PaintResults> = _paintResults
+    private val _paintResults: MutableState<PaintResults> = mutableStateOf(PaintResults())
+    val paintResults: State<PaintResults> = _paintResults
 
     init {
         if (state.contains(ACTIVITY_STATE_BOARD)) {
@@ -50,7 +49,6 @@ class OfflineScreenViewModel @Inject constructor(
                 _board.value = gameBoard
             }
         }
-        else _board.value = OfflineBoard()
     }
 
     /**

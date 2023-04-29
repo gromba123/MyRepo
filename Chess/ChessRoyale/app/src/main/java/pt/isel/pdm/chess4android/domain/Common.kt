@@ -2,7 +2,6 @@ package pt.isel.pdm.chess4android.domain
 
 sealed class FetchState {
     object NotLoaded : FetchState()
-    object Loading : FetchState()
     object Loaded : FetchState()
 }
 

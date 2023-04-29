@@ -23,13 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.screens.online.challenges.create.CreateChallengeActivity"
-            android:noHistory="true" />
-        <activity
             android:name=".ui.screens.online.games.OnlineActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.screens.online.challenges.list.ChallengesListActivity"
-            android:exported="true" />
     </application>
 </manifest>

@@ -1,7 +1,11 @@
 package pt.isel.pdm.chess4android
 
 import android.app.Application
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import dagger.hilt.android.HiltAndroidApp
 import pt.isel.pdm.chess4android.dataAccess.DownloadDailyQuoteWorker
 import java.util.concurrent.TimeUnit

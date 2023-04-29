@@ -1,7 +1,8 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.puzzle
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +21,11 @@ class SolvedScreenViewModel @Inject constructor(
 
     private lateinit var puzzle: PuzzleDTO
 
-    private val _board: MutableLiveData<PuzzleBoard> = MutableLiveData()
-    val board = _board
+    private val _board: MutableState<PuzzleBoard?> = mutableStateOf(null)
+    val board: State<PuzzleBoard?> = _board
 
-    private val _screen: MutableLiveData<ScreenState> = MutableLiveData(ScreenState.Loading)
-    val screen: LiveData<ScreenState> = _screen
+    private val _screen: MutableState<ScreenState> = mutableStateOf(ScreenState.Loading)
+    val screen: State<ScreenState> = _screen
 
     /**
      * Builds a puzzle based based on a given pgn
@@ -49,7 +50,7 @@ class SolvedScreenViewModel @Inject constructor(
     fun loadSolution() {
         val list = puzzle.actualPgn.split(" ")
         val toRotate = puzzle.pgn.split(" ").size % 2 != 0
-        _board.value = (Parser()).parsePGN(list, toRotate)
+        _board.value = (Parser(list, toRotate)).parsePGN()
     }
 
     /**
@@ -57,6 +58,6 @@ class SolvedScreenViewModel @Inject constructor(
      */
     fun loadPuzzle() {
         val list = puzzle.pgn.split(" ")
-        _board.value = (Parser()).parsePGN(list, list.size % 2 != 0)
+        _board.value = (Parser(list, list.size % 2 != 0)).parsePGN()
     }
 }

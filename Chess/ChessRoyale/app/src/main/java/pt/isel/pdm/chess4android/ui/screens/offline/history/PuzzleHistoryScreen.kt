@@ -1,21 +1,24 @@
 package pt.isel.pdm.chess4android.ui.screens.offline.history
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,8 +30,6 @@ import pt.isel.pdm.chess4android.domain.puzzle.PuzzleHistoryDTO
 import pt.isel.pdm.chess4android.navigation.Screen
 import pt.isel.pdm.chess4android.utils.BuildArrowBack
 
-private const val ITEMS_LIST_FRACTION = 0.9F
-const val PUZZLE_EXTRA = "HistoryActivity.Extra.Puzzle"
 const val SOLVED_PUZZLE_STATE = 2
 
 @Composable
@@ -36,59 +37,33 @@ fun BuildPuzzleListScreen(
     navController: NavController,
     viewModel: HistoryScreenViewModel = hiltViewModel()
 ) {
-    val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(15.dp)
-    ) {
-        BuildArrowBack(navController = navController)
-        Box (
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
+    val screenState = viewModel.screen.value
+    if (screenState == ScreenState.Loaded) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(15.dp)
         ) {
-            BuildFetchButton(viewModel = viewModel)
-            Column (
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                BuildArrowBack(navController = navController)
+                BuildFetchButton(viewModel = viewModel)
+            }
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 BuildPuzzleList(
-                    viewModel = viewModel,
-                    screenHeight = screenHeight
+                    viewModel = viewModel
                 ) { historyDto ->
                     if (historyDto.state != SOLVED_PUZZLE_STATE) {
-                        navController.navigate(Screen.UnsolvedPuzzle.setRoute(historyDto.id))
+                        navController.navigate(Screen.UnsolvedPuzzle.buildRoute(historyDto.id))
                     } else {
-                        navController.navigate(Screen.SolvedPuzzle.setRoute(historyDto.id))
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun BuildPuzzleList(
-    viewModel: HistoryScreenViewModel,
-    screenHeight: Int,
-    onClick: (PuzzleHistoryDTO) -> Unit
-) {
-    val screenState = viewModel.screen.observeAsState().value
-    if (screenState == ScreenState.Loaded) {
-        val list = viewModel.history.observeAsState().value
-        if (list != null) {
-            LazyColumn (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height((screenHeight * ITEMS_LIST_FRACTION).dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                itemsIndexed(list) { _, item ->
-                    BuildListItem(dto = item) {
-                        onClick(item)
+                        navController.navigate(Screen.SolvedPuzzle.buildRoute(historyDto.id))
                     }
                 }
             }
@@ -108,46 +83,33 @@ private fun BuildPuzzleList(
 }
 
 @Composable
+private fun BuildPuzzleList(
+    viewModel: HistoryScreenViewModel,
+    onClick: (PuzzleHistoryDTO) -> Unit
+) {
+    val list = viewModel.history.value
+    LazyColumn (
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        itemsIndexed(list) { _, item ->
+            BuildListItem(dto = item) {
+                onClick(item)
+            }
+        }
+    }
+}
+
+@Composable
 private fun BuildFetchButton(
     viewModel: HistoryScreenViewModel
 ) {
-    val fetchState = viewModel.fetch.observeAsState().value
-    if (fetchState != null && fetchState != FetchState.Loaded) {
-        Button(
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
-            border = BorderStroke(2.dp, Color.White),
-            shape = RoundedCornerShape(50),
-            onClick = {
-                if (fetchState == FetchState.NotLoaded) {
-                    viewModel.fetchDailyPuzzle()
-                }
-            }
-        ) {
-            if (fetchState == FetchState.NotLoaded) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon (
-                        imageVector = Icons.Filled.Download,
-                        contentDescription = "Download",
-                        tint = MaterialTheme.colors.secondary
-                    )
-                    Text(
-                        text = stringResource(id = R.string.fetchPuzzle),
-                        color = MaterialTheme.colors.secondary,
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            } else {
-                Text(
-                    text = "...",
-                    color = MaterialTheme.colors.secondary,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
+    if (viewModel.fetch != FetchState.Loaded) {
+        Icon (
+            imageVector = Icons.Filled.Download,
+            contentDescription = "Download",
+            tint = MaterialTheme.colors.secondary,
+            modifier = Modifier.clickable { viewModel.fetchDailyPuzzle() }
+        )
     }
 }

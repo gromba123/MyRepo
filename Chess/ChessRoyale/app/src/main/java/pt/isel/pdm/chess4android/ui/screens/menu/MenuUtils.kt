@@ -1,7 +1,17 @@
 package pt.isel.pdm.chess4android.ui.screens.menu
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -32,16 +42,14 @@ fun BuildMenuButton(
         onClick = item.onClick
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.height(IntrinsicSize.Max).fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon (
                 imageVector = item.icon,
                 contentDescription = stringResource(id = item.description),
                 tint = Color.White,
-                modifier = Modifier
-                    .height(30.dp)
-                    .width(30.dp)
+                modifier = Modifier.size(30.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
             Column(

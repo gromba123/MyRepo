@@ -1,8 +1,21 @@
 package pt.isel.pdm.chess4android.domain.online
 
 import android.content.res.Resources
-import pt.isel.pdm.chess4android.domain.pieces.*
-import pt.isel.pdm.chess4android.utils.*
+import pt.isel.pdm.chess4android.domain.pieces.King
+import pt.isel.pdm.chess4android.domain.pieces.Location
+import pt.isel.pdm.chess4android.domain.pieces.Piece
+import pt.isel.pdm.chess4android.domain.pieces.Space
+import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.domain.pieces.pawn.BasePawn
+import pt.isel.pdm.chess4android.utils.SpecialMoveResult
+import pt.isel.pdm.chess4android.utils.buildBoard
+import pt.isel.pdm.chess4android.utils.buildOpponentHash
+import pt.isel.pdm.chess4android.utils.buildPlayerHash
+import pt.isel.pdm.chess4android.utils.composeAN
+import pt.isel.pdm.chess4android.utils.convertToLocation
+import pt.isel.pdm.chess4android.utils.invertLocation
+import pt.isel.pdm.chess4android.utils.pickPromoted
+import pt.isel.pdm.chess4android.utils.pickPromotedById
 
 /**
  * Represents the online game board
@@ -11,35 +24,12 @@ data class OnlineBoard (
     val playingTeam: Team = Team.WHITE,
     val gameState: GameState = GameState.Free,
     val playerTeam: Team,
-    val board: MutableList<MutableList<Piece>> = rotateBoard(playerTeam),
+    val board: MutableList<MutableList<Piece>> = buildBoard(playerTeam),
     val lastMove: String = "",
-    private val whites: HashMap<Char, MutableList<Piece>> = buildWhiteHash(board),
-    private val blacks: HashMap<Char, MutableList<Piece>> = buildBlackHash(board),
+    private val whites: HashMap<Char, MutableList<Piece>> = buildPlayerHash(board),
+    private val blacks: HashMap<Char, MutableList<Piece>> = buildOpponentHash(board),
     val specialMoveResult: SpecialMoveResult? = null
 ) {
-
-    /**
-     * If a board needs to be rotated then hashes must the be recalculated
-     */
-    init {
-        if (playerTeam == Team.BLACK) {
-            whites.clear()
-            blacks.clear()
-            board.forEach { column ->
-                column.forEach {
-                    if (it.team == Team.WHITE)
-                        if (whites[it.id] == null) whites[it.id] =
-                            arrayListOf(it) else whites[it.id]?.add(it)
-                    else if (it.team == Team.BLACK)
-                        if (blacks[it.id] == null) blacks[it.id] =
-                            arrayListOf(it) else blacks[it.id]?.add(it)
-                }
-            }
-
-            blacks['P']?.forEach { if (it is Pawn) it.setDirectionToPlay() }
-            whites['P']?.forEach { if (it is Pawn) it.setDirectionToPlay() }
-        }
-    }
 
     /**
      * Moves a piece
@@ -47,7 +37,7 @@ data class OnlineBoard (
     fun movePiece(old: Location, new: Location): OnlineBoard {
         val piece = board[old.y][old.x]
         piece.location = new
-        if (piece is Pawn) piece.incMoves()
+        if (piece is BasePawn) piece.incMoves()
         board[old.y][old.x] = Space(old)
         val oldPiece = board[new.y][new.x]
         removePiece(oldPiece, playingTeam.other)
@@ -93,7 +83,7 @@ data class OnlineBoard (
                 board[rookLocation.y][rookLocation.x] = Space(rookLocation)
             }
         }
-        else if (piece is Pawn) {
+        else if (piece is BasePawn) {
             if (piece.isPromoting()) return SpecialMoveResult(piece)
         }
         return null

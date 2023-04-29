@@ -13,6 +13,7 @@ import pt.isel.pdm.chess4android.ui.screens.offline.game.BuildOfflineScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.history.BuildPuzzleListScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildPuzzleScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildSolvedPuzzleScreen
+import pt.isel.pdm.chess4android.ui.screens.online.challenges.create.BuildCreateChallengeScreen
 import pt.isel.pdm.chess4android.ui.screens.online.challenges.list.BuildChallengesListScreen
 import pt.isel.pdm.chess4android.ui.screens.profile.BuildCreditsScreen
 
@@ -64,6 +65,12 @@ fun BuildNavHost(
             Screen.Challenges.route
         ) {
             BuildChallengesListScreen(navController = navController)
+        }
+
+        composable(
+            Screen.Create.route
+        ) {
+            BuildCreateChallengeScreen(navController = navController)
         }
     }
 }

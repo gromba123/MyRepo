@@ -20,9 +20,9 @@
     <string name="error_getting_list">Não foi possível obter a lista de jogos</string>
     <string name="accept_game_dialog_title">Aceitar o jogo de %s?</string>
     <string name="accept_game_dialog_cancel">Cancelar</string>
-    <string name="loading">A carregar...</string>
+    <string name="loading">A carregar…</string>
     <string name="create_game_title">Criar jogo</string>
-    <string name="create_game_waiting_message">À espera de adversário...</string>
+    <string name="create_game_waiting_message">À espera de adversário…</string>
     <string name="create_game_prompt_challenger_name">Nome</string>
     <string name="create_game_prompt_message">Mensagem</string>
     <string name="list_screen_title">Jogos de Xadrez</string>

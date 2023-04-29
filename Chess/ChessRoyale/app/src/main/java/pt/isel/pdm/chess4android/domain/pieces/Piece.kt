@@ -1,52 +1,8 @@
 package pt.isel.pdm.chess4android.domain.pieces
 
 import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import pt.isel.pdm.chess4android.utils.convertRank
-import pt.isel.pdm.chess4android.utils.convertToFile
-
-/**
- * Represents a location in the board
- */
-@Parcelize
-class Location(val x: Int, val y: Int) : Parcelable, Comparable<Location> {
-
-    /**
-     * Computes a new location based on the previous
-     */
-    fun computeLocation(x: Int, y: Int) = Location(this.x + x, this.y + y)
-
-    /**
-     * Checks if the location is inside the board
-     */
-    fun checkLimits() : Boolean = x < 8 && y < 8 && x >= 0 && y >= 0
-
-    /**
-     * Converts the location to an Algebraic Notation position
-     */
-    override fun toString(): String = "${convertToFile(x)}${convertRank(y)}"
-
-    override fun compareTo(other: Location) = if (x == other.x && y == other.y) 0 else -1
-}
-
-/**
- * Represents the White and Black teams.
- * Space is also considered a team to simplify the logic to move or analyze
- * the possibles moves of a piece
- */
-@Parcelize
-enum class Team(val x: Int) : Parcelable {
-    WHITE(1),
-    BLACK(-1),
-    SPACE(0);
-
-    companion object {
-        val firstToMove: Team = WHITE
-    }
-
-    val other: Team
-        get() = if (this == WHITE) BLACK else WHITE
-}
 
 /**
  * Represents the base class for every type of piece in the board.
@@ -59,11 +15,32 @@ open class Piece(
     val id: Char
 ) : Parcelable {
 
+    @IgnoredOnParcel
+    protected open val moves = listOf<Move>()
+
     /**
      * Gets a list of positions that a piece can reach
      * @param board - The board from where the positions will be calculated
      */
-    open fun checkPosition(board: List<List<Piece>>): List<Location> { TODO("Nothing") }
+    open fun checkPosition(board: List<List<Piece>>): List<Location> {
+        val positions = mutableListOf<Location>()
+        moves.forEach {
+            var actualLocation = location
+            while (true) {
+                val newLocation = actualLocation.computeLocation(it.x, it.y)
+                if (!newLocation.checkLimits()) break
+                val piece = board[newLocation.y][newLocation.x]
+                if (piece.team == Team.SPACE) {
+                    positions.add(newLocation)
+                    actualLocation = newLocation
+                } else {
+                    if (piece.team != team) positions.add(newLocation)
+                    break
+                }
+            }
+        }
+        return positions
+    }
 
     /**
      * Gets a list of all moves a piece can do without put the king in xeque
