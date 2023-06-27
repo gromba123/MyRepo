@@ -1,0 +1,46 @@
+.aside {
+    width: 22.5vh;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    padding: 2rem;
+}
+
+.items {
+    
+}
+
+.items div {
+    padding: 1rem;
+}
+.items div:after {
+    display: block;
+    content: '';
+    border-bottom: solid 1px #fff;  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+}
+.items div:hover:after {
+   transform: scaleX(1);
+}
+
+.icons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+
+.icons div {
+    width: 30px;
+    font-size: 1rem;
+}
+
+.icon div a {
+    text-decoration: none;
+    color: #fff;
+}

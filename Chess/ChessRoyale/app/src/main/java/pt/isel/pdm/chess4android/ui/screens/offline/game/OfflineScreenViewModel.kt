@@ -13,7 +13,7 @@ import pt.isel.pdm.chess4android.domain.pieces.Piece
 import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.utils.PaintResults
-import pt.isel.pdm.chess4android.views.DrawController
+import pt.isel.pdm.chess4android.domain.DrawController
 import javax.inject.Inject
 import kotlin.collections.set
 

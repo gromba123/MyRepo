@@ -1,6 +1,5 @@
 package pt.isel.pdm.chess4android.domain.online
 
-import android.content.res.Resources
 import pt.isel.pdm.chess4android.domain.pieces.King
 import pt.isel.pdm.chess4android.domain.pieces.Location
 import pt.isel.pdm.chess4android.domain.pieces.Piece
@@ -14,7 +13,6 @@ import pt.isel.pdm.chess4android.utils.buildPlayerHash
 import pt.isel.pdm.chess4android.utils.composeAN
 import pt.isel.pdm.chess4android.utils.convertToLocation
 import pt.isel.pdm.chess4android.utils.invertLocation
-import pt.isel.pdm.chess4android.utils.pickPromoted
 import pt.isel.pdm.chess4android.utils.pickPromotedById
 
 /**
@@ -28,6 +26,8 @@ data class OnlineBoard (
     val lastMove: String = "",
     private val whites: HashMap<Char, MutableList<Piece>> = buildPlayerHash(board),
     private val blacks: HashMap<Char, MutableList<Piece>> = buildOpponentHash(board),
+    private val removedWhites: MutableList<Piece> = mutableListOf(),
+    private val removedBlacks: MutableList<Piece> = mutableListOf(),
     val specialMoveResult: SpecialMoveResult? = null
 ) {
 
@@ -60,10 +60,14 @@ data class OnlineBoard (
             val l1 = convertToLocation(move.substring(0, 2))
             val l2 = convertToLocation(move.substring(2, 4))
             val b = movePiece(l1, l2)
-            if (b.specialMoveResult != null) b.promoteById(move[move.length - 1])
-            else b
+            if (b.specialMoveResult != null) {
+                b.promoteById(move[move.length - 1])
+            } else {
+                b
+            }
+        } else {
+            this
         }
-        else this
 
     /**
      * Verifies if there is castling or a promotion
@@ -94,8 +98,13 @@ data class OnlineBoard (
      */
     private fun removePiece(piece: Piece, team: Team) {
         if (piece !is Space) {
-            if (team == Team.WHITE) whites[piece.id]?.remove(piece)
-            else blacks[piece.id]?.remove(piece)
+            if (team == Team.WHITE) {
+                whites[piece.id]?.remove(piece)
+                removedWhites.add(piece)
+            } else {
+                blacks[piece.id]?.remove(piece)
+                removedBlacks.add(piece)
+            }
         }
     }
 
@@ -135,19 +144,13 @@ data class OnlineBoard (
     }
 
     /**
-     * Used to promote a pawn that belongs to the actual player.
-     * Receives access to the resources because the piece to promoted is chose
-     * based on a AlertDialog Box that uses elements from the resources to identify
-     * each available type of piece to promotion
+     * Function that initiates a promotion a piece
      */
-    fun promotionByResources(
-        string: String,
-        resources: Resources
-    ): OnlineBoard {
+    fun promotion(id: Char): OnlineBoard {
         if (specialMoveResult != null) {
             val oldPiece = specialMoveResult.piece
             removePiece(oldPiece, playingTeam.other)
-            val newPiece = pickPromoted(string, resources, specialMoveResult)
+            val newPiece = pickPromotedById(id, specialMoveResult)
             return promote(oldPiece, newPiece)
         }
         return this
@@ -193,4 +196,8 @@ data class OnlineBoard (
      * Gets the pieces of the winning team
      */
     fun getWinningPieces() = if (playingTeam.other == Team.WHITE) whites.values else blacks.values
+
+    fun getRemovedWhites(): List<Piece> = removedWhites
+
+    fun getRemovedBlacks(): List<Piece> = removedBlacks
 }

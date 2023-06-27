@@ -9,13 +9,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import pt.isel.pdm.chess4android.domain.pieces.getTeam
 import pt.isel.pdm.chess4android.ui.screens.offline.game.BuildOfflineScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.history.BuildPuzzleListScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildPuzzleScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildSolvedPuzzleScreen
 import pt.isel.pdm.chess4android.ui.screens.online.challenges.create.BuildCreateChallengeScreen
 import pt.isel.pdm.chess4android.ui.screens.online.challenges.list.BuildChallengesListScreen
-import pt.isel.pdm.chess4android.ui.screens.profile.BuildCreditsScreen
+import pt.isel.pdm.chess4android.ui.screens.online.games.BuildOnlineGameScreen
+import pt.isel.pdm.chess4android.ui.screens.profile.BuildInfoScreen
 
 @Composable
 fun BuildNavHost(
@@ -29,7 +31,7 @@ fun BuildNavHost(
     ) {
         buildMenuGraph(navController)
         composable(Screen.Credits.route) {
-            BuildCreditsScreen(
+            BuildInfoScreen(
                 navController = navController,
                 onClick = onClick
             )
@@ -45,25 +47,27 @@ fun BuildNavHost(
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")
-            id?.let { puzzleId -> BuildSolvedPuzzleScreen(
-                navController = navController,
-                puzzleId
-            ) }
+            id?.let { puzzleId ->
+                BuildSolvedPuzzleScreen(
+                    navController = navController,
+                    puzzleId
+                )
+            }
         }
         composable(
             Screen.UnsolvedPuzzle.route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")
-            id?.let { puzzleId -> BuildPuzzleScreen(
-                navController = navController,
-                puzzleId
-            ) }
+            id?.let { puzzleId ->
+                BuildPuzzleScreen(
+                    navController = navController,
+                    puzzleId
+                )
+            }
         }
 
-        composable(
-            Screen.Challenges.route
-        ) {
+        composable(Screen.Challenges.route) {
             BuildChallengesListScreen(navController = navController)
         }
 
@@ -72,5 +76,24 @@ fun BuildNavHost(
         ) {
             BuildCreateChallengeScreen(navController = navController)
         }
+
+        composable(
+            Screen.Online.route,
+            arguments = listOf(
+                navArgument("id") { type = NavType.StringType },
+                navArgument("team") { type = NavType.StringType }
+            )
+        ) {entry ->
+            val id = entry.arguments?.getString("id")!!
+            val team = getTeam(entry.arguments?.getString("team") ?: "")
+            BuildOnlineGameScreen(
+                gameId = id,
+                team = team,
+                navController = navController
+            )
+        }
+        /*
+        TODO("Aggregate destinations per functionality")
+         */
     }
 }

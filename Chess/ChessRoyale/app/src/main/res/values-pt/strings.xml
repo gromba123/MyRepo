@@ -5,7 +5,6 @@
     <string name="finish_phrase">Ganhaste, génio!</string>
     <string name="authors">Autores:</string>
     <string name="api">Lichess API</string>
-    <string name="credits">Créditos</string>
     <string name="wrongMove">A jogada não pertence à solução.</string>
     <string name="retry">Resolver de novo</string>
     <string name="solution">Mostrar solução</string>
@@ -45,13 +44,13 @@
     <string name="knight">Cavaleiro</string>
     <string name="bishop">Bispo</string>
     <string name="promotion">Promoção</string>
-    <string name="initialPhrase">Toque para continuar</string>
-    <string name="onlineGame">Jogo Online</string>
-    <string name="onlineGameDescription">Joga um jogo online com outro jogador</string>
-    <string name="puzzlesDescription">Resolve a lista de puzzles diários</string>
+    <string name="online_game_item_title">Jogo Online</string>
+    <string name="online_game_item_description">Joga um jogo online com outro jogador</string>
+    <string name="puzzles_list_item_description">Resolve a lista de puzzles diários</string>
     <string name="play">Jogar</string>
-    <string name="profile">Perfil</string>
-    <string name="offlineGame">Jogo Offline</string>
-    <string name="offlineGameDescription">Jogo 1 vs 1 contra um amigo</string>
-    <string name="fetchPuzzle">Obter o puzzle do dia</string>
+    <string name="profile_item_item_title">Perfil</string>
+    <string name="offline_game_item_title">Jogo Offline</string>
+    <string name="offline_game_item_description">Jogo 1 vs 1 contra um amigo</string>
+    <string name="fetch_puzzle">Obter o puzzle do dia</string>
+    <string name="info_item_description">Descobre mais acerca do jogo!</string>
 </resources>

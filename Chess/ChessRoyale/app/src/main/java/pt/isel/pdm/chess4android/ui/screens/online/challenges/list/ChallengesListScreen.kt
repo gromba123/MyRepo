@@ -25,6 +25,7 @@ import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.ScreenState
 import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
 import pt.isel.pdm.chess4android.domain.online.OnlineGameState
+import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.navigation.Screen
 import pt.isel.pdm.chess4android.utils.BuildArrowBack
 import pt.isel.pdm.chess4android.utils.BuildMessage
@@ -36,15 +37,13 @@ fun BuildChallengesListScreen(
 ) {
     val onSelected: (Result<Pair<ChallengeInfo, OnlineGameState>>) -> Unit = {
         it.onSuccess { createdGameInfo ->
-            /*
-            val intent = OnlineActivity.buildIntent(
-                origin = this,
-                local = Team.firstToMove.other,
-                challengeInfo = createdGameInfo.first
-            )
-            startActivity(intent)
-
-             */
+            navController.navigate(
+                Screen.Online.buildRoute(createdGameInfo.first.id, Team.BLACK)
+            ) {
+                popUpTo(Screen.Create.route) {
+                    inclusive = true
+                }
+            }
         }
     }
 

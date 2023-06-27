@@ -5,7 +5,7 @@
     <string name="author" translatable="false">Gonçalo Romba</string>
     <string name="authors">Authors:</string>
     <string name="api">Lichess API</string>
-    <string name="credits">Credits</string>
+    <string name="info_item_title" translatable="false">Info</string>
     <string name="wrongMove">The move doesn\'t belong to the solution.</string>
     <string name="puzzles" translatable="false">Puzzles</string>
     <string name="retry">Solve again</string>
@@ -53,14 +53,13 @@
     <string name="bishop">Bishop</string>
     <string name="promotion">Promotion</string>
     <string name="title_activity_start" translatable="false">StartActivity</string>
-    <string name="initialPhrase">Tap to continue</string>
-    <string name="profile">Profile</string>
-    <string name="title_activity_puzzle_history" translatable="false">PuzzleHistoryActivity</string>
-    <string name="puzzleList" translatable="false">Puzzles</string>
-    <string name="onlineGame">Online Game</string>
-    <string name="onlineGameDescription">Play a online game with another player</string>
-    <string name="puzzlesDescription">Solve a list of daily puzzles</string>
-    <string name="offlineGame">Offline Game</string>
-    <string name="offlineGameDescription">1 vs 1 game against a friend</string>
-    <string name="fetchPuzzle">Get daily puzzle</string>
+    <string name="profile_item_item_title">Profile</string>
+    <string name="puzzles_list_item_title" translatable="false">Puzzles</string>
+    <string name="online_game_item_title">Online Game</string>
+    <string name="online_game_item_description">Play a online game with another player</string>
+    <string name="puzzles_list_item_description">Solve a list of daily puzzles</string>
+    <string name="offline_game_item_title">Offline Game</string>
+    <string name="offline_game_item_description">1 vs 1 game against a friend</string>
+    <string name="fetch_puzzle">Get daily puzzle</string>
+    <string name="info_item_description">Find out more about the game!</string>
 </resources>

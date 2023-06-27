@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
@@ -35,7 +33,6 @@ import androidx.compose.ui.unit.sp
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
 import pt.isel.pdm.chess4android.ui.theme.Gray
-import pt.isel.pdm.chess4android.ui.theme.White
 
 @Composable
 fun BuildAcceptChallengeScreen(
@@ -45,11 +42,13 @@ fun BuildAcceptChallengeScreen(
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.surface.copy(0.75F)
+        color = MaterialTheme.colors.surface.copy(0.90F)
     ) {
         Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 30.dp, end = 30.dp),
+            contentAlignment = Alignment.Center,
         ) {
             BuildCard(challengeInfo, onAccept, onCancel)
         }
@@ -65,14 +64,14 @@ private fun BuildCard(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(White)
+            .background(Color.Black)
             .padding(20.dp),
         horizontalAlignment = Alignment.End
     ) {
         Image(
             imageVector = Icons.Filled.Close,
             contentDescription = "",
-            colorFilter = ColorFilter.tint(Color.Black),
+            colorFilter = ColorFilter.tint(Color.White),
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .size(20.dp)
@@ -81,14 +80,14 @@ private fun BuildCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.accept_game_dialog_title, challengeInfo.challengerName),
-                fontSize = 20.sp,
-                color = Color.Black
+                fontSize = 20.sp
             )
-            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
@@ -107,8 +106,7 @@ private fun BuildCard(
                 ) {
                     Text(
                         text = stringResource(id = R.string.accept_game_dialog_cancel),
-                        fontSize = 16.sp,
-                        color = Color.Black
+                        fontSize = 16.sp
                     )
                 }
                 Button(
@@ -124,8 +122,7 @@ private fun BuildCard(
                 ) {
                     Text(
                         text = stringResource(id = R.string.accept_game_dialog_ok),
-                        fontSize = 16.sp,
-                        color = Color.Black
+                        fontSize = 16.sp
                     )
                 }
             }

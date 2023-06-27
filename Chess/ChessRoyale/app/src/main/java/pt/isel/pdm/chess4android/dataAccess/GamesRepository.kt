@@ -31,7 +31,8 @@ class GamesRepository @Inject constructor(
     }
 
     fun updateGameState(
-        gameState: OnlineGameState, onComplete: (Result<OnlineGameState>) -> Unit
+        gameState: OnlineGameState,
+        onComplete: (Result<OnlineGameState>) -> Unit
     ) {
         Firebase.firestore.collection(GAMES_COLLECTION)
             .document(gameState.id)
@@ -65,7 +66,10 @@ class GamesRepository @Inject constructor(
             }
     }
 
-    fun deleteGame(challengeId: String, onComplete: (Result<Unit>) -> Unit) {
+    fun deleteGame(
+        challengeId: String,
+        onComplete: (Result<Unit>) -> Unit
+    ) {
         Firebase.firestore.collection(GAMES_COLLECTION)
             .document(challengeId)
             .delete()

@@ -26,6 +26,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.ScreenState
+import pt.isel.pdm.chess4android.domain.pieces.Team
+import pt.isel.pdm.chess4android.navigation.Screen
 import pt.isel.pdm.chess4android.ui.theme.White
 import pt.isel.pdm.chess4android.utils.BuildMessage
 
@@ -85,7 +87,13 @@ fun BuildCreateChallengeScreen(
             Spacer(modifier = Modifier.height(20.dp))
             Button(onClick = {
                 viewModel.createChallenge(name, message) {
-
+                    navController.navigate(
+                        Screen.Online.buildRoute(it.id, Team.WHITE)
+                    ) {
+                        popUpTo(Screen.Create.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             }) {
                 Text(

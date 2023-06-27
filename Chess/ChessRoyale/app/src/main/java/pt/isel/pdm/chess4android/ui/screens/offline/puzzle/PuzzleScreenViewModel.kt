@@ -19,7 +19,7 @@ import pt.isel.pdm.chess4android.domain.puzzle.PuzzleDTO
 import pt.isel.pdm.chess4android.domain.puzzle.PuzzleRuler
 import pt.isel.pdm.chess4android.domain.puzzle.PuzzleState
 import pt.isel.pdm.chess4android.utils.PaintResults
-import pt.isel.pdm.chess4android.views.DrawController
+import pt.isel.pdm.chess4android.domain.DrawController
 import javax.inject.Inject
 import kotlin.collections.HashMap
 import kotlin.collections.List

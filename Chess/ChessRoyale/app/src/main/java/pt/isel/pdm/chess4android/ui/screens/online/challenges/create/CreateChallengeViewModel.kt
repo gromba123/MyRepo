@@ -42,7 +42,9 @@ class CreateChallengeViewModel @Inject constructor(
                 message = message,
                 onComplete = {
                     _created = it
-                    it.onSuccess {info -> waitForAcceptance(info, onAccept) }
+                    it
+                        .onSuccess { info -> waitForAcceptance(info, onAccept) }
+                        .onFailure { /*TODO(Add Error)*/ }
                 }
             )
         }
@@ -70,7 +72,10 @@ class CreateChallengeViewModel @Inject constructor(
         currentChallenge.onSuccess {
             challengesRepository.withdrawChallenge(
                 challengeId = it.id,
-                onComplete = { _created = null }
+                onComplete = {
+                    _created = null
+                    _screen.value = ScreenState.Loaded
+                }
             )
         }
     }

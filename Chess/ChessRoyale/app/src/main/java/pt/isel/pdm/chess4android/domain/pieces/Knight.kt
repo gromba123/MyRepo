@@ -3,6 +3,7 @@ package pt.isel.pdm.chess4android.domain.pieces
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
+//TODO(Verify moves)
 @Parcelize
 class Knight(
     override val team: Team,
@@ -14,7 +15,7 @@ class Knight(
 
     override fun checkPosition(board: List<List<Piece>>): List<Location> {
         val positions = mutableListOf<Location>()
-        Move.values().forEach {
+        moves.forEach {
             val newLocation = location.computeLocation(it.x, it.y)
             if (newLocation.checkLimits()) {
                 val piece = board[newLocation.y][newLocation.x]

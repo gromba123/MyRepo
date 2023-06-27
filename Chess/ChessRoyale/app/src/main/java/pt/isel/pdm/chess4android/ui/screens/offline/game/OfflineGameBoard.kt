@@ -43,14 +43,14 @@ fun BuildOfflineGameBoard(
         modifier = Modifier.width(IntrinsicSize.Max),
     ) {
         Row(
-            modifier = Modifier.height(DELETE_ICON_HEIGHT).fillMaxWidth(),
+            modifier = Modifier.height(pt.isel.pdm.chess4android.ui.screens.online.games.DELETE_ICON_HEIGHT).fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.End)
         ) {
             board.getRemovedBlacks().forEach {
                 val id = getPiece(it)!!
                 Image(
                     painter = painterResource(id = id),
-                    modifier = Modifier.size(DELETE_ICON_HEIGHT),
+                    modifier = Modifier.size(pt.isel.pdm.chess4android.ui.screens.online.games.DELETE_ICON_HEIGHT),
                     contentDescription = ""
                 )
             }
@@ -99,18 +99,17 @@ fun BuildOfflineGameBoard(
         }
         Spacer(modifier = Modifier.height(15.dp))
         Row(
-            modifier = Modifier.height(DELETE_ICON_HEIGHT).fillMaxWidth(),
+            modifier = Modifier.height(pt.isel.pdm.chess4android.ui.screens.online.games.DELETE_ICON_HEIGHT).fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-        board.getRemovedWhites().forEach {
-            val id = getPiece(it)!!
-            Image(
-                painter = painterResource(id = id),
-                modifier = Modifier.size(DELETE_ICON_HEIGHT),
-                contentDescription = ""
-            )
+            board.getRemovedWhites().forEach {
+                val id = getPiece(it)!!
+                Image(
+                    painter = painterResource(id = id),
+                    modifier = Modifier.size(pt.isel.pdm.chess4android.ui.screens.online.games.DELETE_ICON_HEIGHT),
+                    contentDescription = ""
+                )
+            }
         }
     }
-    }
-
 }

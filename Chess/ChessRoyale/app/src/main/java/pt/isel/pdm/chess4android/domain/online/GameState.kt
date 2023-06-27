@@ -7,7 +7,7 @@ import pt.isel.pdm.chess4android.domain.pieces.Team
 /**
  * Defines all the possible game states
  */
-enum class GameState {Free, Xeque, XequeMate, Forfeit, Draw}
+enum class GameState {Free, Xeque, XequeMate, Forfeit, Draw, AcceptedDraw}
 
 /**
  * The challenge information.

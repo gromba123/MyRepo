@@ -22,7 +22,6 @@ import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.domain.pieces.pawn.DownPawn
 import pt.isel.pdm.chess4android.domain.pieces.pawn.PuzzlePawn
 import pt.isel.pdm.chess4android.domain.pieces.pawn.UpperPawn
-import pt.isel.pdm.chess4android.views.Type
 
 /**
  * Contains the location of a promoted piece.
@@ -31,11 +30,6 @@ import pt.isel.pdm.chess4android.views.Type
  */
 @Parcelize
 data class SpecialMoveResult(val piece: Piece) : Parcelable
-
-/**
- * Contains the squares to paint and the color to paint
- */
-data class DrawResults(val list: List<Location>, val type: Type)
 
 /**
  * Represents the end of a game

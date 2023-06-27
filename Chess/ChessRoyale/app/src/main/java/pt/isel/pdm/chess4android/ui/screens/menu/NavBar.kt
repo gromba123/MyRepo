@@ -29,7 +29,7 @@ data class NavigationItem(
 private val menuItems = listOf(
     NavigationItem(Screen.Play.route, R.string.play, Icons.Filled.SportsEsports),
     NavigationItem(Screen.Puzzle.route , R.string.puzzles, Icons.Filled.Extension),
-    NavigationItem(Screen.Profile.route, R.string.profile, Icons.Filled.Person)
+    NavigationItem(Screen.Profile.route, R.string.profile_item_item_title, Icons.Filled.Person)
 )
 
 @SuppressLint("ResourceType")
