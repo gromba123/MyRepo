@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-data class MenuItem(
+data class IconListItem(
     @StringRes val title: Int,
     @StringRes val description: Int,
     val icon: ImageVector,
@@ -40,7 +40,7 @@ data class MenuItem(
 @Composable
 fun BuildMenuListItems(
     navController: NavController,
-    items: List<MenuItem>
+    items: List<IconListItem>
 ) {
     BuildMenuLayout(navController = navController) {
         LazyColumn(
@@ -57,7 +57,7 @@ fun BuildMenuListItems(
 
 @Composable
 fun BuildMenuButton(
-    item: MenuItem
+    item: IconListItem
 ) {
     Button(
         modifier = Modifier.padding(5.dp),

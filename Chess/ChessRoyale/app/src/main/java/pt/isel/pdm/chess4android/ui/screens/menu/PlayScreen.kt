@@ -13,14 +13,14 @@ fun BuildPlayScreen(
     navController: NavController
 ) {
     val items = listOf(
-        MenuItem(
+        IconListItem(
             title = R.string.online_game_item_title,
             description = R.string.online_game_item_description,
             icon = Icons.Filled.Language
         ) {
             navController.navigate(Screen.Challenges.route)
         },
-        MenuItem(
+        IconListItem(
             title = R.string.offline_game_item_title,
             description = R.string.offline_game_item_description,
             icon = Icons.Filled.Person

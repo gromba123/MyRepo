@@ -53,4 +53,7 @@
     <string name="offline_game_item_description">Jogo 1 vs 1 contra um amigo</string>
     <string name="fetch_puzzle">Obter o puzzle do dia</string>
     <string name="info_item_description">Descobre mais acerca do jogo!</string>
+    <string name="sign_up">Criar Conta</string>
+    <string name="login">Entrar</string>
+    <string name="forgot_password">Esqueceu-se da palavra passe?</string>
 </resources>

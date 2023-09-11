@@ -12,7 +12,7 @@ fun BuildProfileScreen(
     navController: NavController
 ) {
     val items = listOf(
-        MenuItem(
+        IconListItem(
             title = R.string.info_item_title,
             description = R.string.info_item_description,
             icon = Icons.Filled.Info

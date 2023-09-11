@@ -21,8 +21,8 @@ class CreateChallengeViewModel @Inject constructor(
     private val challengesRepository: ChallengesRepository
 ) : ViewModel() {
 
-    private val _screen: MutableState<ScreenState> = mutableStateOf(ScreenState.Loaded)
-    val screen: State<ScreenState> = _screen
+    private val _screenState: MutableState<ScreenState> = mutableStateOf(ScreenState.Loaded)
+    val screenState: State<ScreenState> = _screenState
 
     private var _created: Result<ChallengeInfo>? = null
     private var subscription: ListenerRegistration? = null
@@ -36,7 +36,7 @@ class CreateChallengeViewModel @Inject constructor(
         onAccept: (ChallengeInfo) -> Unit
     ) {
         viewModelScope.launch {
-            _screen.value = ScreenState.Loading
+            _screenState.value = ScreenState.Loading
             challengesRepository.publishChallenge(
                 name = name,
                 message = message,
@@ -74,7 +74,7 @@ class CreateChallengeViewModel @Inject constructor(
                 challengeId = it.id,
                 onComplete = {
                     _created = null
-                    _screen.value = ScreenState.Loaded
+                    _screenState.value = ScreenState.Loaded
                 }
             )
         }

@@ -12,7 +12,7 @@ fun BuildOfflineScreen(
     navController: NavController
 ) {
     val items = listOf(
-        MenuItem(
+        IconListItem(
             title = R.string.puzzles,
             description = R.string.puzzles_list_item_description,
             icon = Icons.Filled.Extension

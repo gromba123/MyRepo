@@ -62,4 +62,9 @@
     <string name="offline_game_item_description">1 vs 1 game against a friend</string>
     <string name="fetch_puzzle">Get daily puzzle</string>
     <string name="info_item_description">Find out more about the game!</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="google" translatable="false">Google</string>
+    <string name="facebook" translatable="false">Facebook</string>
 </resources>

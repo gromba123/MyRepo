@@ -1,12 +1,14 @@
 package pt.isel.pdm.chess4android.domain
 
-sealed class FetchState {
-    object NotLoaded : FetchState()
-    object Loaded : FetchState()
+enum class FetchState {
+    NotLoaded,
+    Loaded
 }
 
-sealed class ScreenState {
-    object Loading : ScreenState()
-    object Loaded : ScreenState()
-    object Error : ScreenState()
+enum class ScreenState {
+    Loaded,
+    Loading,
+    Error,
+    Delete,
+    Deleting
 }

@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
 import pt.isel.pdm.chess4android.domain.ScreenState
+import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
 import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.navigation.Screen
 import pt.isel.pdm.chess4android.ui.theme.White
@@ -34,7 +34,9 @@ import pt.isel.pdm.chess4android.utils.BuildMessage
 @Composable
 fun BuildCreateChallengeScreen(
     navController: NavController,
-    viewModel: CreateChallengeViewModel = hiltViewModel()
+    screenState: ScreenState,
+    onCreate: (name: String, message: String, onAccept: (info: ChallengeInfo) -> Unit) -> Unit,
+    onCancel: () -> Unit,
 ) {
     /*
     viewModel.created.observe(this) {
@@ -60,8 +62,7 @@ fun BuildCreateChallengeScreen(
             }
         }
      */
-    val screen = viewModel.screen.value
-    if (screen == ScreenState.Loaded) {
+    if (screenState == ScreenState.Loaded) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -86,7 +87,7 @@ fun BuildCreateChallengeScreen(
             )
             Spacer(modifier = Modifier.height(20.dp))
             Button(onClick = {
-                viewModel.createChallenge(name, message) {
+                onCreate(name, message) {
                     navController.navigate(
                         Screen.Online.buildRoute(it.id, Team.WHITE)
                     ) {
@@ -104,7 +105,7 @@ fun BuildCreateChallengeScreen(
         }
     } else {
         BuildWaitingScreen {
-            viewModel.removeChallenge()
+            onCancel()
         }
     }
 }

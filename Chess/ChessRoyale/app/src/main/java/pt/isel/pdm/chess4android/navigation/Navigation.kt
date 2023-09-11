@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,6 +16,7 @@ import pt.isel.pdm.chess4android.ui.screens.offline.history.BuildPuzzleListScree
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildPuzzleScreen
 import pt.isel.pdm.chess4android.ui.screens.offline.puzzle.BuildSolvedPuzzleScreen
 import pt.isel.pdm.chess4android.ui.screens.online.challenges.create.BuildCreateChallengeScreen
+import pt.isel.pdm.chess4android.ui.screens.online.challenges.create.CreateChallengeViewModel
 import pt.isel.pdm.chess4android.ui.screens.online.challenges.list.BuildChallengesListScreen
 import pt.isel.pdm.chess4android.ui.screens.online.games.BuildOnlineGameScreen
 import pt.isel.pdm.chess4android.ui.screens.profile.BuildInfoScreen
@@ -26,10 +28,11 @@ fun BuildNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Menu.route,
+        startDestination = AUTHENTICATION_ROUTE,
         modifier = Modifier.fillMaxSize()
     ) {
         buildMenuGraph(navController)
+        buildAuthNavGraph(navController)
         composable(Screen.Credits.route) {
             BuildInfoScreen(
                 navController = navController,
@@ -74,7 +77,14 @@ fun BuildNavHost(
         composable(
             Screen.Create.route
         ) {
-            BuildCreateChallengeScreen(navController = navController)
+            val viewModel = hiltViewModel<CreateChallengeViewModel>()
+            val screenState = viewModel.screenState.value
+            BuildCreateChallengeScreen(
+                navController = navController,
+                screenState = screenState,
+                onCreate = viewModel::createChallenge,
+                onCancel = viewModel::removeChallenge
+            )
         }
 
         composable(
