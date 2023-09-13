@@ -1,5 +1,6 @@
 package pt.isel.pdm.chess4android.ui.screens.menu
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,6 +35,13 @@ data class IconListItem(
     @StringRes val title: Int,
     @StringRes val description: Int,
     val icon: ImageVector,
+    val onClick: () -> Unit
+)
+
+data class ImageListItem(
+    @StringRes val title: Int,
+    @StringRes val description: Int,
+    @DrawableRes val icon: Int,
     val onClick: () -> Unit
 )
 

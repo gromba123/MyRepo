@@ -39,7 +39,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         compose true
     }
     composeOptions {
@@ -103,8 +102,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
 
     // Firebase and JSON serialization with GSON
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
-    implementation 'com.google.firebase:firebase-firestore:24.6.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.7.1'
+    implementation 'com.google.firebase:firebase-firestore:24.7.1'
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     // Add the dependency for the Firebase SDK for Google Analytics

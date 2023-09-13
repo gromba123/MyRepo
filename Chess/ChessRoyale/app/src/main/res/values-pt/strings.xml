@@ -56,4 +56,9 @@
     <string name="sign_up">Criar Conta</string>
     <string name="login">Entrar</string>
     <string name="forgot_password">Esqueceu-se da palavra passe?</string>
+    <string name="login_with">Entrar com %s</string>
+    <string name="username">Nome de utilizador</string>
+    <string name="password">Palavra-passe</string>
+    <string name="or">Ou</string>
+    <string name="havent_sign_up">Ainda não tens conta? Clica aqui</string>
 </resources>

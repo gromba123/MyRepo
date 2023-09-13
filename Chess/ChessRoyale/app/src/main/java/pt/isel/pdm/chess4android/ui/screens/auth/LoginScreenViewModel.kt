@@ -19,6 +19,6 @@ class LoginScreenViewModel @Inject constructor(
         password: String,
         onComplete: () -> Unit
     ) {
-
+        onComplete()
     }
 }
