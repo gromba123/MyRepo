@@ -1,4 +1,4 @@
-package pt.isel.pdm.chess4android.ui.screens.auth
+package pt.isel.pdm.chess4android.ui.screens.auth.login
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

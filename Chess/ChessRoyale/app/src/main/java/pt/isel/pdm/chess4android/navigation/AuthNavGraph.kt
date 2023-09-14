@@ -5,8 +5,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import pt.isel.pdm.chess4android.ui.screens.auth.BuildLoginScreen
-import pt.isel.pdm.chess4android.ui.screens.auth.LoginScreenViewModel
+import pt.isel.pdm.chess4android.ui.screens.auth.login.BuildLoginScreen
+import pt.isel.pdm.chess4android.ui.screens.auth.login.LoginScreenViewModel
+import pt.isel.pdm.chess4android.ui.screens.auth.signup.BuildSignupScreen
+import pt.isel.pdm.chess4android.ui.screens.auth.signup.SignupScreenViewModel
 
 fun NavGraphBuilder.buildAuthNavGraph(
     navController: NavController
@@ -18,7 +20,6 @@ fun NavGraphBuilder.buildAuthNavGraph(
         composable(Screen.Login.route) {
             val viewModel = hiltViewModel<LoginScreenViewModel>()
             val state = viewModel.screenState.value
-
             BuildLoginScreen(
                 navController = navController,
                 screenState = state,
@@ -26,21 +27,18 @@ fun NavGraphBuilder.buildAuthNavGraph(
                 onError = {}
             )
         }
-        /*
+
         composable(Screen.SignUp.route) {
-            val viewModel = hiltViewModel<SignUpScreenViewModel>()
+            val viewModel = hiltViewModel<SignupScreenViewModel>()
             val state = viewModel.screenState.value
-            val error = viewModel.error.value
-            BuildSignUpScreen(
+            BuildSignupScreen(
                 navController = navController,
-                state = state,
-                error = error,
-                verifyImageSize = viewModel::verifyImageSize,
-                onErrorDismiss = viewModel::cleanErrorState,
-                onSignUp = viewModel::signUp
+                screenState = state,
+                onSignup = viewModel::signup,
+                onError = {}
             )
         }
-
+/*
         composable(Screen.Recover.route) {
             val viewModel = hiltViewModel<RecoverScreenViewModel>()
             val state = viewModel.screenState.value

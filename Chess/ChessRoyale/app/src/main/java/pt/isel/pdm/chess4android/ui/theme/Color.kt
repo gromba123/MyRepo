@@ -2,7 +2,6 @@ package pt.isel.pdm.chess4android.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-
 val Highlight = Color(0xFF018786)
 val Selected = Color(0xFF1565C0)
 val Board = Color(0xFF000000)

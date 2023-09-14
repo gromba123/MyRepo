@@ -1,29 +1,23 @@
-package pt.isel.pdm.chess4android.ui.screens.auth
+package pt.isel.pdm.chess4android.ui.screens.auth.login
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,13 +27,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
+import pt.isel.pdm.chess4android.compose.BuildCrossedText
+import pt.isel.pdm.chess4android.compose.BuildDefaultOutlinedTextField
+import pt.isel.pdm.chess4android.compose.BuildLogo
+import pt.isel.pdm.chess4android.compose.BuildPasswordOutlinedTextField
+import pt.isel.pdm.chess4android.compose.BuildSocialNetworkList
 import pt.isel.pdm.chess4android.domain.ScreenState
 import pt.isel.pdm.chess4android.navigation.Screen
 import pt.isel.pdm.chess4android.ui.screens.menu.ImageListItem
@@ -81,18 +78,17 @@ private fun BuildContent(
         contentAlignment = Alignment.BottomCenter
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier.fillMaxSize().padding(top = 35.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BuildLogo()
-            Spacer(modifier = Modifier.height(35.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             Column(
                 modifier = Modifier.width(IntrinsicSize.Max),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                val networkItem = listOf(
+                val networkItems = listOf(
                     ImageListItem(
                         title = R.string.google,
                         description = R.string.google,
@@ -114,73 +110,17 @@ private fun BuildContent(
                 )
                 var email by remember { mutableStateOf("") }
                 var password by remember { mutableStateOf("") }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    networkItem.forEach {
-                        BuildSocialNetworkButton(item = it)
-                    }
-                }
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Divider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = White
-                    )
-                    Text(
-                        text = stringResource(id = R.string.or),
-                        color = White,
-                        fontSize = 14.sp,
-                        modifier = Modifier
-                            .background(color = MaterialTheme.colors.surface)
-                            .padding(
-                                start = 5.dp,
-                                end = 5.dp,
-                                bottom = 5.dp
-                            )
-                    )
-                }
-                OutlinedTextField(
+                BuildSocialNetworkList(list = networkItems, label = R.string.login_with)
+                BuildCrossedText(text = R.string.or)
+                BuildDefaultOutlinedTextField(
+                    placeholder = R.string.mail,
                     value = email,
-                    onValueChange = { email = it },
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.username),
-                            color = White,
-                            fontSize = 14.sp
-                        )
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        containerColor = Color.Black,
-                        textColor = White,
-                        placeholderColor = White,
-                        cursorColor = White,
-                        focusedBorderColor = White,
-                        unfocusedBorderColor = White
-                    )
+                    onChange = { email = it }
                 )
-                OutlinedTextField(
+                BuildPasswordOutlinedTextField(
+                    placeholder = R.string.password,
                     value = password,
-                    onValueChange = { password = it },
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.password),
-                            color = White,
-                            fontSize = 14.sp
-                        )
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        containerColor = Color.Black,
-                        textColor = White,
-                        placeholderColor = White,
-                        cursorColor = White,
-                        focusedBorderColor = White,
-                        unfocusedBorderColor = White
-                    )
+                    onChange = { password = it }
                 )
                 Button(
                     modifier = Modifier.fillMaxWidth(),
@@ -224,71 +164,11 @@ private fun BuildContent(
                 text = stringResource(id = R.string.havent_sign_up),
                 fontSize = 14.sp,
                 color = MaterialTheme.colors.secondary,
-                modifier = Modifier.clickable {  }
+                modifier = Modifier.clickable {
+                    navController.navigate(Screen.SignUp.route)
+                }
             )
         }
-    }
-
-}
-
-@Composable
-fun BuildSocialNetworkButton(
-    item: ImageListItem
-) {
-    Button(
-        modifier = Modifier
-            .padding(5.dp)
-            .fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Black
-        ),
-        shape = RectangleShape,
-        onClick = item.onClick
-    ) {
-        Row(
-            modifier = Modifier
-                .height(IntrinsicSize.Max)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image (
-                painter = painterResource(id = item.icon),
-                contentDescription = stringResource(id = item.description),
-                modifier = Modifier.size(30.dp)
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(
-                text = stringResource(id = R.string.login_with, stringResource(id = item.title)),
-                fontSize = 14.sp,
-                color = MaterialTheme.colors.secondary
-            )
-        }
-    }
-}
-
-@Composable
-fun BuildLogo() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "Chess",
-            fontSize = 40.sp,
-            color = White,
-            fontWeight = FontWeight.Bold
-        )
-        Image (
-            painter = painterResource(id = R.drawable.ic_white_king),
-            contentDescription = "",
-            modifier = Modifier.size(100.dp)
-        )
-        Text(
-            text = "Royal",
-            fontSize = 40.sp,
-            color = White,
-            fontWeight = FontWeight.Bold
-        )
     }
 }
 

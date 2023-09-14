@@ -11,7 +11,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import pt.isel.pdm.chess4android.R
+import pt.isel.pdm.chess4android.compose.BuildDefaultOutlinedTextField
 import pt.isel.pdm.chess4android.domain.ScreenState
 import pt.isel.pdm.chess4android.domain.online.ChallengeInfo
 import pt.isel.pdm.chess4android.domain.pieces.Team
@@ -70,20 +70,16 @@ fun BuildCreateChallengeScreen(
         ) {
             var name by remember { mutableStateOf("") }
             var message by remember { mutableStateOf("") }
-            TextField(
-                label = {
-                    Text(text = stringResource(id = R.string.create_game_prompt_challenger_name))
-                },
+            BuildDefaultOutlinedTextField(
+                placeholder = R.string.create_game_prompt_challenger_name,
                 value = name,
-                onValueChange = { name = it}
+                onChange = { name = it}
             )
             Spacer(modifier = Modifier.height(10.dp))
-            TextField(
-                label = {
-                    Text(text = stringResource(id = R.string.create_game_prompt_message))
-                },
+            BuildDefaultOutlinedTextField(
+                placeholder = R.string.create_game_prompt_message,
                 value = message,
-                onValueChange = { message = it}
+                onChange = { message = it}
             )
             Spacer(modifier = Modifier.height(20.dp))
             Button(onClick = {

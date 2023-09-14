@@ -73,4 +73,9 @@
     <string name="password">Password</string>
     <string name="or">Or</string>
     <string name="havent_sign_up">Don\'t have an account? Click here</string>
+    <string name="mail" translatable="false">E-mail</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="advance">Advance</string>
+    <string name="terms_of_service">If you decide to advance, you are agreeing with the Terms of Service</string>
+    <string name="register_with">Register with %s</string>
 </resources>
