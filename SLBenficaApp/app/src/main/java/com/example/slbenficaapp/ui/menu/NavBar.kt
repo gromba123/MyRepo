@@ -31,8 +31,10 @@ data class NavigationItem(
 )
 
 private val menuItems = listOf(
-    NavigationItem(Screen.Home.route, R.string.home, R.drawable.ic_benfica_foreground),
-    NavigationItem(Screen.Associate.route, R.string.associates, R.drawable.ic_benfica_foreground)
+    NavigationItem(Screen.Home.route, R.string.home, R.drawable.ic_benfica),
+    NavigationItem(Screen.Associate.route, R.string.associates, R.drawable.ic_benfica),
+    NavigationItem(Screen.Store.route, R.string.store, R.drawable.ic_benfica),
+    NavigationItem(Screen.Profile.route, R.string.profile, R.drawable.ic_benfica),
 )
 
 @SuppressLint("ResourceType")
@@ -40,7 +42,7 @@ private val menuItems = listOf(
 fun BuildNavBar(
     navController: NavController
 ) {
-    val actualRoute = Screen.Home.route//navController.currentDestination?.route!!
+    val actualRoute = navController.currentDestination?.route!!
     val state = getIndex(actualRoute)
     TabRow(
         selectedTabIndex = state,
@@ -85,8 +87,8 @@ private fun BuildNavigationButton(
                 contentDescription = stringResource(id = item.labelId),
                 tint = Color.White,
                 modifier = Modifier
-                    .height(30.dp)
-                    .width(30.dp)
+                    .height(25.dp)
+                    .width(25.dp)
             )
         },
         onClick = onClick
@@ -97,5 +99,7 @@ private fun getIndex(route: String) =
     when(route) {
         Screen.Home.route -> 0
         Screen.Associate.route -> 1
-        else -> 2
+        Screen.Store.route -> 2
+        Screen.Profile.route -> 3
+        else -> 4
     }

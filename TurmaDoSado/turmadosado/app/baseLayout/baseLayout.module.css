@@ -1,0 +1,8 @@
+.base {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--max-width);
+    width: 100%;
+    z-index: 2;
+}
+

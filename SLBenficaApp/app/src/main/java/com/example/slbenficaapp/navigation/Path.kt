@@ -1,8 +1,11 @@
 package com.example.slbenficaapp.navigation
 
-const val ROOT_ROUTE = "root_route"
+const val MENU_ROUTE = "menu"
 
 sealed class Screen(val route: String) {
-    data object Home : Screen("home")
-    data object Associate : Screen("menu")
+    data object Menu : Screen(MENU_ROUTE)
+    data object Home : Screen("menu/home")
+    data object Associate : Screen("menu/associate")
+    data object Store : Screen("menu/store")
+    data object Profile : Screen("menu/profile")
 }

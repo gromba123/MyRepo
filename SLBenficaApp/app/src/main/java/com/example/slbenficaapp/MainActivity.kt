@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.slbenficaapp.navigation.BuildNavHost
 import com.example.slbenficaapp.ui.menu.BuildMenuLayout
 import com.example.slbenficaapp.ui.theme.SLBenficaAppTheme
 
@@ -24,9 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
-                    BuildMenuLayout(navController = rememberNavController()) {
-
-                    }
+                    BuildNavHost(navController = rememberNavController())
                 }
             }
         }

@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name" translatable="false">SLBenficaApp</string>
+    <string name="app_name" translatable="false">SL Benfica</string>
     <string name="home">Home</string>
     <string name="associates">Associates</string>
+    <string name="store">Store</string>
+    <string name="profile">Profile</string>
 </resources>

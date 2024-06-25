@@ -15,10 +15,11 @@ const Sidebar = () => {
   return (
     <aside className='aside'>
         <div className='items'>
-            <Item label='About Me' onClick={() => {return}}/>
-            <Item label='Skills' onClick={() => {return}}/>
-            <Item label='Portfolio' onClick={() => {return}}/>
-            <Item label='Contact' onClick={() => {return}}/>
+          <Item label='Home' onClick={() => {return}}/>
+          <Item label='About Me' onClick={() => {return}}/>
+          <Item label='Skills' onClick={() => {return}}/>
+          <Item label='Portfolio' onClick={() => {return}}/>
+          <Item label='Contact' onClick={() => {return}}/>
         </div>
         <div className='icons'>
             <Icon 
