@@ -3,6 +3,34 @@
     flex-direction: column;
     max-width: var(--max-width);
     width: 100%;
+    height: 100%;
     z-index: 2;
 }
 
+.grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    padding-top: 0.5rem;
+}
+
+.background {
+    grid-area: 1/1;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    background-image: url(/turma_do_sado_negative.png);
+    background-repeat: no-repeat;
+    background-size: 38rem;
+    background-position: center;
+    opacity: 0.2;
+}
+
+.content {
+    grid-area: 1/1;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}

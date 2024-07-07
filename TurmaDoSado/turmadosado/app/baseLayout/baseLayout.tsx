@@ -7,7 +7,12 @@ export default function BaseLayout(
   return (
     <div className={styles.base}>
       <Header/>
-      {props.children}
+      <div className={styles.grid}>
+        <div className={styles.background}/>
+        <div className={styles.content}>
+          {props.children}
+        </div>
+      </div>
     </div>
   );
 }
