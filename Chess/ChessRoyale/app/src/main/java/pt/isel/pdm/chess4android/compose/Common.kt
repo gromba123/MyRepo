@@ -5,8 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +24,7 @@ fun BuildCrossedText(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),
             color = White
         )
@@ -33,7 +33,7 @@ fun BuildCrossedText(
             color = White,
             fontSize = 14.sp,
             modifier = Modifier
-                .background(color = MaterialTheme.colors.surface)
+                .background(color = MaterialTheme.colorScheme.surface)
                 .padding(
                     start = 5.dp,
                     end = 5.dp,

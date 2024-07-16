@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pt.isel.pdm.chess4android.dataAccess.PuzzleRepository
+import pt.isel.pdm.chess4android.domain.DrawController
 import pt.isel.pdm.chess4android.domain.ScreenState
 import pt.isel.pdm.chess4android.domain.pieces.Location
 import pt.isel.pdm.chess4android.domain.pieces.Piece
@@ -19,14 +20,8 @@ import pt.isel.pdm.chess4android.domain.puzzle.PuzzleDTO
 import pt.isel.pdm.chess4android.domain.puzzle.PuzzleRuler
 import pt.isel.pdm.chess4android.domain.puzzle.PuzzleState
 import pt.isel.pdm.chess4android.utils.PaintResults
-import pt.isel.pdm.chess4android.domain.DrawController
 import javax.inject.Inject
-import kotlin.collections.HashMap
-import kotlin.collections.List
-import kotlin.collections.isNotEmpty
-import kotlin.collections.reduce
 import kotlin.collections.set
-import kotlin.collections.toMutableList
 
 private const val ACTIVITY_STATE_PUZZLE_BOARD = "PuzzleActivity.board"
 private const val ACTIVITY_STATE_PUZZLE_SLN = "PuzzleActivity.sln"

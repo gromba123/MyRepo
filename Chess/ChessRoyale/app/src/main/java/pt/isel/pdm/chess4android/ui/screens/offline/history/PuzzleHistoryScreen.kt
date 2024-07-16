@@ -10,11 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -76,7 +76,7 @@ fun BuildPuzzleListScreen(
             Text(
                 text = stringResource(id = R.string.loading),
                 fontSize = 32.sp,
-                color = MaterialTheme.colors.secondary
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }
@@ -108,7 +108,7 @@ private fun BuildFetchButton(
         Icon (
             imageVector = Icons.Filled.Download,
             contentDescription = "Download",
-            tint = MaterialTheme.colors.secondary,
+            tint = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.clickable { viewModel.fetchDailyPuzzle() }
         )
     }

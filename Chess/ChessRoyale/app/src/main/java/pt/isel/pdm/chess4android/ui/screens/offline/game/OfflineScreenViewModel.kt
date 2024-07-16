@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import pt.isel.pdm.chess4android.domain.DrawController
 import pt.isel.pdm.chess4android.domain.offline.OfflineBoard
 import pt.isel.pdm.chess4android.domain.online.GameState
 import pt.isel.pdm.chess4android.domain.pieces.Location
@@ -13,7 +14,6 @@ import pt.isel.pdm.chess4android.domain.pieces.Piece
 import pt.isel.pdm.chess4android.domain.pieces.Team
 import pt.isel.pdm.chess4android.utils.EndgameResult
 import pt.isel.pdm.chess4android.utils.PaintResults
-import pt.isel.pdm.chess4android.domain.DrawController
 import javax.inject.Inject
 import kotlin.collections.set
 

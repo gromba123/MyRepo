@@ -2,14 +2,20 @@ package pt.isel.pdm.chess4android.ui.screens.menu
 
 import android.annotation.SuppressLint
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.SportsEsports
-import androidx.compose.runtime.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -41,11 +47,11 @@ fun BuildNavBar(
     val state = getIndex(actualRoute)
     TabRow(
         selectedTabIndex = state,
-        backgroundColor = MaterialTheme.colors.primary,
+        containerColor = MaterialTheme.colorScheme.primary,
         indicator = {
-            TabRowDefaults.Indicator(
+            TabRowDefaults.PrimaryIndicator(
                 modifier = Modifier.tabIndicatorOffset(it[state]),
-                color = MaterialTheme.colors.surface,
+                color = MaterialTheme.colorScheme.surface,
                 height = 2.dp
             )
         }

@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,9 +34,9 @@ fun BuildArrowBack(
     navController: NavController
 ) {
     Icon(
-        imageVector = Icons.Filled.ArrowBack,
+        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
         contentDescription = "Back",
-        tint = MaterialTheme.colors.secondary,
+        tint = MaterialTheme.colorScheme.secondary,
         modifier = Modifier.clickable { navController.popBackStack() }
     )
 }
@@ -48,7 +48,7 @@ fun BuildMessage(
     Text(
         text = label,
         fontSize = 32.sp,
-        color = MaterialTheme.colors.secondary
+        color = MaterialTheme.colorScheme.secondary
     )
 }
 
@@ -59,7 +59,7 @@ fun BuildPromotion(
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.surface.copy(0.75F)
+        color = MaterialTheme.colorScheme.surface.copy(0.75F)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -90,7 +90,7 @@ fun BuildPromotion(
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 text = name,
-                                color = MaterialTheme.colors.secondary
+                                color = MaterialTheme.colorScheme.secondary
                             )
                         }
                     }

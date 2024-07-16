@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -82,12 +82,12 @@ fun BuildSolvedPuzzleScreen(
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = MaterialTheme.colors.secondary
+                                containerColor = MaterialTheme.colorScheme.secondary
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.solution),
-                                color = MaterialTheme.colors.primary
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                         Button(
@@ -95,12 +95,12 @@ fun BuildSolvedPuzzleScreen(
                                 navController.navigate(Screen.UnsolvedPuzzle.buildRoute(id))
                             },
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = MaterialTheme.colors.secondary
+                                containerColor = MaterialTheme.colorScheme.secondary
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.retry),
-                                color = MaterialTheme.colors.primary
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
@@ -109,7 +109,7 @@ fun BuildSolvedPuzzleScreen(
                 Text(
                     text = stringResource(id = R.string.loading),
                     fontSize = 32.sp,
-                    color = MaterialTheme.colors.secondary
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
         }

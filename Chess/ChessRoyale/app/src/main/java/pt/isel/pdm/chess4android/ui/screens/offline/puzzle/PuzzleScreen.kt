@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
@@ -73,12 +73,12 @@ fun BuildPuzzleScreen(
                             viewModel.restart()
                         },
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = MaterialTheme.colors.secondary
+                            containerColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
                         Text(
                             text = stringResource(id = R.string.restart),
-                            color = MaterialTheme.colors.primary
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
                 }
@@ -87,7 +87,7 @@ fun BuildPuzzleScreen(
             Text(
                 text = stringResource(id = R.string.loading),
                 fontSize = 32.sp,
-                color = MaterialTheme.colors.secondary
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }

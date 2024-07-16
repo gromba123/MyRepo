@@ -1,5 +1,6 @@
 package pt.isel.pdm.chess4android.ui.screens.auth.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,11 +12,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -78,13 +79,17 @@ private fun BuildContent(
         contentAlignment = Alignment.BottomCenter
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(top = 35.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 35.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BuildLogo()
             Spacer(modifier = Modifier.height(30.dp))
             Column(
-                modifier = Modifier.width(IntrinsicSize.Max),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
@@ -140,7 +145,7 @@ private fun BuildContent(
                     Text(
                         text = stringResource(id = R.string.login),
                         fontSize = 14.sp,
-                        color = MaterialTheme.colors.secondary
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 }
                 Text(
@@ -156,14 +161,14 @@ private fun BuildContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
                 color = White
             )
             Text(
                 text = stringResource(id = R.string.havent_sign_up),
                 fontSize = 14.sp,
-                color = MaterialTheme.colors.secondary,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.clickable {
                     navController.navigate(Screen.SignUp.route)
                 }

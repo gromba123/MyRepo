@@ -1,11 +1,20 @@
 package pt.isel.pdm.chess4android.dataAccess
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Delete
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import pt.isel.pdm.chess4android.domain.puzzle.PuzzleDTO
 import pt.isel.pdm.chess4android.domain.puzzle.PuzzleHistoryDTO
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-import java.util.*
+import java.util.Date
 
 /**
  * Entity that represents a table in the Room DB
