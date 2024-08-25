@@ -1,0 +1,33 @@
+.tableWrapper {
+    width: 100%;
+    max-height: 120px;
+    overflow-y: scroll; 
+}
+
+.table {
+    width: 100%;
+    border-collapse:collapse;
+    font-size: 14px;
+}
+
+.header {
+    background-color: white;
+    color: black;
+}
+
+.header th {
+    background: white;
+    position: sticky;
+    top: 0;
+}
+
+.header th:first-of-type {
+    border-top-left-radius: 10px;
+}
+.header th:last-of-type {
+    border-top-right-radius: 10px;
+}
+
+.table tr {
+    text-align: center;
+}
