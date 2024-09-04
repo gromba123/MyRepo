@@ -52,14 +52,16 @@ function Content() {
                         Miguel
                         <div>Vinagre</div>
                         <div>#7</div>
+                        <div>
+                            <Image
+                                src="/logo.png"
+                                alt="Logo"
+                                width={150}
+                                height={150}
+                            />
+                        </div>
                     </div>
                     <div className={styles.details}>
-                        <Image
-                            src="/logo.png"
-                            alt="Logo"
-                            width={150}
-                            height={150}
-                        />
                         <div className={styles.container}>
                             <div className={styles.marker}>Nascimento</div>
                             <div className={styles.border}>19.06.2000(23)</div>
@@ -67,6 +69,15 @@ function Content() {
                         <div className={styles.container}>
                             <div className={styles.marker}>País</div>
                             <div className={styles.border}>Portugal <span className="fi fi-pt"></span></div>
+                        </div>
+                        <div className={styles.prizesContainer}>
+                            <div className={styles.marker}>Palmarés</div>
+                            <div className={styles.prizesRow}>
+                                <div className={styles.prize}><div>1</div></div>
+                                <div className={styles.prize}><div>1</div></div>
+                                <div className={styles.prize}><div>1</div></div>
+                                <div className={styles.prize}><div>1</div></div>
+                            </div>
                         </div>
                     </div>
                 </div>

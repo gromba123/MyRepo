@@ -24,6 +24,7 @@
 .name {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 24px;
+    max-width: max-content;
 }
 
 .name div {
@@ -31,11 +32,16 @@
     font-weight: bold;
 }
 
+.name div:last-child {
+    text-align: center;
+}
+
 .details {
     width: 100%;
+    padding-left: 5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
 }
 
@@ -62,6 +68,50 @@
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    text-align: center;
+}
+
+.prizesContainer {
+    width: 250px;
+    font-size: 12px;
+}
+
+.prizesRow {
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+}
+
+.prizesRow div:nth-child(1) {
+    background-image: url(/flop.png);
+}
+
+.prizesRow div:nth-child(2) {
+    background-image: url(/reveal.png);
+}
+
+.prizesRow div:nth-child(3) {
+    background-image: url(/mvp.png);
+}
+
+.prizesRow div:nth-child(4) {
+    background-image: url(/mvp.png);
+}
+
+.prize {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 60px;
+    height: 60px;
+    background-size: 100% 100%;
+}
+
+.prize div {
+    height: 15px;
+    width: 15px;
+    background-color: blue;
+    border-radius: 50%;
     text-align: center;
 }
 
