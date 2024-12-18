@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">MyFootballColection</string>
+    <string name="menu_social" translatable="false">Social</string>
+    <string name="menu_collection">Collection</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_games">Games</string>
+</resources>
