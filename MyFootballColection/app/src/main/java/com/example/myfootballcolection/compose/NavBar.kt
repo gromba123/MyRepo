@@ -1,4 +1,4 @@
-package com.example.myfootballcolection.ui.screens.menu
+package com.example.myfootballcolection.compose
 
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
@@ -36,9 +36,9 @@ data class NavigationItem(
 
 private val menuItems = listOf(
     NavigationItem(Screen.Social, R.string.menu_social, R.drawable.ic_scarf),
-    NavigationItem(Screen.Games, R.string.menu_games, R.drawable.ic_scarf),
+    NavigationItem(Screen.Games, R.string.menu_games, R.drawable.ic_ball),
     NavigationItem(Screen.Collection, R.string.menu_collection, R.drawable.ic_scarf),
-    NavigationItem(Screen.Settings, R.string.menu_settings, R.drawable.ic_scarf),
+    NavigationItem(Screen.Settings, R.string.menu_settings, R.drawable.ic_settings),
 )
 
 @SuppressLint("ResourceType")

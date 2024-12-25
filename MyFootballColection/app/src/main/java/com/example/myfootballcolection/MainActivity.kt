@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.myfootballcolection.navigation.BuildNavHost
-import com.example.myfootballcolection.ui.screens.menu.BuildNavBar
+import com.example.myfootballcolection.compose.BuildNavBar
 import com.example.myfootballcolection.ui.theme.MyFootballColectionTheme
 
 class MainActivity : ComponentActivity() {
