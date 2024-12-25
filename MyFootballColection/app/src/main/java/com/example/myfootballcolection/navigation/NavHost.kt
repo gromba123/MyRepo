@@ -12,9 +12,10 @@ fun BuildNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = AppGraph.App,
+        startDestination = AppGraph.Auth,
         modifier = Modifier.fillMaxSize()
     ) {
         buildMenuNavGraph(navController)
+        buildAuthNavGraph(navController)
     }
 }

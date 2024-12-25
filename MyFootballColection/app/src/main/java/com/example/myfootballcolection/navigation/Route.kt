@@ -7,6 +7,11 @@ sealed class AppGraph {
     @Serializable data object App : AppGraph()
 }
 
+sealed class AppAuth {
+    @Serializable data object Login : AppGraph()
+    @Serializable data object Register : AppGraph()
+}
+
 @Serializable
 sealed class Screen {
     @Serializable data object Social : Screen()

@@ -1,19 +1,22 @@
-package com.example.myfootballcolection.ui.screens.games
+package com.example.myfootballcolection.ui.screens.social
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.example.myfootballcolection.R
 import com.example.myfootballcolection.compose.BuildNavBar
 
 @Composable
-fun BuildGamesScreen(
-    navController: NavController,
-    viewModel: GamesScreenViewModel
+fun BuildSocialScreen(
+    navController: NavController
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -23,9 +26,10 @@ fun BuildGamesScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            contentAlignment = Alignment.Center
         ) {
-
+            Text(text = stringResource(id = R.string.coming_soon))
         }
     }
 }

@@ -4,10 +4,13 @@ import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import androidx.room.Upsert
 import com.example.myfootballcolection.domain.CollectionItem
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +28,8 @@ data class UserEntity(
     val email: String,
     val password: String,
     val tag: String,
-    val profilePictureUrl: String
+    val profilePictureUrl: String,
+    val followingTeams: List<String>
 )
 
 @Entity(
@@ -37,7 +41,8 @@ data class UserEntity(
             childColumns = ["userId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["userId", "gameId"], unique = true)]
 )
 data class GameEntity(
     @PrimaryKey val id: String,
@@ -71,6 +76,18 @@ data class CollectionItemEntity(
     val bucketUrl: String,
     val gameId: String?
 )
+
+class StringListConverter {
+
+    @TypeConverter
+    fun toString(entity: List<String>): String {
+        return entity.joinToString(",")
+    }
+    @TypeConverter
+    fun fromString(serialized: String): List<String> {
+        return serialized.split(",")
+    }
+}
 
 @Dao
 interface GamesCollectionDataAccess {
@@ -109,6 +126,7 @@ interface GamesCollectionDataAccess {
 }
 
 @Database(entities = [UserEntity::class, GameEntity::class, CollectionItemEntity::class], version = 1)
+@TypeConverters(StringListConverter::class)
 abstract class MFCCollectionDatabase : RoomDatabase() {
     abstract fun getMFCCollectionDao(): GamesCollectionDataAccess
 }
