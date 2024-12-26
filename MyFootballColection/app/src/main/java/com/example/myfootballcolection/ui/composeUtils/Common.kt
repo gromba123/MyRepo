@@ -1,4 +1,4 @@
-package com.example.myfootballcolection.compose
+package com.example.myfootballcolection.ui.composeUtils
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background

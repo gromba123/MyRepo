@@ -15,4 +15,5 @@
     <string name="facebook" translatable="false">Facebook</string>
     <string name="x" translatable="false">X</string>
     <string name="google" translatable="false">Google</string>
+    <string name="invalid_user_exception">Invalid user</string>
 </resources>

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -58,9 +59,12 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     implementation(libs.bundles.room)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.auth.ktx)
     ksp(libs.room.compiler)
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.compose)
     implementation(libs.androidx.material3.android)
     debugImplementation(libs.bundles.compose.debug)

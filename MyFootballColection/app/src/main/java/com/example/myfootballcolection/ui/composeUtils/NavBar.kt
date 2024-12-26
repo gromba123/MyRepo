@@ -1,4 +1,4 @@
-package com.example.myfootballcolection.compose
+package com.example.myfootballcolection.ui.composeUtils
 
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes

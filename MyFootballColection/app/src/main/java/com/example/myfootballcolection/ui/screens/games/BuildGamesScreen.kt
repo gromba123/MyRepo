@@ -8,7 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.myfootballcolection.compose.BuildNavBar
+import com.example.myfootballcolection.ui.composeUtils.BuildNavBar
 
 @Composable
 fun BuildGamesScreen(

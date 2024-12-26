@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.example.myfootballcolection.navigation.graph.buildAuthNavGraph
+import com.example.myfootballcolection.navigation.graph.buildMenuNavGraph
 
 @Composable
 fun BuildNavHost(

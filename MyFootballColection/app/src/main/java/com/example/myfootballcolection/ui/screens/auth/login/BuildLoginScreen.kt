@@ -30,11 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myfootballcolection.R
-import com.example.myfootballcolection.compose.BuildCrossedText
-import com.example.myfootballcolection.compose.BuildDefaultOutlinedTextField
-import com.example.myfootballcolection.compose.BuildPasswordOutlinedTextField
-import com.example.myfootballcolection.compose.BuildSocialNetworkList
-import com.example.myfootballcolection.compose.ImageListItem
+import com.example.myfootballcolection.ui.composeUtils.BuildCrossedText
+import com.example.myfootballcolection.ui.composeUtils.BuildDefaultOutlinedTextField
+import com.example.myfootballcolection.ui.composeUtils.BuildPasswordOutlinedTextField
+import com.example.myfootballcolection.ui.composeUtils.BuildSocialNetworkList
+import com.example.myfootballcolection.ui.composeUtils.ImageListItem
 import com.example.myfootballcolection.navigation.AppAuth
 import com.example.myfootballcolection.navigation.Screen
 import com.example.myfootballcolection.ui.theme.Gold

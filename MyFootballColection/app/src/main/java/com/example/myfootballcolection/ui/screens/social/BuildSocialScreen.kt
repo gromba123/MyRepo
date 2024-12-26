@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.myfootballcolection.R
-import com.example.myfootballcolection.compose.BuildNavBar
+import com.example.myfootballcolection.ui.composeUtils.BuildNavBar
 
 @Composable
 fun BuildSocialScreen(
