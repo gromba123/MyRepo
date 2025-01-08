@@ -67,13 +67,10 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.compose)
     implementation(libs.androidx.material3.android)
-    debugImplementation(libs.bundles.compose.debug)
     implementation(libs.bundles.koin)
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.bundles.testing)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(libs.bundles.compose.debug)
 }

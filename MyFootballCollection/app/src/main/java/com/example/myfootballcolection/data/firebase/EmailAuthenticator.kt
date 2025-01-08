@@ -1,30 +1,35 @@
 package com.example.myfootballcolection.data.firebase
 
+import com.example.myfootballcolection.domain.firebase.FirebaseEmailAuthenticator
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.tasks.await
 
-class EmailFirebaseAuthenticator {
+class FirebaseEmailAuthenticatorImpl : FirebaseEmailAuthenticator {
 
     private val auth = Firebase.auth
 
-    suspend fun signUpWithEmailPassword(
+    override suspend fun signUpWithEmailPassword(
         email: String,
         password: String
     ) = auth.createUserWithEmailAndPassword(email, password).await().user
 
-    suspend fun signInWithEmailPassword(
+    override suspend fun signInWithEmailPassword(
         email: String,
         password: String
     )  = auth.signInWithEmailAndPassword(email, password).await().user
 
-    fun signOut(): Unit = auth.signOut()
+    override fun signOut(): Unit = auth.signOut()
 
-    suspend fun updatePassword(
+    override suspend fun updatePassword(
         newPassword: String
-    ) = auth.currentUser?.updatePassword(newPassword)?.await()
+    ) {
+        auth.currentUser?.updatePassword(newPassword)?.await()
+    }
 
-    fun recoverPassword(
+    override fun recoverPassword(
         email: String
-    ) = auth.sendPasswordResetEmail(email)
+    ) {
+        auth.sendPasswordResetEmail(email)
+    }
 }

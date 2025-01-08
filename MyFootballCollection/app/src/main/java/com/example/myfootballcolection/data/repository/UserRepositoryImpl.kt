@@ -1,7 +1,7 @@
 package com.example.myfootballcolection.data.repository
 
 import com.example.myfootballcolection.data.dataSource.GamesCollectionDao
-import com.example.myfootballcolection.data.firebase.EmailFirebaseAuthenticator
+import com.example.myfootballcolection.data.firebase.FirebaseEmailAuthenticatorImpl
 import com.example.myfootballcolection.domain.error.Error
 import com.example.myfootballcolection.domain.error.Result
 import com.example.myfootballcolection.domain.error.UserError
@@ -10,14 +10,14 @@ import com.example.myfootballcolection.domain.repository.UserRepository
 
 class UserRepositoryImpl (
     private val gamesCollectionDao: GamesCollectionDao,
-    private val emailFirebaseAuthenticator: EmailFirebaseAuthenticator
+    private val firebaseEmailAuthenticatorImpl: FirebaseEmailAuthenticatorImpl
 ) : UserRepository {
     override suspend fun loginUser(
         mail: String,
         password: String
     ): Result<User, Error> {
         try {
-            val firebaseUser = emailFirebaseAuthenticator.signInWithEmailPassword(
+            val firebaseUser = firebaseEmailAuthenticatorImpl.signInWithEmailPassword(
                 mail,
                 password
             )
@@ -36,7 +36,7 @@ class UserRepositoryImpl (
         password: String
     ): Result<User, Error> {
         try {
-            val firebaseUser = emailFirebaseAuthenticator.signUpWithEmailPassword(
+            val firebaseUser = firebaseEmailAuthenticatorImpl.signUpWithEmailPassword(
                 mail,
                 password
             )
