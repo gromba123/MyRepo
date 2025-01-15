@@ -1,23 +1,25 @@
 package com.example.myfootballcollection.data.repository
 
+import android.util.Log
 import com.example.myfootballcollection.data.dataSource.GamesCollectionDao
 import com.example.myfootballcollection.data.firebase.FirebaseEmailAuthenticatorImpl
 import com.example.myfootballcollection.domain.error.Error
 import com.example.myfootballcollection.domain.error.Result
 import com.example.myfootballcollection.domain.error.UserError
+import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
 import com.example.myfootballcollection.domain.model.User
 import com.example.myfootballcollection.domain.repository.UserRepository
 
 class UserRepositoryImpl (
     private val gamesCollectionDao: GamesCollectionDao,
-    private val firebaseEmailAuthenticatorImpl: FirebaseEmailAuthenticatorImpl
+    private val firebaseEmailAuthenticator: FirebaseEmailAuthenticator
 ) : UserRepository {
     override suspend fun loginUser(
         mail: String,
         password: String
     ): Result<User, Error> {
         try {
-            val firebaseUser = firebaseEmailAuthenticatorImpl.signInWithEmailPassword(
+            val firebaseUser = firebaseEmailAuthenticator.signInWithEmailPassword(
                 mail,
                 password
             )
@@ -36,17 +38,19 @@ class UserRepositoryImpl (
         password: String
     ): Result<User, Error> {
         try {
-            val firebaseUser = firebaseEmailAuthenticatorImpl.signUpWithEmailPassword(
+            val firebaseUser = firebaseEmailAuthenticator.signUpWithEmailPassword(
                 mail,
                 password
             )
             if (firebaseUser == null) {
+                Log.v("Testing", "Here on null")
                 return Result.Error(UserError.Firebase.USER_ALREADY_EXISTS)
             }
             val u = User.buildBlankUser(firebaseUser.uid, mail)
             gamesCollectionDao.upsertUser(u)
             return Result.Success(u)
         } catch (e: Exception) {
+            Log.v("Testing", e.toString())
             return Result.Error(UserError.Firebase.USER_ALREADY_EXISTS)
             TODO("Need to verify all exceptions and implement them. Also previous exceptions")
         }

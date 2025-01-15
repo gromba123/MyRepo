@@ -5,9 +5,13 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.tasks.await
 
-class FirebaseEmailAuthenticatorImpl : FirebaseEmailAuthenticator {
+class FakeFirebaseEmailAuthenticator : FirebaseEmailAuthenticator {
 
     private val auth = Firebase.auth
+
+    init {
+        auth.useEmulator("10.0.2.2", 9099)
+    }
 
     override suspend fun signUpWithEmailPassword(
         email: String,
@@ -34,6 +38,7 @@ class FirebaseEmailAuthenticatorImpl : FirebaseEmailAuthenticator {
     }
 
     override suspend fun deleteUser() {
-        TODO("Not yet implemented")
+        auth.currentUser?.delete()?.await()
+        auth.signOut()
     }
 }

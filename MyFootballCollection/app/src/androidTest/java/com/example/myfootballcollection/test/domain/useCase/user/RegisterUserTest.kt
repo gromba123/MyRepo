@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.myfootballcollection.data.dataSource.MFCCollectionDatabase
 import com.example.myfootballcollection.data.dataSource.getFakeDao
+import com.example.myfootballcollection.data.firebase.FakeFirebaseEmailAuthenticator
 import com.example.myfootballcollection.data.firebase.FirebaseEmailAuthenticatorImpl
 import com.example.myfootballcollection.data.repository.UserRepositoryImpl
 import com.example.myfootballcollection.domain.error.Result
@@ -20,19 +21,20 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RegisterUserTest {
+    private lateinit var fakeFirebaseEmailAuthenticator: FakeFirebaseEmailAuthenticator
     private lateinit var db: MFCCollectionDatabase
     private lateinit var registerUser: RegisterUser
 
     @Before
     fun setUp() {
-        Firebase.auth.useEmulator("10.0.2.2", 9099)
         val context = InstrumentationRegistry.getInstrumentation().targetContext
+        fakeFirebaseEmailAuthenticator = FakeFirebaseEmailAuthenticator()
         db = getFakeDao(context)
         val dao = db.getMFCCollectionDao()
         registerUser = RegisterUser(
             UserRepositoryImpl(
                 dao,
-                FirebaseEmailAuthenticatorImpl()
+                fakeFirebaseEmailAuthenticator
             )
         )
     }
@@ -47,7 +49,9 @@ class RegisterUserTest {
 
     @After
     fun tearDown() {
-        FirebaseAuth.getInstance().signOut()
+        runBlocking {
+            fakeFirebaseEmailAuthenticator.deleteUser()
+        }
         db.close()
     }
 }
