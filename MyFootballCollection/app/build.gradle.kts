@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myfootballcolection"
+    namespace = "com.example.myfootballcollection"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myfootballcolection"
+        applicationId = "com.example.myfootballcollection"
         minSdk = 31
         targetSdk = 34
         versionCode = 1
@@ -55,22 +55,31 @@ android {
 
 dependencies {
 
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation(libs.bundles.room)
+    //Firebase
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.auth.ktx)
+
+    //Room
+    implementation(libs.bundles.room)
     ksp(libs.room.compiler)
 
+    implementation(libs.core.ktx)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.compose)
     implementation(libs.androidx.material3.android)
+
+    //Koin
     implementation(libs.bundles.koin)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.bundles.testing)
+    // Local Tests
+    testImplementation(libs.bundles.local.tests)
+
+    // Instrumented Tests
+    androidTestImplementation(libs.bundles.instrumented.tests)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    debugImplementation(libs.bundles.compose.debug)
 }
