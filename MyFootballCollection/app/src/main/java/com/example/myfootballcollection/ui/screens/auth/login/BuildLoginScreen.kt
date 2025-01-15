@@ -29,11 +29,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.myfootballcollection.navigation.AppAuth
-import com.example.myfootballcollection.navigation.Screen
 import com.example.myfootballcolection.ui.theme.Gold
 import com.example.myfootballcolection.ui.theme.White
 import com.example.myfootballcollection.R
+import com.example.myfootballcollection.navigation.AppAuth
+import com.example.myfootballcollection.navigation.Screen
 import com.example.myfootballcollection.ui.composeUtils.BuildCrossedText
 import com.example.myfootballcollection.ui.composeUtils.BuildDefaultOutlinedTextField
 import com.example.myfootballcollection.ui.composeUtils.BuildPasswordOutlinedTextField

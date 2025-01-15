@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.myfootballcollection.navigation.Screen
 import com.example.myfootballcollection.R
+import com.example.myfootballcollection.navigation.Screen
 import kotlinx.serialization.Serializable
 
 @Serializable

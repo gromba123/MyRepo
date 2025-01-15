@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+*.idea
 node_modules
 google-services.json
 
