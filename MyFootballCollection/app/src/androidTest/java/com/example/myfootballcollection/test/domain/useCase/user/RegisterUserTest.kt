@@ -5,14 +5,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.myfootballcollection.data.dataSource.MFCCollectionDatabase
 import com.example.myfootballcollection.data.dataSource.getFakeDao
 import com.example.myfootballcollection.data.firebase.FakeFirebaseEmailAuthenticator
-import com.example.myfootballcollection.data.firebase.FirebaseEmailAuthenticatorImpl
 import com.example.myfootballcollection.data.repository.UserRepositoryImpl
 import com.example.myfootballcollection.domain.error.Result
 import com.example.myfootballcollection.domain.useCase.user.RegisterUser
 import com.google.common.truth.Truth
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before

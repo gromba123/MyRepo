@@ -1,44 +1,67 @@
 package com.example.myfootballcollection.data.firebase
 
+import com.example.myfootballcollection.domain.error.OPERATION_NOT_ALLOWED_CODE
+import com.example.myfootballcollection.domain.error.USER_ALREADY_EXISTS_CODE
+import com.example.myfootballcollection.domain.error.USER_NOT_FOUND_CODE
+import com.example.myfootballcollection.domain.error.WRONG_PASSWORD_CODE
 import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
-import kotlinx.coroutines.tasks.await
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseUser
+
+const val TEST_MAIL = "TEST_PASSWORD"
+const val TEST_PASSWORD = "TEST_PASSWORD"
 
 class FakeFirebaseEmailAuthenticator : FirebaseEmailAuthenticator {
 
-    private val auth = Firebase.auth
-
-    init {
-        auth.useEmulator("10.0.2.2", 9099)
-    }
+    private var firebaseUser: FakeFirebaseUser? = null
 
     override suspend fun signUpWithEmailPassword(
         email: String,
         password: String
-    ) = auth.createUserWithEmailAndPassword(email, password).await().user
+    ): FirebaseUser? {
+        firebaseUser?.let {
+            if (it.email == email) {
+                throw FirebaseAuthException(USER_ALREADY_EXISTS_CODE, "Test")
+            }
+        }
+        firebaseUser = FakeFirebaseUser(email, password, "123")
+        return firebaseUser
+    }
 
     override suspend fun signInWithEmailPassword(
         email: String,
         password: String
-    )  = auth.signInWithEmailAndPassword(email, password).await().user
+    ): FirebaseUser? {
+        if (firebaseUser == null) {
+            if (password != TEST_MAIL) {
+                FirebaseAuthException(USER_NOT_FOUND_CODE, "Test")
+            }
+            if (password != TEST_PASSWORD) {
+                FirebaseAuthException(WRONG_PASSWORD_CODE, "Test")
+            }
+            firebaseUser = FakeFirebaseUser(email, password, "123")
+            return firebaseUser
+        }
+        throw FirebaseAuthException(OPERATION_NOT_ALLOWED_CODE, "Test")
+    }
 
-    override fun signOut(): Unit = auth.signOut()
+    override fun signOut() {
+        firebaseUser = null
+    }
 
     override suspend fun updatePassword(
         newPassword: String
     ) {
-        auth.currentUser?.updatePassword(newPassword)?.await()
+        firebaseUser?.changePassword(newPassword)
     }
 
     override fun recoverPassword(
         email: String
     ) {
-        auth.sendPasswordResetEmail(email)
+        //TODO()
     }
 
     override suspend fun deleteUser() {
-        auth.currentUser?.delete()?.await()
-        auth.signOut()
+        //Do nothing
     }
 }
