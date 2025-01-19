@@ -1,4 +1,4 @@
-package com.example.myfootballcolection.ui.theme
+package com.example.myfootballcollection.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
-    secondary = PurpleGrey80,
+    secondary = White,
     tertiary = Pink80,
     background = PitchGreen,
     surface = PitchGreen
@@ -16,7 +16,7 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
-    secondary = PurpleGrey40,
+    secondary = White,
     tertiary = Pink40,
     background = PitchGreen,
     surface = PitchGreen

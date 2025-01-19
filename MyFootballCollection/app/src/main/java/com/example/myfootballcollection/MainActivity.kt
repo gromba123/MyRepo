@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.example.myfootballcolection.ui.theme.MyFootballCollectionTheme
+import com.example.myfootballcollection.ui.theme.MyFootballCollectionTheme
 import com.example.myfootballcollection.navigation.BuildNavHost
 
 class MainActivity : ComponentActivity() {

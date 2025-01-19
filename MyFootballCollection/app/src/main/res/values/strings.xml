@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MyFootballColection</string>
+    <string name="app_name" translatable="false">MyFootballCollection</string>
     <string name="menu_social" translatable="false">Social</string>
     <string name="menu_collection">Collection</string>
     <string name="menu_settings">Settings</string>
@@ -11,7 +11,7 @@
     <string name="mail" translatable="false">E-mail</string>
     <string name="or">Or</string>
     <string name="login_with">Login with %s</string>
-    <string name="havent_sign_up">Don\\\'t have an account? Click here</string>
+    <string name="havent_sign_up">Don\'t have an account? Click here</string>
     <string name="facebook" translatable="false">Facebook</string>
     <string name="x" translatable="false">X</string>
     <string name="google" translatable="false">Google</string>

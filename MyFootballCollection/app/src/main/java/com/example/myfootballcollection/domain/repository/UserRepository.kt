@@ -9,5 +9,6 @@ interface UserRepository {
     suspend fun registerUser(mail: String, password: String): Result<User, Error>
     suspend fun getUserById(id: String): Result<User, Error>
     suspend fun updateUser(user: User): Result<User, Error>
+    suspend fun changePassword(newPassword: String)
     fun logoutUser()
 }

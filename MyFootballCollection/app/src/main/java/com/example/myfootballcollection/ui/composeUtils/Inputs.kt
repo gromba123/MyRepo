@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -24,7 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
-import com.example.myfootballcolection.ui.theme.White
+import com.example.myfootballcollection.ui.theme.White
 
 @Composable
 fun BuildDefaultOutlinedTextField(
@@ -88,11 +89,19 @@ fun BuildPasswordOutlinedTextField(
         trailingIcon = {
             if (showPassword) {
                 IconButton(onClick = { showPassword = false }) {
-                    Icon(imageVector = Icons.Filled.Visibility, contentDescription = "")
+                    Icon(
+                        imageVector = Icons.Filled.Visibility,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
                 }
             } else {
                 IconButton(onClick = { showPassword = true }) {
-                    Icon(imageVector = Icons.Filled.VisibilityOff, contentDescription = "")
+                    Icon(
+                        imageVector = Icons.Filled.VisibilityOff,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
                 }
             }
         },
