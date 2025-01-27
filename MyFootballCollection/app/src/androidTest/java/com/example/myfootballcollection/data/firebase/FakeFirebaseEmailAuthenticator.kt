@@ -45,6 +45,10 @@ class FakeFirebaseEmailAuthenticator : FirebaseEmailAuthenticator {
         throw FirebaseAuthException(OPERATION_NOT_ALLOWED_CODE, "Test")
     }
 
+    override fun getCurrentUser(): FirebaseUser? {
+        TODO("Not yet implemented")
+    }
+
     override fun signOut() {
         firebaseUser = null
     }
