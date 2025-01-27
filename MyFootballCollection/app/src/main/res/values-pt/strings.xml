@@ -15,4 +15,6 @@
     <string name="username">Nome de utilizador</string>
     <string name="confirm_password">Confirmar palavra-passe</string>
     <string name="register">Registar</string>
+    <string name="first_name">Nome</string>
+    <string name="last_name">Sobrenome</string>
 </resources>

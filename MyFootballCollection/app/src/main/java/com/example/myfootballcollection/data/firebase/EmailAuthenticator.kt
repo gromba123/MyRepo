@@ -2,6 +2,7 @@ package com.example.myfootballcollection.data.firebase
 
 import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.tasks.await
 
@@ -19,12 +20,17 @@ class FirebaseEmailAuthenticatorImpl : FirebaseEmailAuthenticator {
         password: String
     )  = auth.signInWithEmailAndPassword(email, password).await().user
 
-    override fun signOut(): Unit = auth.signOut()
+    override fun getCurrentUser(): FirebaseUser? = auth.currentUser
+
 
     override suspend fun updatePassword(
         newPassword: String
     ) {
         auth.currentUser?.updatePassword(newPassword)?.await()
+    }
+
+    override suspend fun deleteUser() {
+        TODO("Not yet implemented")
     }
 
     override fun recoverPassword(
@@ -33,7 +39,5 @@ class FirebaseEmailAuthenticatorImpl : FirebaseEmailAuthenticator {
         auth.sendPasswordResetEmail(email)
     }
 
-    override suspend fun deleteUser() {
-        TODO("Not yet implemented")
-    }
+    override fun signOut(): Unit = auth.signOut()
 }

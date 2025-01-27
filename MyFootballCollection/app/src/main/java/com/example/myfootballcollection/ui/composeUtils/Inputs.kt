@@ -2,6 +2,7 @@ package com.example.myfootballcollection.ui.composeUtils
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myfootballcollection.ui.theme.White
 
@@ -50,8 +52,10 @@ fun BuildDefaultOutlinedTextField(
             focusedPlaceholderColor = White,
             cursorColor = White,
             focusedBorderColor = White,
-            unfocusedBorderColor = White
-        )
+            unfocusedBorderColor = White,
+            unfocusedTextColor = White
+        ),
+        shape = RoundedCornerShape(5.dp)
     )
 }
 
@@ -79,7 +83,8 @@ fun BuildPasswordOutlinedTextField(
             focusedPlaceholderColor = White,
             cursorColor = White,
             focusedBorderColor = White,
-            unfocusedBorderColor = White
+            unfocusedBorderColor = White,
+            unfocusedTextColor = White
         ),
         visualTransformation = if (showPassword) {
             VisualTransformation.None
@@ -109,5 +114,6 @@ fun BuildPasswordOutlinedTextField(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
         ),
+        shape = RoundedCornerShape(5.dp)
     )
 }

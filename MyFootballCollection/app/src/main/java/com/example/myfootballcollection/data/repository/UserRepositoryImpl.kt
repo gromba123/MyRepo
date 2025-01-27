@@ -57,17 +57,17 @@ class UserRepositoryImpl (
                 password
             )
             if (firebaseUser == null) {
-                return Result.Error(UserError.Firebase.Create.USER_ALREADY_EXISTS)
+                return Result.Error(UserError.Firebase.Register.USER_ALREADY_EXISTS)
             }
             val u = User.buildBlankUser(firebaseUser.uid, mail)
             gamesCollectionDao.upsertUser(u)
             return Result.Success(u)
         } catch (e: FirebaseAuthException) {
             val error = when (e.errorCode) {
-                USER_ALREADY_EXISTS_CODE -> UserError.Firebase.Create.USER_ALREADY_EXISTS
-                INVALID_EMAIL_CODE -> UserError.Firebase.Create.INVALID_EMAIL
-                OPERATION_NOT_ALLOWED_CODE -> UserError.Firebase.Create.OPERATION_NOT_ALLOWED
-                WEAK_PASSWORD_CODE -> UserError.Firebase.Create.WEAK_PASSWORD
+                USER_ALREADY_EXISTS_CODE -> UserError.Firebase.Register.USER_ALREADY_EXISTS
+                INVALID_EMAIL_CODE -> UserError.Firebase.Register.INVALID_EMAIL
+                OPERATION_NOT_ALLOWED_CODE -> UserError.Firebase.Register.OPERATION_NOT_ALLOWED
+                WEAK_PASSWORD_CODE -> UserError.Firebase.Register.WEAK_PASSWORD
                 else -> UserError.Firebase.Other.UNEXPECTED_ERROR
             }
             return Result.Error(error)
@@ -76,7 +76,26 @@ class UserRepositoryImpl (
         }
     }
 
-    override suspend fun getUserById(id: String): Result<User, Error> {
+    override suspend fun getCurrentUser(): Result<User, Error> {
+        try {
+            val firebaseUser = firebaseEmailAuthenticator.getCurrentUser()
+                ?: return Result.Error(UserError.Firebase.Login.USER_NOT_FOUND)
+            return getUserById(firebaseUser.uid)
+        } catch (e: FirebaseAuthException) {
+            val error = when (e.errorCode) {
+                WRONG_PASSWORD_CODE -> UserError.Firebase.Login.WRONG_PASSWORD
+                INVALID_EMAIL_CODE -> UserError.Firebase.Login.INVALID_EMAIL
+                USER_DISABLED_CODE -> UserError.Firebase.Login.USER_DISABLED
+                USER_NOT_FOUND_CODE -> UserError.Firebase.Login.USER_NOT_FOUND
+                else -> UserError.Firebase.Other.UNEXPECTED_ERROR
+            }
+            return Result.Error(error)
+        } catch (e: Exception) {
+            return Result.Error(UserError.Firebase.Other.UNEXPECTED_ERROR)
+        }
+    }
+
+    private suspend fun getUserById(id: String): Result<User, Error> {
         try {
             val user = gamesCollectionDao.getUser(id)
                 ?: return Result.Error(UserError.Firebase.Login.USER_NOT_FOUND)

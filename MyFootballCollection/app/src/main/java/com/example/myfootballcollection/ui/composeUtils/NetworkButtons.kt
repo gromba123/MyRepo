@@ -4,27 +4,22 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.myfootballcollection.ui.theme.Gold
 
 data class ImageListItem(
@@ -36,18 +31,16 @@ data class ImageListItem(
 
 @Composable
 fun BuildSocialNetworkList(
-    list: List<ImageListItem>,
-    @StringRes label: Int
+    list: List<ImageListItem>
 ) {
-    Column(
+    Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         list.forEach {
             BuildSocialNetworkButton(
-                item = it,
-                label = label
+                item = it
             )
         }
     }
@@ -55,23 +48,20 @@ fun BuildSocialNetworkList(
 
 @Composable
 private fun BuildSocialNetworkButton(
-    item: ImageListItem,
-    @StringRes label: Int
+    item: ImageListItem
 ) {
     Button(
-        modifier = Modifier
-            .padding(5.dp)
-            .fillMaxWidth(),
+        modifier = Modifier.padding(5.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Gold
         ),
-        shape = RectangleShape,
+        shape = RoundedCornerShape(5.dp),
         onClick = item.onClick
     ) {
         Row(
             modifier = Modifier
                 .height(IntrinsicSize.Max)
-                .fillMaxWidth(),
+                .width(50.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -79,12 +69,6 @@ private fun BuildSocialNetworkButton(
                 painter = painterResource(id = item.icon),
                 contentDescription = stringResource(id = item.description),
                 modifier = Modifier.size(30.dp)
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(
-                text = stringResource(id = label, stringResource(id = item.title)),
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.secondary
             )
         }
     }

@@ -5,8 +5,9 @@ import com.google.firebase.auth.FirebaseUser
 interface FirebaseEmailAuthenticator {
     suspend fun signUpWithEmailPassword(email: String, password: String): FirebaseUser?
     suspend fun signInWithEmailPassword(email: String, password: String): FirebaseUser?
-    fun signOut(): Unit
+    fun getCurrentUser(): FirebaseUser?
     suspend fun updatePassword(newPassword: String)
-    fun recoverPassword(email: String)
     suspend fun deleteUser()
+    fun recoverPassword(email: String)
+    fun signOut()
 }

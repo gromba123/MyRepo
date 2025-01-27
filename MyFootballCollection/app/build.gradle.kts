@@ -66,6 +66,7 @@ dependencies {
 
     //Room
     implementation(libs.bundles.room)
+    implementation(libs.androidx.exifinterface)
     ksp(libs.room.compiler)
 
     implementation(libs.core.ktx)

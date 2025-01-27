@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.myfootballcollection.navigation.AppGraph
-import com.example.myfootballcollection.navigation.Screen
+import com.example.myfootballcollection.navigation.AppScreen
 import com.example.myfootballcollection.ui.screens.games.BuildGamesScreen
 import com.example.myfootballcollection.ui.screens.games.GamesScreenViewModel
 import com.example.myfootballcollection.ui.screens.social.BuildSocialScreen
@@ -15,19 +15,19 @@ fun NavGraphBuilder.buildMenuNavGraph(
     navController: NavController
 ) {
     navigation<AppGraph.App>(
-        startDestination = Screen.Social,
+        startDestination = AppScreen.Social,
     ) {
-        composable<Screen.Social> {
+        composable<AppScreen.Social> {
             BuildSocialScreen(navController)
         }
-        composable<Screen.Games> {
+        composable<AppScreen.Games> {
             val viewModel = koinViewModel<GamesScreenViewModel>()
             BuildGamesScreen(navController, viewModel)
         }
-        composable<Screen.Collection> {
+        composable<AppScreen.Collection> {
 
         }
-        composable<Screen.Settings> {
+        composable<AppScreen.Settings> {
 
         }
     }

@@ -11,22 +11,27 @@ const val USER_NOT_FOUND_CODE = "ERROR_USER_NOT_FOUND"
 interface UserError: Error {
     enum class Firebase {
         ;
-        enum class Create: UserError {
-            USER_ALREADY_EXISTS,
-            INVALID_EMAIL,
-            OPERATION_NOT_ALLOWED,
-            WEAK_PASSWORD,
-        }
         enum class Login: UserError {
             WRONG_PASSWORD,
             INVALID_EMAIL,
             USER_DISABLED,
             USER_NOT_FOUND,
         }
+        enum class Register: UserError {
+            USER_ALREADY_EXISTS,
+            INVALID_EMAIL,
+            OPERATION_NOT_ALLOWED,
+            WEAK_PASSWORD,
+        }
         enum class Other : UserError {
             UNEXPECTED_ERROR
         }
     }
+
+    enum class User: UserError {
+        USER_NOT_CREATED
+    }
+
 
     enum class InvalidFields: UserError {
         INVALID_EMAIL,

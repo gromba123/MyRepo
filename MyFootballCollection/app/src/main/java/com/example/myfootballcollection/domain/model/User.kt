@@ -3,7 +3,9 @@ package com.example.myfootballcollection.domain.model
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(
     tableName = "user",
     indices = [

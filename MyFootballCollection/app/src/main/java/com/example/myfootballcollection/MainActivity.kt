@@ -4,14 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.example.myfootballcollection.ui.theme.MyFootballCollectionTheme
 import com.example.myfootballcollection.navigation.BuildNavHost
+import com.example.myfootballcollection.ui.composeUtils.BuildNavBar
+import com.example.myfootballcollection.ui.composeUtils.BuildTopBar
+import com.example.myfootballcollection.ui.theme.MyFootballCollectionTheme
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,17 +26,26 @@ class MainActivity : ComponentActivity() {
             MyFootballCollectionTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
-                    BuildNavHost(navController = navController)
+                    val vm = koinViewModel<BaseViewModel>()
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        topBar = {
+                            BuildTopBar(navController = navController)
+                        },
+                        bottomBar = {
+                            BuildNavBar(navController = navController)
+                        }
+                    ) { paddingValues ->
+                        Box(modifier = Modifier.padding(paddingValues)) {
+                            BuildNavHost(
+                                navController = navController,
+                                startDestination = vm.isUserLoggedIn()
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyFootballCollectionTheme {
-
     }
 }

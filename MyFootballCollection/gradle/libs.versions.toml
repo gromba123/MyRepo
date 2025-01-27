@@ -28,6 +28,7 @@ testRunner = "1.6.2"
 testRules = "1.6.1"
 kotlinxCoroutinesTest = "1.10.1"
 espressoCore = "3.6.1"
+exifinterface = "1.3.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -80,6 +81,7 @@ androidx-runner = { module = "androidx.test:runner", version.ref = "testRunner" 
 androidx-rules = { module = "androidx.test:rules", version.ref = "testRules" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

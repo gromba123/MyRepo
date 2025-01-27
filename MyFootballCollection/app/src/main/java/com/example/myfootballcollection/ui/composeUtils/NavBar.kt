@@ -22,23 +22,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myfootballcollection.R
-import com.example.myfootballcollection.navigation.Screen
+import com.example.myfootballcollection.navigation.AppScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class NavigationItem(
-    val screen: Screen,
+    val screen: AppScreen,
     @StringRes val labelId: Int,
     @DrawableRes val iconId: Int
 )
 
 private val menuItems = listOf(
-    NavigationItem(Screen.Social, R.string.menu_social, R.drawable.ic_scarf),
-    NavigationItem(Screen.Games, R.string.menu_games, R.drawable.ic_ball),
-    NavigationItem(Screen.Collection, R.string.menu_collection, R.drawable.ic_scarf),
-    NavigationItem(Screen.Settings, R.string.menu_settings, R.drawable.ic_settings),
+    NavigationItem(AppScreen.Social, R.string.menu_social, R.drawable.ic_scarf),
+    NavigationItem(AppScreen.Games, R.string.menu_games, R.drawable.ic_ball),
+    NavigationItem(AppScreen.Collection, R.string.menu_collection, R.drawable.ic_scarf),
+    NavigationItem(AppScreen.Settings, R.string.menu_settings, R.drawable.ic_settings),
 )
 
 @SuppressLint("ResourceType")
@@ -47,25 +48,28 @@ fun BuildNavBar(
     navController: NavController
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Social::class.qualifiedName
-    val state = getIndex(currentRoute!!)
-    TabRow(
-        selectedTabIndex = state,
-        containerColor = Red,
-        indicator = {
-            SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(it[state]),
-                height = 2.dp,
-                color = MaterialTheme.colorScheme.surface
-            )
-        }
-    ) {
-        menuItems.forEach { item ->
-            BuildNavigationButton(
-                item = item,
-                selected = currentRoute == item::class.qualifiedName,
-            ) {
-                navController.navigate(item.screen)
+    val destination = navBackStackEntry?.destination
+    val index = doWeShowBottomBar(destination)
+    if (index != -1) {
+        val currentRoute = destination?.route ?: AppScreen.Social::class.qualifiedName
+        TabRow(
+            selectedTabIndex = index,
+            containerColor = Red,
+            indicator = {
+                SecondaryIndicator(
+                    modifier = Modifier.tabIndicatorOffset(it[index]),
+                    height = 2.dp,
+                    color = MaterialTheme.colorScheme.surface
+                )
+            }
+        ) {
+            menuItems.forEach { item ->
+                BuildNavigationButton(
+                    item = item,
+                    selected = currentRoute == item::class.qualifiedName,
+                ) {
+                    navController.navigate(item.screen)
+                }
             }
         }
     }
@@ -100,11 +104,24 @@ private fun BuildNavigationButton(
     )
 }
 
-private fun getIndex(route: String) =
-    when(route) {
-        Screen.Social::class.qualifiedName -> 0
-        Screen.Games::class.qualifiedName -> 1
-        Screen.Collection::class.qualifiedName -> 2
-        Screen.Settings::class.qualifiedName -> 3
-        else -> 4
+private fun doWeShowBottomBar(navDestination: NavDestination?) =
+    if (navDestination == null) -1
+    else {
+        val currentRoute = navDestination.route
+        if (currentRoute == null) {
+            -1
+        } else {
+            if(currentRoute.startsWith(AppScreen.Social::class.qualifiedName!!)) {
+                1
+            } else if(currentRoute.startsWith(AppScreen.Games::class.qualifiedName!!)) {
+                2
+            } else if(currentRoute.startsWith(AppScreen.Collection::class.qualifiedName!!)) {
+                3
+            } else if(currentRoute.startsWith(AppScreen.Settings::class.qualifiedName!!)) {
+                4
+            }
+            else {
+                -1
+            }
+        }
     }
