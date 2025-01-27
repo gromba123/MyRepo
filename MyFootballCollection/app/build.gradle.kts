@@ -77,6 +77,9 @@ dependencies {
     //Koin
     implementation(libs.bundles.koin)
 
+    //Ktor
+    implementation(libs.bundles.ktor)
+
     // Local Tests
     testImplementation(libs.bundles.local.tests)
 
