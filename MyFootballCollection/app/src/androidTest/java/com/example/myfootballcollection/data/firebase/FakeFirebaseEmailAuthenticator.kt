@@ -4,7 +4,7 @@ import com.example.myfootballcollection.domain.error.OPERATION_NOT_ALLOWED_CODE
 import com.example.myfootballcollection.domain.error.USER_ALREADY_EXISTS_CODE
 import com.example.myfootballcollection.domain.error.USER_NOT_FOUND_CODE
 import com.example.myfootballcollection.domain.error.WRONG_PASSWORD_CODE
-import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
+import com.example.myfootballcollection.domain.data.firebase.FirebaseEmailAuthenticator
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 

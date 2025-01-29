@@ -1,6 +1,6 @@
 package com.example.myfootballcollection.data.firebase
 
-import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
+import com.example.myfootballcollection.domain.data.firebase.FirebaseEmailAuthenticator
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth

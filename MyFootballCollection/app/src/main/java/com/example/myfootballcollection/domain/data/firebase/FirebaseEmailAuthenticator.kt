@@ -1,4 +1,4 @@
-package com.example.myfootballcollection.domain.firebase
+package com.example.myfootballcollection.domain.data.firebase
 
 import com.google.firebase.auth.FirebaseUser
 

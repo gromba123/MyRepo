@@ -3,7 +3,7 @@ package com.example.myfootballcollection.data.repository
 import com.example.myfootballcollection.domain.error.Error
 import com.example.myfootballcollection.domain.error.Result
 import com.example.myfootballcollection.domain.model.User
-import com.example.myfootballcollection.domain.repository.UserRepository
+import com.example.myfootballcollection.domain.data.repository.UserRepository
 
 class FakeUserRepository(
 

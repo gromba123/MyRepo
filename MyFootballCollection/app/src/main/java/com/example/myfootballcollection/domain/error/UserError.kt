@@ -38,5 +38,9 @@ interface UserError: Error {
         INVALID_PASSWORD
     }
 
+    enum class Network: UserError {
+        TIMEOUT
+    }
+
     //TODO("Rearrange error types")
 }

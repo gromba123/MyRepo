@@ -3,12 +3,16 @@ package com.example.myfootballcollection.di
 import android.app.Application
 import androidx.room.Room
 import com.example.myfootballcollection.BaseViewModel
+import com.example.myfootballcollection.data.api.FootballApiImpl
 import com.example.myfootballcollection.data.dataSource.GamesCollectionDao
 import com.example.myfootballcollection.data.dataSource.MFCCollectionDatabase
 import com.example.myfootballcollection.data.firebase.FirebaseEmailAuthenticatorImpl
+import com.example.myfootballcollection.data.repository.FootballRepositoryImpl
 import com.example.myfootballcollection.data.repository.UserRepositoryImpl
-import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
-import com.example.myfootballcollection.domain.repository.UserRepository
+import com.example.myfootballcollection.domain.data.api.FootballApi
+import com.example.myfootballcollection.domain.data.firebase.FirebaseEmailAuthenticator
+import com.example.myfootballcollection.domain.data.repository.FootballRepository
+import com.example.myfootballcollection.domain.data.repository.UserRepository
 import com.example.myfootballcollection.domain.useCase.user.GetCurrentUser
 import com.example.myfootballcollection.domain.useCase.user.IsFirebaseLoggedIn
 import com.example.myfootballcollection.domain.useCase.user.LoginUser
@@ -37,6 +41,9 @@ val appModule = module {
     single { getMFCDao(get()) }
     single { FirebaseEmailAuthenticatorImpl() } bind FirebaseEmailAuthenticator::class
     single { UserRepositoryImpl(get(), get()) } bind UserRepository::class
+
+    factory { FootballApiImpl(get()) } bind FootballApi::class
+    single { FootballRepositoryImpl(get()) } bind FootballRepository::class
 
     single { LoginUser(get()) }
     single { RegisterUser(get()) }

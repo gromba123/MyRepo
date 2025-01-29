@@ -1,6 +1,6 @@
 package com.example.myfootballcollection.domain.useCase.user
 
-import com.example.myfootballcollection.domain.firebase.FirebaseEmailAuthenticator
+import com.example.myfootballcollection.domain.data.firebase.FirebaseEmailAuthenticator
 
 class IsFirebaseLoggedIn(
     private val firebaseEmailAuthenticator: FirebaseEmailAuthenticator
