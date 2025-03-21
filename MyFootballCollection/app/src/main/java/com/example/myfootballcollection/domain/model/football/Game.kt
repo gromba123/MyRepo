@@ -1,9 +1,10 @@
-package com.example.myfootballcollection.domain.model
+package com.example.myfootballcollection.domain.model.football
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.myfootballcollection.domain.model.user.User
 
 @Entity(
     tableName = "user_games",

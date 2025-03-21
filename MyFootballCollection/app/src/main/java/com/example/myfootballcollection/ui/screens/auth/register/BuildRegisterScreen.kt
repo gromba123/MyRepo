@@ -51,9 +51,7 @@ private fun BuildContent(
     registerUser: (mail: String, password: String, onSuccess: () -> Unit) -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 15.dp),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

@@ -8,7 +8,7 @@ import com.example.myfootballcollection.domain.error.Result
 import com.example.myfootballcollection.domain.error.USER_ALREADY_EXISTS_CODE
 import com.example.myfootballcollection.domain.error.UserError
 import com.example.myfootballcollection.domain.error.WEAK_PASSWORD_CODE
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.user.User
 import com.google.firebase.auth.FirebaseAuthException
 
 class RegisterUser(

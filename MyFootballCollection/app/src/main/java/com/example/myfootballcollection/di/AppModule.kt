@@ -13,11 +13,13 @@ import com.example.myfootballcollection.domain.data.api.FootballApi
 import com.example.myfootballcollection.domain.data.firebase.FirebaseEmailAuthenticator
 import com.example.myfootballcollection.domain.data.repository.FootballRepository
 import com.example.myfootballcollection.domain.data.repository.UserRepository
+import com.example.myfootballcollection.domain.useCase.football.SearchTeamsUseCase
 import com.example.myfootballcollection.domain.useCase.user.GetCurrentUser
 import com.example.myfootballcollection.domain.useCase.user.IsFirebaseLoggedIn
 import com.example.myfootballcollection.domain.useCase.user.LoginUser
 import com.example.myfootballcollection.domain.useCase.user.RegisterUser
 import com.example.myfootballcollection.domain.useCase.user.UserUseCases
+import com.example.myfootballcollection.ui.screens.auth.create.CreateScreenViewModel
 import com.example.myfootballcollection.ui.screens.auth.login.LoginScreenViewModel
 import com.example.myfootballcollection.ui.screens.auth.register.RegisterScreenViewModel
 import com.example.myfootballcollection.ui.screens.games.GamesScreenViewModel
@@ -51,8 +53,11 @@ val appModule = module {
     single { IsFirebaseLoggedIn(get()) }
     single { UserUseCases(get(), get(), get(), get()) }
 
+    single { SearchTeamsUseCase(get()) }
+
     viewModel { BaseViewModel(get()) }
     viewModel { LoginScreenViewModel(get()) }
     viewModel { RegisterScreenViewModel(get()) }
+    viewModel { CreateScreenViewModel(get()) }
     viewModelOf(::GamesScreenViewModel)
 }

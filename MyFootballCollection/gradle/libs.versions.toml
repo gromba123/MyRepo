@@ -31,6 +31,8 @@ kotlinxCoroutinesTest = "1.10.1"
 espressoCore = "3.6.1"
 exifinterface = "1.3.7"
 
+coil = "2.7.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -70,6 +72,9 @@ ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+
+#Coil
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil"}
 
 #Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

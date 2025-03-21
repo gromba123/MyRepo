@@ -17,4 +17,6 @@
     <string name="register">Registar</string>
     <string name="first_name">Nome</string>
     <string name="last_name">Sobrenome</string>
+    <string name="step_search_team_title">As tuas equipas</string>
+    <string name="step_user_info_title">O teu perfil</string>
 </resources>

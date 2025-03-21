@@ -80,6 +80,9 @@ dependencies {
     //Ktor
     implementation(libs.bundles.ktor)
 
+    //Coil
+    implementation(libs.coil)
+
     // Local Tests
     testImplementation(libs.bundles.local.tests)
 

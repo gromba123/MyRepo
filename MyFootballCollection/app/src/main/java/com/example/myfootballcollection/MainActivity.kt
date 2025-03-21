@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.myfootballcollection.navigation.BuildNavHost
 import com.example.myfootballcollection.ui.composeUtils.BuildNavBar
-import com.example.myfootballcollection.ui.composeUtils.BuildTopBar
 import com.example.myfootballcollection.ui.theme.MyFootballCollectionTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -30,9 +29,6 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         containerColor = MaterialTheme.colorScheme.surface,
-                        topBar = {
-                            BuildTopBar(navController = navController)
-                        },
                         bottomBar = {
                             BuildNavBar(navController = navController)
                         }

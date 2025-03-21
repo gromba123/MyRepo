@@ -2,7 +2,7 @@ package com.example.myfootballcollection.domain.useCase.user
 
 import com.example.myfootballcollection.domain.error.Error
 import com.example.myfootballcollection.domain.error.Result
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.user.User
 import com.example.myfootballcollection.domain.data.repository.UserRepository
 import com.example.myfootballcollection.domain.error.INVALID_EMAIL_CODE
 import com.example.myfootballcollection.domain.error.USER_DISABLED_CODE

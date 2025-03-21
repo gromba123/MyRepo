@@ -8,6 +8,7 @@ import com.example.myfootballcollection.navigation.AppAuth
 import com.example.myfootballcollection.navigation.AppGraph
 import com.example.myfootballcollection.navigation.Screen
 import com.example.myfootballcollection.ui.screens.auth.create.BuildCreateScreen
+import com.example.myfootballcollection.ui.screens.auth.create.CreateScreenViewModel
 import com.example.myfootballcollection.ui.screens.auth.login.BuildLoginScreen
 import com.example.myfootballcollection.ui.screens.auth.login.LoginScreenViewModel
 import com.example.myfootballcollection.ui.screens.auth.register.BuildRegisterScreen
@@ -36,8 +37,10 @@ fun NavGraphBuilder.buildAuthNavGraph(
             )
         }
         composable<AppAuth.Create> {
+            val viewModel = koinViewModel<CreateScreenViewModel>()
             BuildCreateScreen(
-                navController = navController
+                navController = navController,
+                viewModel = viewModel
             )
         }
     }

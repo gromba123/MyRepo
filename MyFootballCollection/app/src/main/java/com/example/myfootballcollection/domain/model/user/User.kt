@@ -1,4 +1,4 @@
-package com.example.myfootballcollection.domain.model
+package com.example.myfootballcollection.domain.model.user
 
 import androidx.room.Entity
 import androidx.room.Index

@@ -8,7 +8,7 @@ import com.example.myfootballcollection.domain.error.USER_DISABLED_CODE
 import com.example.myfootballcollection.domain.error.USER_NOT_FOUND_CODE
 import com.example.myfootballcollection.domain.error.UserError
 import com.example.myfootballcollection.domain.error.WRONG_PASSWORD_CODE
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.user.User
 import com.google.firebase.auth.FirebaseAuthException
 
 class GetCurrentUser(

@@ -8,9 +8,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import androidx.room.Upsert
-import com.example.myfootballcollection.domain.model.Collectible
-import com.example.myfootballcollection.domain.model.Game
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.football.Collectible
+import com.example.myfootballcollection.domain.model.football.Game
+import com.example.myfootballcollection.domain.model.user.User
 import kotlinx.coroutines.flow.Flow
 
 /**

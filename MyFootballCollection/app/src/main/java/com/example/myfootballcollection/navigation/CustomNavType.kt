@@ -3,7 +3,7 @@ package com.example.myfootballcollection.navigation
 import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.NavType
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.user.User
 import kotlinx.serialization.json.Json
 
 object CustomNavType {

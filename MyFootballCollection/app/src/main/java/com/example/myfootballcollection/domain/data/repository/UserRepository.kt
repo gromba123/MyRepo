@@ -1,8 +1,6 @@
 package com.example.myfootballcollection.domain.data.repository
 
-import com.example.myfootballcollection.domain.error.Error
-import com.example.myfootballcollection.domain.error.Result
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.user.User
 
 interface UserRepository {
     suspend fun loginUser(mail: String, password: String): User

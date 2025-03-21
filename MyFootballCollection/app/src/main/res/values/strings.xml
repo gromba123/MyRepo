@@ -22,4 +22,6 @@
     <string name="register">Register</string>
     <string name="first_name">Name</string>
     <string name="last_name">Surname</string>
+    <string name="step_user_info_title">Your Profile</string>
+    <string name="step_search_team_title">Your teams</string>
 </resources>

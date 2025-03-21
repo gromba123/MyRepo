@@ -3,7 +3,7 @@ package com.example.myfootballcollection.data.repository
 import com.example.myfootballcollection.data.dataSource.GamesCollectionDao
 import com.example.myfootballcollection.domain.data.firebase.FirebaseEmailAuthenticator
 import com.example.myfootballcollection.domain.data.repository.UserRepository
-import com.example.myfootballcollection.domain.model.User
+import com.example.myfootballcollection.domain.model.user.User
 
 class UserRepositoryImpl (
     private val gamesCollectionDao: GamesCollectionDao,
