@@ -1,4 +1,4 @@
-package com.example.myfootballcollection.ui.screens.auth.create
+package com.example.myfootballcollectionkmp.ui.screens.auth.create
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -41,7 +41,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -49,14 +48,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.myfootballcollection.R
-import com.example.myfootballcollection.domain.model.football.Team
-import com.example.myfootballcollection.ui.composeUtils.BuildDefaultOutlinedTextField
 import com.example.myfootballcollection.ui.screens.auth.create.steps.BuildSearchTeam
-import com.example.myfootballcollection.ui.theme.White
 import com.example.myfootballcollection.utils.IMAGE_DIAMETER
 import com.example.myfootballcollection.utils.OFFSET
 import com.example.myfootballcollection.utils.modifyOrientation
+import com.example.myfootballcollectionkmp.domain.model.football.Team
+import com.example.myfootballcollectionkmp.ui.composeUtils.BuildDefaultOutlinedTextField
+import com.example.myfootballcollectionkmp.ui.theme.White
+import myfootballcollectionkmp.composeapp.generated.resources.Res
+import myfootballcollectionkmp.composeapp.generated.resources.first_name
+import myfootballcollectionkmp.composeapp.generated.resources.ic_edit
+import myfootballcollectionkmp.composeapp.generated.resources.last_name
+import myfootballcollectionkmp.composeapp.generated.resources.placeholder
+import myfootballcollectionkmp.composeapp.generated.resources.username
+import org.jetbrains.compose.resources.painterResource
 
 private const val MAX_SIZE = 5
 
@@ -75,7 +80,7 @@ fun BuildCreateScreen(
     var currentScreen by remember { mutableStateOf(Step.UserInfo) }
     var currentImage: Bitmap by remember {
         mutableStateOf(
-            BitmapFactory.decodeResource(context.resources, R.drawable.placeholder)
+            BitmapFactory.decodeResource(context.resources, Res.drawable.placeholder)
         )
     }
     var firstName by remember { mutableStateOf("") }
@@ -149,7 +154,7 @@ fun BuildCreateScreen(
                             .clip(CircleShape)
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.ic_edit),
+                        painter = painterResource(resource = Res.drawable.ic_edit),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(White),
                         modifier = Modifier
@@ -185,19 +190,19 @@ fun BuildCreateScreen(
             }
             Spacer(modifier = Modifier.padding(5.dp))
             BuildDefaultOutlinedTextField(
-                placeholder = R.string.first_name,
+                placeholder = Res.string.first_name,
                 value = firstName,
                 onChange = { firstName = it }
             )
             Spacer(modifier = Modifier.padding(5.dp))
             BuildDefaultOutlinedTextField(
-                placeholder = R.string.last_name,
+                placeholder = Res.string.last_name,
                 value = lastName,
                 onChange = { lastName = it }
             )
             Spacer(modifier = Modifier.padding(5.dp))
             BuildDefaultOutlinedTextField(
-                placeholder = R.string.username,
+                placeholder = Res.string.username,
                 value = username,
                 onChange = { username = it }
             )
@@ -266,7 +271,7 @@ fun BuildCreateScreen(
                 } else {
                     Spacer(modifier = Modifier.padding(5.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_edit),
+                        painter = painterResource(resource = Res.drawable.ic_edit),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(White),
                         modifier = Modifier

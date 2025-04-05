@@ -1,18 +1,16 @@
 package com.example.myfootballcollection.ui.screens.auth.create.steps
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -24,23 +22,51 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.myfootballcollection.domain.model.football.Team
+import com.example.myfootballcollection.ui.composeUtils.BuildArrowBack
+import com.example.myfootballcollection.ui.theme.Gray
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BuildSearchTeamStep(
-    selectedTeams: List<Int>,
+fun BuildSearchTeam(
+    selectedTeams: List<Team>,
     searchText: String,
     teams: List<Team>,
     isSearching: Boolean,
     onSearchTextChange: (text: String) -> Unit,
-    onTeamSelected: (Team) -> Unit
+    onTeamSelected: (Team) -> Unit,
+    onBack: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+        BuildArrowBack { onBack() }
+        Spacer(modifier = Modifier.padding(10.dp))
+        Text(
+            text = buildAnnotatedString {
+                withStyle(style = SpanStyle(
+                        fontSize = 28.sp,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                ) {
+                    append("Choose your team\n")
+                }
+                withStyle(style = SpanStyle(
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                ) {
+                    append("Every collector should have a favorite team. You can pick up to 5. Choose wisely")
+                }
+            }
+        )
+        Spacer(modifier = Modifier.padding(5.dp))
         TextField(
             value = searchText,
             onValueChange = onSearchTextChange,
@@ -48,7 +74,7 @@ fun BuildSearchTeamStep(
             placeholder = { Text(text = "Search") },
             shape = RoundedCornerShape(10.dp)
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         if (isSearching) {
             Box(modifier = Modifier.fillMaxSize()) {
                 CircularProgressIndicator(
@@ -56,48 +82,49 @@ fun BuildSearchTeamStep(
                 )
             }
         } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+            Spacer(modifier = Modifier.padding(5.dp))
+            val columns = 3
+            FlowRow(
+                maxItemsInEachRow = columns
             ) {
-                items(teams) { team ->
+                teams.forEach { team ->
                     Button(
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .height(125.dp)
+                            .weight(1f),
                         shape = RoundedCornerShape(5.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(
                             defaultElevation = 1.dp
                         ),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (selectedTeams.contains(team.id)) {
-                                Color.Magenta
+                            containerColor = if (selectedTeams.any { it.id == team.id }) {
+                                Gray
                             } else {
                                 Color.Transparent
                             }
                         ),
                         onClick = { onTeamSelected(team) }
                     ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(5.dp),
+                            contentAlignment = Alignment.BottomCenter
                         ) {
-                            Image(
-                                painter = rememberAsyncImagePainter(team.logo),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(60.dp)
-                                    .padding(5.dp)
-                            )
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Image(
+                                    painter = rememberAsyncImagePainter(team.logo),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(60.dp)
+                                )
+                            }
                             Text(
                                 text = team.name,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 16.dp),
                                 color = MaterialTheme.colorScheme.secondary,
-                                fontSize = 16.sp
+                                fontSize = 12.sp
                             )
                         }
                     }
