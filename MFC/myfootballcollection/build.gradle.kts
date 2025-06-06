@@ -19,8 +19,20 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter")
+	//JDBI
+	implementation("org.jdbi:jdbi3-kotlin:3.30.0")
+	implementation("org.jdbi:jdbi3-postgres:3.30.0")
+	implementation("org.jdbi:jdbi3-sqlobject:3.30.0")
+	implementation("org.jdbi:jdbi3-spring4:3.19.0")
+	implementation("org.postgresql:postgresql:42.7.2")
+
+	//Kotlin and Spring
+	implementation("org.springframework:spring-webflux:6.1.14")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+	//Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
