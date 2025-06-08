@@ -8,19 +8,18 @@ import com.example.myfootballcollectionkmp.domain.error.Result
 import com.example.myfootballcollectionkmp.domain.error.USER_ALREADY_EXISTS_CODE
 import com.example.myfootballcollectionkmp.domain.error.UserError
 import com.example.myfootballcollectionkmp.domain.error.WEAK_PASSWORD_CODE
-import com.example.myfootballcollectionkmp.domain.model.user.User
 import dev.gitlive.firebase.auth.FirebaseAuthException
 
-class RegisterUser(
+class CreateUser(
     private val userRepository: UserRepository
 ) {
     suspend operator fun invoke(
         mail: String,
         password: String,
-    ): Result<User, Error> {
+    ): Result<Boolean, Error> {
         try {
             //TODO("Validate fields")
-            return Result.Success(userRepository.registerUser(mail, password))
+            return Result.Success(userRepository.createUser(mail, password))
         } catch (e: FirebaseAuthException) {
             val error = when (e.message) {
                 USER_ALREADY_EXISTS_CODE -> UserError.Firebase.Register.USER_ALREADY_EXISTS

@@ -1,40 +1,33 @@
 package com.example.myfootballcollectionkmp.domain.model.user
 
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
-
-@Serializable
-@Entity(
-    tableName = "user",
-    indices = [
-        Index(value = ["mail"], unique = true),
-        Index(value = ["tag"], unique = true)
-    ]
-)
+//Complete user info
 data class User(
-    @PrimaryKey val id: String,
-    val name: String,
+    val userId: String,
     val mail: String,
+    val name: String,
     val tag: String,
+    val birthday: String,
+    val country: String,
     val profilePictureUrl: String,
+    val headerPictureUrl: String,
     val followingTeams: List<String>
-) {
-    companion object {
-        fun buildBlankUser(
-            id: String,
-            mail: String
-        ): User {
-            return User(
-                id = id,
-                name = "",
-                mail = mail,
-                tag = "",
-                profilePictureUrl = "",
-                followingTeams = emptyList()
-            )
-        }
-    }
-}
+)
+
+//Basic information for db registration
+data class UserRegistration(
+    val userId: String,
+    val mail: String
+)
+
+//Information needed to update the user profile
+data class UserUpdate(
+    val userId: String,
+    val name: String,
+    val tag: String,
+    val birthday: String,
+    val country: String,
+    val profilePictureUrl: String,
+    val headerPictureUrl: String,
+    val followingTeams: List<String>
+)
 

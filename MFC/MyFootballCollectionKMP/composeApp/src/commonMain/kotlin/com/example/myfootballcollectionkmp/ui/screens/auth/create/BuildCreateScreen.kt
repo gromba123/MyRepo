@@ -72,9 +72,9 @@ private enum class Step {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BuildCreateScreen(
+fun EntryInfoScreen(
     navController: NavController,
-    viewModel: CreateScreenViewModel
+    viewModel: EntryInfoScreenViewModel
 ) {
     val context = LocalContext.current
     var currentScreen by remember { mutableStateOf(Step.UserInfo) }

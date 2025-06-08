@@ -2,6 +2,8 @@ package com.example.myfootballcollectionkmp.controllers
 
 import com.example.myfootballcollectionkmp.database.repository.UserRepository
 import com.example.myfootballcollectionkmp.domain.User
+import com.example.myfootballcollectionkmp.domain.UserRegistration
+import com.example.myfootballcollectionkmp.domain.UserUpdate
 import org.springframework.web.bind.annotation.*
 
 
@@ -13,15 +15,24 @@ class UserController(
 ) {
     @PutMapping(CREATE_USER_ROUTE)
     fun createUser(
-        @RequestBody user: User
+        @RequestBody userRegistration: UserRegistration
     ): Boolean {
-        userRepository.createUser(user)
+        userRepository.createUser(userRegistration)
+        return true
+    }
+
+    @PostMapping(UPDATE_USER_ROUTE)
+    fun updateUser(
+        @PathVariable("userId") userId: String,
+        @RequestBody userUpdate: UserUpdate
+    ): Boolean {
+        userRepository.updateUser(userUpdate)
         return true
     }
 
     // returns the user info
-    @GetMapping("/{user_id}")
+    @GetMapping("/{userId}")
     fun getUser(
-        @PathVariable("user_id") userId: String
+        @PathVariable("userId") userId: String
     ): User? = userRepository.getUser(userId)
 }

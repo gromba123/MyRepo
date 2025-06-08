@@ -16,7 +16,7 @@ class GetCurrentUser(
 ) {
     suspend operator fun invoke(): Result<User, Error> {
         try {
-            return Result.Success(userRepository.getCurrentUser())
+            return Result.Success(userRepository.getUser())
         } catch (e: FirebaseAuthException) {
             val error = when (e.message) {
                 WRONG_PASSWORD_CODE -> UserError.Firebase.Login.WRONG_PASSWORD

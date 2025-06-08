@@ -47,9 +47,21 @@ private val menuItems = listOf(
         Res.string.menu_social,
         Res.drawable.ic_scarf
     ),
-    NavigationItem(AppScreen.Games, Res.string.menu_games, Res.drawable.ic_ball),
-    NavigationItem(AppScreen.Collection, Res.string.menu_collection, Res.drawable.ic_scarf),
-    NavigationItem(AppScreen.Settings, Res.string.menu_settings, Res.drawable.ic_settings),
+    NavigationItem(
+        AppScreen.Games,
+        Res.string.menu_games,
+        Res.drawable.ic_ball
+    ),
+    NavigationItem(
+        AppScreen.Collection,
+        Res.string.menu_collection,
+        Res.drawable.ic_scarf
+    ),
+    NavigationItem(
+        AppScreen.Settings,
+        Res.string.menu_settings,
+        Res.drawable.ic_settings
+    ),
 )
 
 @Composable

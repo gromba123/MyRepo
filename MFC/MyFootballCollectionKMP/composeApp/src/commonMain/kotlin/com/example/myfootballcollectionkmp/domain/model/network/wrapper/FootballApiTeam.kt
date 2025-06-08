@@ -5,7 +5,7 @@ import com.example.myfootballcollectionkmp.domain.model.football.Venue
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TeamWrapper(
+data class FootballApiTeam(
     val team: Team,
     val venue: Venue? = null
 )

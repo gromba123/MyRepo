@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
-class CreateScreenViewModel(
+class EntryInfoScreenViewModel(
     private val searchTeamsUseCase: SearchTeamsUseCase
 ) : ViewModel() {
     private val _searchText = MutableStateFlow("")

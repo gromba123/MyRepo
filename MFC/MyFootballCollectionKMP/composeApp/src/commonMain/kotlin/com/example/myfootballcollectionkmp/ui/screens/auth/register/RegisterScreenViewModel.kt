@@ -16,7 +16,7 @@ class RegisterScreenViewModel(
         onSuccess: () -> Unit
     ) {
         viewModelScope.launch {
-            when (userUseCases.registerUser(mail, password)) {
+            when (userUseCases.createUser(mail, password)) {
                 is Result.Success -> {
                     onSuccess()
                 }
