@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*
 class UserController(
     val userRepository: UserRepository
 ) {
-    @PutMapping
-    @RequestMapping(CREATE_USER_ROUTE)
+    @PutMapping(CREATE_USER_ROUTE)
     fun createUser(
         @RequestBody user: User
     ): Boolean {
