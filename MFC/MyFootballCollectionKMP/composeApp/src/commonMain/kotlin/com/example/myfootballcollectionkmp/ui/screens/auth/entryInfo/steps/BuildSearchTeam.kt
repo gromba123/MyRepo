@@ -1,4 +1,4 @@
-package com.example.myfootballcollectionkmp.ui.screens.auth.create.steps
+package com.example.myfootballcollectionkmp.ui.screens.auth.entryInfo.steps
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

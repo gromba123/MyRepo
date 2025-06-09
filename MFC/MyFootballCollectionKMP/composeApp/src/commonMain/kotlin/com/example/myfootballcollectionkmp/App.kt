@@ -11,13 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.myfootballcollectionkmp.navigation.BuildNavHost
 import com.example.myfootballcollectionkmp.ui.composeUtils.BuildNavBar
+import com.example.myfootballcollectionkmp.ui.theme.MyFootballCollectionTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    MyFootballCollectionTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             val navController = rememberNavController()
             val vm = koinViewModel<BaseViewModel>()

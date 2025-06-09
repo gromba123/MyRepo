@@ -8,8 +8,8 @@ import com.example.myfootballcollection.ui.screens.auth.login.BuildLoginScreen
 import com.example.myfootballcollectionkmp.navigation.AppAuth
 import com.example.myfootballcollectionkmp.navigation.AppGraph
 import com.example.myfootballcollectionkmp.navigation.Screen
-import com.example.myfootballcollectionkmp.ui.screens.auth.create.EntryInfoScreen
-import com.example.myfootballcollectionkmp.ui.screens.auth.create.EntryInfoScreenViewModel
+import com.example.myfootballcollectionkmp.ui.screens.auth.entryInfo.BuildEntryInfoScreen
+import com.example.myfootballcollectionkmp.ui.screens.auth.entryInfo.EntryInfoScreenViewModel
 import com.example.myfootballcollectionkmp.ui.screens.auth.login.LoginScreenViewModel
 import com.example.myfootballcollectionkmp.ui.screens.auth.register.BuildRegisterScreen
 import com.example.myfootballcollectionkmp.ui.screens.auth.register.RegisterScreenViewModel
@@ -38,7 +38,7 @@ fun NavGraphBuilder.buildAuthNavGraph(
         }
         composable<AppAuth.Create> {
             val viewModel = koinViewModel<EntryInfoScreenViewModel>()
-            EntryInfoScreen(
+            BuildEntryInfoScreen(
                 navController = navController,
                 viewModel = viewModel
             )

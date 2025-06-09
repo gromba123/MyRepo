@@ -1,9 +1,11 @@
 package com.example.myfootballcollectionkmp.data.api
 
-private const val USER_BASE_URL = "user"
+private const val BASE_SERVER_URL = "http://100.80.76.90:8080"
+private const val USER_BASE_URL = "${BASE_SERVER_URL}/user"
 private const val USER_CREATE_URL = "${USER_BASE_URL}/update"
 private const val USER_UPDATE_URL = "${USER_BASE_URL}/create"
 private const val USER_GET_URL = "user/{userId}"
+
 private const val FOOTBALL_BASE_URL = "https://v3.football.api-sports.io"
 const val SPORTS_API_HEADER = "x-apisports-key"
 const val SPORTS_API_KEY = "f836a43522f57b781f4403f16f72643a"

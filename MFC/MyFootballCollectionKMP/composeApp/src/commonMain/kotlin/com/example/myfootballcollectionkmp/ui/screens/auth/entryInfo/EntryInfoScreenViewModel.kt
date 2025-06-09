@@ -1,4 +1,4 @@
-package com.example.myfootballcollectionkmp.ui.screens.auth.create
+package com.example.myfootballcollectionkmp.ui.screens.auth.entryInfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,10 +1,5 @@
-package com.example.myfootballcollectionkmp.ui.screens.auth.create
+package com.example.myfootballcollectionkmp.ui.screens.auth.entryInfo
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,14 +28,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -48,13 +43,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.rememberAsyncImagePainter
-import com.example.myfootballcollection.utils.IMAGE_DIAMETER
-import com.example.myfootballcollection.utils.OFFSET
-import com.example.myfootballcollection.utils.modifyOrientation
 import com.example.myfootballcollectionkmp.domain.model.football.Team
 import com.example.myfootballcollectionkmp.ui.composeUtils.BuildDefaultOutlinedTextField
-import com.example.myfootballcollectionkmp.ui.screens.auth.create.steps.BuildSearchTeam
+import com.example.myfootballcollectionkmp.ui.composeUtils.IMAGE_DIAMETER
+import com.example.myfootballcollectionkmp.ui.composeUtils.OFFSET
+import com.example.myfootballcollectionkmp.ui.composeUtils.rememberGalleryManager
+import com.example.myfootballcollectionkmp.ui.screens.auth.entryInfo.steps.BuildSearchTeam
 import com.example.myfootballcollectionkmp.ui.theme.White
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import myfootballcollectionkmp.composeapp.generated.resources.Res
 import myfootballcollectionkmp.composeapp.generated.resources.first_name
 import myfootballcollectionkmp.composeapp.generated.resources.ic_edit
@@ -72,17 +70,13 @@ private enum class Step {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EntryInfoScreen(
+fun BuildEntryInfoScreen(
     navController: NavController,
     viewModel: EntryInfoScreenViewModel
 ) {
-    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    var imageBitmap by remember { mutableStateOf<ImageBitmap?>(null) }
     var currentScreen by remember { mutableStateOf(Step.UserInfo) }
-    var currentImage: Bitmap by remember {
-        mutableStateOf(
-            BitmapFactory.decodeResource(context.resources, Res.drawable.placeholder)
-        )
-    }
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
@@ -95,18 +89,12 @@ fun EntryInfoScreen(
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
-            val photoPickerLauncher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.PickVisualMedia()
-            ) { uri ->
-                if (uri != null) {
-                    val stream = context.contentResolver.openInputStream(uri)
-                    val bytes = stream!!.readBytes()
-                    val bitmap = modifyOrientation(
-                        BitmapFactory.decodeByteArray(bytes, 0, bytes.size),
-                        stream
-                    )
-                    currentImage = bitmap
-                    stream.close()
+            val galleryManager = rememberGalleryManager {
+                coroutineScope.launch {
+                    val bitmap = withContext(Dispatchers.Default) {
+                        it?.toImageBitmap()
+                    }
+                    imageBitmap = bitmap
                 }
             }
             Text(
@@ -145,14 +133,21 @@ fun EntryInfoScreen(
                         .height(IntrinsicSize.Max),
                     contentAlignment = Alignment.BottomCenter
                 ) {
-                    Image(
-                        bitmap = currentImage.asImageBitmap(),
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(IMAGE_DIAMETER)
-                            .clip(CircleShape)
-                    )
+                    if (imageBitmap != null) {
+                        Image(
+                            bitmap = imageBitmap!!,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(IMAGE_DIAMETER)
+                                .clip(CircleShape)
+                        )
+                    } else {
+                        Image(
+                            painter = painterResource(Res.drawable.placeholder),
+                            contentDescription = null
+                        )
+                    }
                     Image(
                         painter = painterResource(resource = Res.drawable.ic_edit),
                         contentDescription = "",
@@ -161,11 +156,7 @@ fun EntryInfoScreen(
                             .size(25.dp)
                             .offset(x = OFFSET)
                             .clickable {
-                                photoPickerLauncher.launch(
-                                    PickVisualMediaRequest(
-                                        ActivityResultContracts.PickVisualMedia.ImageOnly
-                                    )
-                                )
+                                galleryManager.launch()
                             }
                     )
                 }

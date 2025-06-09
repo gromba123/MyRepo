@@ -34,33 +34,30 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+private val navigationItemResources: HashMap<AppScreen, Pair<StringResource, DrawableResource>> = hashMapOf(
+    AppScreen.Social to Pair(Res.string.menu_social, Res.drawable.ic_scarf),
+    AppScreen.Games to Pair(Res.string.menu_games, Res.drawable.ic_ball),
+    AppScreen.Collection to Pair(Res.string.menu_collection, Res.drawable.ic_scarf),
+    AppScreen.Settings to Pair(Res.string.menu_settings, Res.drawable.ic_settings),
+)
+
 @Serializable
 data class NavigationItem(
-    val screen: AppScreen,
-    val labelId: StringResource,
-    val iconId: DrawableResource
+    val screen: AppScreen
 )
 
 private val menuItems = listOf(
     NavigationItem(
-        AppScreen.Social,
-        Res.string.menu_social,
-        Res.drawable.ic_scarf
+        AppScreen.Social
     ),
     NavigationItem(
-        AppScreen.Games,
-        Res.string.menu_games,
-        Res.drawable.ic_ball
+        AppScreen.Games
     ),
     NavigationItem(
-        AppScreen.Collection,
-        Res.string.menu_collection,
-        Res.drawable.ic_scarf
+        AppScreen.Collection
     ),
     NavigationItem(
-        AppScreen.Settings,
-        Res.string.menu_settings,
-        Res.drawable.ic_settings
+        AppScreen.Settings
     ),
 )
 
@@ -102,19 +99,20 @@ private fun BuildNavigationButton(
     selected: Boolean,
     onClick: () -> Unit
 ) {
+    val resource = navigationItemResources[item.screen] ?: throw Exception("Entry not found")
     Tab(
         selected = selected,
         text = {
             Text(
-                text = stringResource(resource = item.labelId),
+                text = stringResource(resource = resource.first),
                 color = Color.White,
                 fontSize = 12.sp
             )
         },
         icon = {
             Icon (
-                painter = painterResource(resource = item.iconId),
-                contentDescription = stringResource(resource = item.labelId),
+                painter = painterResource(resource = resource.second),
+                contentDescription = stringResource(resource = resource.first),
                 tint = Color.White,
                 modifier = Modifier
                     .height(25.dp)

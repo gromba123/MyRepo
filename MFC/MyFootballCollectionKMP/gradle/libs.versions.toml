@@ -5,14 +5,13 @@ android-minSdk = "24"
 android-targetSdk = "35"
 androidx-activityCompose = "1.10.1"
 androidx-appcompat = "1.7.0"
-androidx-constraintlayout = "2.2.1"
 androidx-core-ktx = "1.15.0"
 androidx-espresso-core = "3.6.1"
 androidx-lifecycle = "2.8.4"
 androidx-test-junit = "1.2.1"
 compose-multiplatform = "1.7.3"
 junit = "4.13.2"
-kotlin = "2.1.10"
+kotlin = "2.1.21"
 compose-material-icons-extended = "1.7.8"
 navigationCompose = "2.8.0-alpha10"
 kotlinSerialization = "1.7.3"
@@ -68,7 +67,6 @@ ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
 coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
-
 
 #URI
 uri-kmp = { module = "net.thauvin.erik.urlencoder:urlencoder-lib", version.ref = "uri-kmp" }
